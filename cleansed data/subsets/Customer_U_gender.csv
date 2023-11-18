@@ -1,0 +1,88 @@
+"customer_id","first_name","last_name","gender","past_3_years_bike_related_purchases","DOB","job_title","job_industry_category","wealth_segment","deceased_indicator","default","owns_car","tenure"
+"144","Jory","Barrabeale","U",71,NA,"Environmental Tech","IT","Mass Customer","N",NA,"No",NA
+"168","Reggie","Broggetti","U",8,NA,"General Manager","IT","Affluent Customer","N",NA,"Yes",NA
+"267","Edgar","Buckler","U",53,NA,NA,"IT","High Net Worth","N",NA,"No",NA
+"290","Giorgio","Kevane","U",42,NA,"Senior Sales Associate","IT","Mass Customer","N",NA,"No",NA
+"451","Marlow","Flowerdew","U",37,NA,"Quality Control Specialist","IT","High Net Worth","N",NA,"No",NA
+"453","Cornelius","Yarmouth","U",81,NA,"Assistant Professor","IT","High Net Worth","N",NA,"No",NA
+"454","Eugenie","Domenc","U",58,NA,"Research Nurse","Health","Affluent Customer","N",NA,"Yes",NA
+"480","Darelle","Ive","U",67,NA,"Registered Nurse","Health","Mass Customer","N",NA,"Yes",NA
+"513","Kienan","Soar","U",30,NA,"Tax Accountant","IT","Mass Customer","N",NA,"No",NA
+"526","Ardelle",NA,"U",9,NA,"Social Worker","Health","Mass Customer","N",NA,"Yes",NA
+"548","Georgie","Cudbertson","U",84,NA,NA,"IT","High Net Worth","N",NA,"Yes",NA
+"582","Rhoda","McKeown","U",21,NA,"Staff Scientist","IT","Affluent Customer","N",NA,"No",NA
+"599","Ernestus","Cruden","U",48,NA,"Senior Financial Analyst","Financial Services","Mass Customer","N",NA,"Yes",NA
+"680","Gay","Pickersgill","U",22,NA,NA,"IT","High Net Worth","N",NA,"Yes",NA
+"685","Booth","Birkin","U",28,NA,"Senior Developer","IT","Mass Customer","N",NA,"No",NA
+"799","Harland","Spilisy","U",39,NA,"Programmer I","IT","Mass Customer","N",NA,"Yes",NA
+"839","Charis","Greaves","U",14,NA,"Structural Analysis Engineer","IT","Mass Customer","N",NA,"Yes",NA
+"883","Lolita","Bennie","U",73,NA,"Recruiter","IT","Mass Customer","N",NA,"Yes",NA
+"892","Conroy","Healy","U",22,NA,"Office Assistant II","IT","Mass Customer","N",NA,"Yes",NA
+"950","Bret","Ivakhnov","U",24,NA,"Recruiter","IT","High Net Worth","N",NA,"Yes",NA
+"975","Goldarina","Rzehorz","U",26,NA,"Automation Specialist IV","IT","Mass Customer","N",NA,"No",NA
+"983","Shaylyn","Riggs","U",49,NA,NA,"IT","Affluent Customer","N",NA,"No",NA
+"996","Aura","Bemlott","U",67,NA,"Assistant Manager","IT","Mass Customer","N",NA,"Yes",NA
+"1038","Fraser","Acome","U",57,NA,"Engineer I","Manufacturing","Mass Customer","N",NA,"Yes",NA
+"1044","Frederico","Whilder","U",4,NA,"Food Chemist","Health","High Net Worth","N",NA,"No",NA
+"1082","Guinevere","Kelby","U",90,NA,"Financial Analyst","Financial Services","Mass Customer","N",NA,"Yes",NA
+"1174","Shellysheldon","Gooderridge","U",9,NA,"Executive Secretary","IT","Mass Customer","N",NA,"No",NA
+"1210","Shandie","Sprigg","U",81,NA,"Programmer II","IT","Mass Customer","N",NA,"No",NA
+"1244","Glenn","Tinham","U",80,NA,"Financial Analyst","Financial Services","Mass Customer","N",NA,"Yes",NA
+"1351","Lorettalorna",NA,"U",32,NA,"Office Assistant IV","IT","High Net Worth","N",NA,"No",NA
+"1477","Leo","Balharry","U",42,NA,"Actuary","Financial Services","Mass Customer","N",NA,"Yes",NA
+"1509","Sibley","Janek","U",10,NA,"Computer Systems Analyst I","IT","High Net Worth","N",NA,"Yes",NA
+"1583","Krysta","O' Reagan","U",18,NA,"Geologist IV","IT","Mass Customer","N",NA,"Yes",NA
+"1628","Hermione","Brereton","U",13,NA,"Assistant Manager","IT","Mass Customer","N",NA,"No",NA
+"1683","Brenn","Bacon","U",72,NA,"Budget/Accounting Analyst I","IT","Mass Customer","N",NA,"Yes",NA
+"1740","Faythe","Janaszewski","U",83,NA,"Research Associate","IT","Mass Customer","N",NA,"Yes",NA
+"1773","Nickolas","Guittet","U",82,NA,NA,"IT","Mass Customer","N",NA,"Yes",NA
+"1780","Maude","Tixier","U",52,NA,"Research Associate","IT","Mass Customer","N",NA,"No",NA
+"1806","Gil","De Gregorio","U",95,NA,"Software Test Engineer IV","IT","Mass Customer","N",NA,"No",NA
+"1918","Devin","Sandeson","U",83,NA,"Staff Accountant II","IT","Affluent Customer","N",NA,"No",NA
+"1938","Austin","Toopin","U",47,NA,"Automation Specialist IV","IT","Mass Customer","N",NA,"Yes",NA
+"1990","Mira","Askham","U",9,NA,"Senior Financial Analyst","Financial Services","High Net Worth","N",NA,"No",NA
+"2000","Kain","Rene","U",68,NA,"Assistant Professor","IT","High Net Worth","N",NA,"Yes",NA
+"2021","Ulrica","Abelwhite","U",31,NA,"Software Test Engineer I","IT","High Net Worth","N",NA,"Yes",NA
+"2069","Sol","Holdron","U",32,NA,"Software Test Engineer IV","IT","Mass Customer","N",NA,"Yes",NA
+"2165","Marlie","Teesdale","U",16,NA,"Civil Engineer","Manufacturing","Affluent Customer","N",NA,"No",NA
+"2205","Birk","Elphey","U",76,NA,"Accounting Assistant III","IT","Mass Customer","N",NA,"No",NA
+"2252","Darcey","Annis","U",31,NA,"Teacher","IT","High Net Worth","N",NA,"Yes",NA
+"2295","Farris","Hazelby","U",35,NA,"Internal Auditor","IT","Mass Customer","N",NA,"Yes",NA
+"2335","Payton","Sheach","U",42,NA,"Account Executive","IT","Mass Customer","N",NA,"No",NA
+"2341","Caterina","Scedall","U",41,NA,"Web Designer II","IT","Mass Customer","N",NA,"Yes",NA
+"2414","Basile","Bowlas","U",18,NA,"Registered Nurse","Health","Mass Customer","N",NA,"Yes",NA
+"2426","Yancy","Ovett","U",64,NA,NA,"IT","Affluent Customer","N",NA,"Yes",NA
+"2469","Kermie","Hedger","U",18,NA,"Accounting Assistant II","IT","Mass Customer","N",NA,"Yes",NA
+"2540","Donavon",NA,"U",14,NA,"Executive Secretary","IT","Mass Customer","N",NA,"Yes",NA
+"2642","Arabelle","Rentelll","U",36,NA,"VP Accounting","Financial Services","High Net Worth","N",NA,"No",NA
+"2647","Marcelia","Blannin","U",1,NA,"Physical Therapy Assistant","IT","High Net Worth","N",NA,"No",NA
+"2696","Isabelle","Bursnoll","U",42,NA,"Social Worker","Health","Mass Customer","N",NA,"Yes",NA
+"2697","Klarika","Yerby","U",70,NA,"Legal Assistant","IT","High Net Worth","N",NA,"No",NA
+"2854","Vikky","Dyde","U",49,NA,"Project Manager","IT","High Net Worth","N",NA,"Yes",NA
+"2920","Casar","Ritchley","U",0,NA,"Business Systems Development Analyst","IT","Mass Customer","N",NA,"Yes",NA
+"2963","Christin","Fricke","U",17,NA,"Safety Technician II","IT","Affluent Customer","N",NA,"Yes",NA
+"2999","Rinaldo","Diggin","U",28,NA,"Business Systems Development Analyst","IT","Affluent Customer","N",NA,"Yes",NA
+"3012","Devland","Probart","U",81,NA,"Technical Writer","IT","Mass Customer","N",NA,"Yes",NA
+"3086","Pieter","Gadesby","U",18,NA,"Biostatistician I","IT","High Net Worth","N",NA,"No",NA
+"3151","Thorn","Choffin","U",20,NA,"Senior Developer","IT","Affluent Customer","N",NA,"Yes",NA
+"3222","Caralie","Sellors","U",40,NA,"Senior Editor","IT","Affluent Customer","N",NA,"No",NA
+"3223","Tiffi","Wortt","U",44,NA,"Database Administrator III","IT","Mass Customer","N",NA,"Yes",NA
+"3255","Sutherlan","Truin","U",47,NA,"Engineer IV","IT","High Net Worth","N",NA,"No",NA
+"3288","Fair","Dewen","U",47,NA,"Engineer III","IT","High Net Worth","N",NA,"No",NA
+"3298","Christine","Baignard","U",1,NA,"VP Quality Control","IT","Affluent Customer","N",NA,"Yes",NA
+"3312","Franky","Nanninini","U",49,NA,"Administrative Officer","IT","High Net Worth","N",NA,"No",NA
+"3322","Hew","Sworder","U",24,NA,"Financial Analyst","Financial Services","Affluent Customer","N",NA,"Yes",NA
+"3343","Cristabel","Bim","U",3,NA,"Recruiter","IT","Mass Customer","N",NA,"Yes",NA
+"3365","Karlens","Chaffyn","U",29,NA,"Engineer III","IT","Mass Customer","N",NA,"No",NA
+"3473","Sanderson","Alloway","U",34,NA,"Analog Circuit Design manager","IT","Mass Customer","N",NA,"No",NA
+"3510","Jemima","Izaac","U",48,NA,"Safety Technician II","IT","Affluent Customer","N",NA,"Yes",NA
+"3513","Enriqueta","Waterhowse","U",80,NA,"Internal Auditor","IT","Affluent Customer","N",NA,"Yes",NA
+"3565","Charyl","Pottiphar","U",14,NA,"Structural Engineer","IT","High Net Worth","N",NA,"Yes",NA
+"3654","Kenyon","Paddefield","U",78,NA,"Electrical Engineer","Manufacturing","Mass Customer","N",NA,"No",NA
+"3718","Damiano",NA,"U",22,NA,"Geologist IV","IT","Mass Customer","N",NA,"Yes",NA
+"3727","Eba","Youle","U",65,NA,"Assistant Professor","IT","Mass Customer","N",NA,"No",NA
+"3779","Ulick","Daspar","U",68,NA,NA,"IT","Affluent Customer","N",NA,"No",NA
+"3883","Nissa","Conrad","U",35,NA,"Legal Assistant","IT","Mass Customer","N",NA,"No",NA
+"3931","Kylie","Epine","U",19,NA,NA,"IT","High Net Worth","N",NA,"Yes",NA
+"3935","Teodor","Alfonsini","U",72,NA,NA,"IT","High Net Worth","N",NA,"Yes",NA
+"3998","Sarene","Woolley","U",60,NA,"Assistant Manager","IT","High Net Worth","N",NA,"No",NA

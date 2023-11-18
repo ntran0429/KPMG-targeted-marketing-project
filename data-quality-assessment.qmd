@@ -1,0 +1,836 @@
+---
+title: "data quality assessment"
+format: html
+editor: visual
+---
+
+## Import libraries
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(DataExplorer)
+```
+
+## Read in files
+
+```{r}
+CustomerDemographic <- read_xlsx(
+    "Task 1/KPMG_VI_New_raw_data_update_final.xlsx",
+    sheet = "CustomerDemographic",
+    col_types = c("text","text","text","text", "numeric",
+                  "date", "text","text","text","text",
+                  "text","text","numeric")
+  )
+# Warning message:
+# Expecting date in F2 / R2C6: got '1843-12-21'
+# this DOB will be converted to NA
+
+CustomerAddress <- read_xlsx(
+  "Task 1/KPMG_VI_New_raw_data_update_final.xlsx",
+  sheet = "CustomerAddress"
+  )
+
+Transactions <- read_xlsx(
+  "Task 1/KPMG_VI_New_raw_data_update_final.xlsx",
+  sheet = "Transactions"
+  )
+
+NewCustomerList <- read_xlsx(
+  "Task 1/KPMG_VI_New_raw_data_update_final.xlsx",
+  sheet = "NewCustomerList"
+  )
+```
+
+## Data at first glance
+
+```{r}
+head(CustomerDemographic)
+head(CustomerAddress)
+head(Transactions)
+head(NewCustomerList)
+```
+
+```{r}
+# Print the number of rows and columns for each data frame
+cat("CustomerDemographic dimensions: ", dim(CustomerDemographic), "\n")
+cat("CustomerAddress dimensions: ", dim(CustomerAddress), "\n")
+cat("Transactions dimensions: ", dim(Transactions), "\n")
+cat("NewCustomerList dimensions: ", dim(NewCustomerList), "\n")
+
+```
+
+## Clean CustomerDemographic
+
+```{r}
+# checking each column of CustomerDemographic for null values
+
+# Create a function to count nulls in a column
+count_nulls_in_column <- function(column) {
+  sum(is.na(column))
+}
+
+# Create a function to apply count_nulls_in_column to each column
+count_nulls <- function(df) {
+  map_int(df, count_nulls_in_column)
+}
+
+# Replace 'your_tibble' with the actual name of your tibble
+
+# Use the function to count nulls
+count_nulls(CustomerDemographic)
+```
+last_name, job_title, default, tenure, DOB are columns with null values.
+
+
+```{r}
+str(CustomerDemographic)
+```
+All data types are correct.
+
+
+### DOB
+
+```{r}
+# remove customer whose year of birth is 1843 as this is obviously an error
+CustomerDemographic <- 
+  CustomerDemographic |> 
+    filter(customer_id != 34)
+```
+DOB column has been cleaned.
+
+```{r}
+CustomerDemographic <- 
+  CustomerDemographic |>
+  mutate(DOB = as.Date(CustomerDemographic$DOB))
+```
+
+
+### customer_id
+
+```{r}
+# check if customer_id is unique
+length(unique(CustomerDemographic$customer_id))
+cat("CustomerDemographic dimensions: ", dim(CustomerDemographic), "\n")
+```
+Total rows of the table is 3999 and number of unique values in customer_id is also 3999.
+
+
+We should also check if customer_id from CustomerDemographic, CustomerAddress, and Transactions tables contain the same ids.
+
+```{r}
+# show the ids in CustomerAddress that are not in CustomerDemographic
+CustomerAddress$customer_id[!(CustomerAddress$customer_id %in% CustomerDemographic$customer_id)]
+```
+
+```{r}
+unique(Transactions$customer_id[!(Transactions$customer_id %in% CustomerDemographic$customer_id)])
+```
+Additional customer_ids in the Transactions table and Customer Address table but not in CustomerDemographic.
+
+34 753 3790 4001 4002 4003 5034
+
+
+We decide that only customers in the CustomerDemographic table will used for training.
+
+
+### gender
+
+```{r}
+unique(CustomerDemographic$gender)
+```
+
+
+```{r}
+CustomerDemographic <- CustomerDemographic  |> 
+  mutate(gender = case_when(
+    gender %in% c("Male", "M") ~ "M",
+    gender %in% c("Female", "Femal", "F") ~ "F",
+    TRUE ~ gender  # Keep U as is
+  ))
+
+# Print the unique values after transformation
+unique(CustomerDemographic$gender)
+```
+We will assume "U" as "Unknown" because these customers did not provide this information.
+
+
+```{r}
+table(CustomerDemographic$gender)
+```
+
+
+```{r}
+# subset this "U" group in case there's meaning analysis
+Customer_U_gender <- subset(CustomerDemographic, gender == "U")
+```
+
+
+
+
+### first_name and last_name
+
+```{r}
+# 125 counts of customers whose last names are not provided or they don't have one
+CustomerDemographic |> filter(is.na(last_name))
+```
+Leave as is for now (no removal or imputation).
+
+
+```{r}
+# Check and remove leading/trailing spaces from first_name and last_name
+CustomerDemographic <- CustomerDemographic |> 
+  mutate(
+    first_name = trimws(first_name),
+    last_name = trimws(last_name)
+  )
+```
+
+
+### past_3_years_bike_related_purchases
+
+```{r}
+ggplot(CustomerDemographic, aes(past_3_years_bike_related_purchases)) +
+  geom_boxplot()
+
+summary(CustomerDemographic$past_3_years_bike_related_purchases)
+```
+Distribution of this column looks reasonable.
+
+
+### job_title
+
+```{r}
+unique(CustomerDemographic$job_title)
+```
+
+
+### job_industry_category
+
+
+```{r}
+unique(CustomerDemographic$job_industry_category)
+```
+
+```{r}
+# change "n/a" to NA values
+CustomerDemographic <- CustomerDemographic |> 
+  mutate(job_industry_category = na_if(job_industry_category, "n/a"))
+
+unique(CustomerDemographic$job_industry_category)
+```
+
+
+
+### wealth_segment
+
+```{r}
+unique(CustomerDemographic$wealth_segment)
+```
+
+
+### deceased_indicator
+
+```{r}
+table(CustomerDemographic$deceased_indicator)
+```
+Deceased customers serve no purpose to analysis because the new targeted customers are obviously alive.
+Thus, the deceased customers will be removed.
+
+```{r}
+# remove deceased customers
+CustomerDemographic <- filter(CustomerDemographic, deceased_indicator == "N")
+
+# remove deceased_indicator column
+CustomerDemographic <- select(CustomerDemographic, -deceased_indicator)
+```
+
+
+```{r}
+
+```
+
+
+
+```{r}
+dlookr::diagnose(CustomerDemographic)
+```
+
+
+### default
+
+```{r}
+head(CustomerDemographic$default,25)
+```
+Seems to be some corrupted text metadata.
+We will remove this column also.
+
+```{r}
+CustomerDemographic <- select(CustomerDemographic, !default)
+```
+
+
+### owns_car
+```{r}
+table(CustomerDemographic$owns_car)
+```
+
+
+
+### tenure
+
+```{r}
+sort(unique(CustomerDemographic$tenure))
+summary(CustomerDemographic$tenure)
+
+ggplot(CustomerDemographic, aes(tenure)) +
+  geom_boxplot()
+
+ggplot(CustomerDemographic, aes(tenure)) +
+  geom_bar()
+```
+We will assume that tenure represents the number of years each customer has been a customer of the company.
+
+
+```{r}
+count_nulls(CustomerDemographic)
+```
+
+
+## Clean CustomerAddress
+
+```{r}
+str(CustomerAddress)
+```
+
+```{r}
+CustomerAddress$customer_id <- as.character(CustomerAddress$customer_id)
+CustomerAddress$postcode <- as.character(CustomerAddress$postcode)
+```
+
+
+```{r}
+count_nulls(CustomerAddress)
+```
+
+
+### customer_id
+
+```{r}
+# remove customers with ids 34  753 3790 4001 4002 4003 for CustomerAddress
+CustomerAddress <- CustomerAddress |> 
+  filter(!(customer_id %in% c("34", "753", "3790", "4001", "4002", "4003")))
+```
+
+
+
+### address
+
+```{r}
+head(CustomerAddress$address, 15)
+```
+
+
+
+### postcode
+
+```{r}
+head(CustomerAddress$postcode, 10)
+```
+
+### state
+
+```{r}
+unique(CustomerAddress$state)
+```
+
+
+```{r}
+CustomerAddress <- CustomerAddress |> 
+  mutate(state = case_when(
+    state == "New South Wales" ~ "NSW",
+    state == "Queensland" ~ "QLD",
+    state == "Victoria" ~ "VIC",
+    TRUE ~ state  # Keep other values unchanged
+  ))
+```
+
+
+
+### country
+
+```{r}
+unique(CustomerAddress$country)
+```
+
+
+### property_valuation
+
+```{r}
+summary(CustomerAddress$property_valuation)
+```
+
+
+## Clean Transactions
+
+
+```{r}
+str(Transactions)
+```
+
+
+```{r}
+Transactions
+```
+
+```{r}
+Transactions <- Transactions |> 
+  mutate(
+    transaction_id = as.character(transaction_id),
+    customer_id = as.character(customer_id),
+    product_id = as.character(product_id),
+    product_first_sold_date = as.Date(as.POSIXct("1899-12-30")) + 
+      lubridate::days(product_first_sold_date),
+    transaction_date = as.Date(transaction_date)
+  )
+```
+
+
+
+```{r}
+count_nulls(Transactions)
+```
+
+brand, product_size, product_size, product_line, product_class, standard_cost
+are missing with the same amount of values.
+Potentially, 197 transaction observations are missing this product info.
+
+We will remove these transactions from training and subset it for further analysis.
+
+```{r}
+Tx_missing_product_info <- Transactions |> 
+  filter(
+    is.na(brand) & is.na(product_size) & is.na(product_line) &
+    is.na(product_class) & is.na(standard_cost)
+  )
+
+Tx_missing_product_info
+```
+```{r}
+unique(Tx_missing_product_info$product_id)
+```
+There appears to be missing product info only for product id 0.
+
+
+```{r}
+# # remove transactions missing product info
+# Transactions <- Transactions |> 
+#     filter(
+#     !(is.na(brand) & is.na(product_size) & is.na(product_line) &
+#     is.na(product_class) & is.na(standard_cost))
+#   )
+```
+
+
+### transaction_date
+
+```{r}
+min(format(Transactions$transaction_date, "%Y-%m-%d"))
+max(format(Transactions$transaction_date, "%Y-%m-%d"))
+```
+a year worth of transaction data.
+
+
+### transaction_id
+
+```{r}
+length(unique(Transactions$transaction_id))
+nrow(Transactions)
+```
+
+
+### product_id
+
+```{r}
+length(unique(Transactions$product_id))
+```
+101 products.
+
+
+### customer_id
+
+```{r}
+# remove ids 753, 34, 5034
+# note that this will remove more than three transactions 
+# because customer ids are not unique
+Transactions <- Transactions |> 
+  filter(!(customer_id %in% c("753", "34", "5034")))
+```
+
+```{r}
+length(unique(Transactions$customer_id))
+length(unique(CustomerDemographic$customer_id))
+```
+within the past year, 506 customers did not make a transaction.
+
+```{r}
+# identify these customers by id and subset
+Customer_0tx_past_yr <- CustomerDemographic %>%
+  anti_join(Transactions, by = "customer_id")
+
+Customer_0tx_past_yr
+```
+
+
+### product_first_sold_date
+
+```{r}
+summary(as.Date(Transactions$product_first_sold_date))
+```
+
+
+
+
+
+```{r}
+Tx_missing_product_info |> 
+  anti_join(y = Transactions, by = "customer_id")
+```
+
+### online_order
+
+```{r}
+unique(Transactions$online_order)
+```
+
+### order_status
+
+```{r}
+unique(Transactions$order_status)
+```
+
+### brand
+```{r}
+unique(Transactions$brand)
+```
+
+
+### product_line
+
+```{r}
+unique(Transactions$product_line)
+```
+
+### product_class
+
+```{r}
+unique(Transactions$product_class)
+```
+
+
+### product_size
+
+```{r}
+unique(Transactions$product_size)
+```
+
+
+### product_size
+
+```{r}
+unique(Transactions$product_size)
+```
+
+
+### standard_cost
+
+```{r}
+summary(Transactions$standard_cost)
+```
+
+### list_price
+
+```{r}
+summary(Transactions$list_price)
+```
+
+```{r}
+count_nulls(Transactions)
+```
+
+## Clean NewCustomerList
+
+```{r}
+# remove column 17 - 23
+NewCustomerList <- NewCustomerList[, -c(17:23)]
+```
+
+```{r}
+str(NewCustomerList)
+```
+
+```{r}
+count_nulls(NewCustomerList)
+```
+
+### past_3_years_bike_related_purchases
+
+```{r}
+NewCustomerList <- NewCustomerList |> 
+  mutate(past_3_years_bike_related_purchases = as.numeric(past_3_years_bike_related_purchases))
+```
+
+```{r}
+summary(NewCustomerList$past_3_years_bike_related_purchases)
+```
+
+
+### property_valuation
+
+```{r}
+NewCustomerList <- NewCustomerList |> 
+  mutate(property_valuation = as.numeric(property_valuation))
+```
+
+```{r}
+summary(NewCustomerList$property_valuation)
+```
+
+### first_name
+
+```{r}
+head(unique(NewCustomerList$first_name),25)
+```
+
+### last_name
+
+```{r}
+head(unique(NewCustomerList$last_name),25)
+```
+
+
+### DOB
+
+```{r}
+# customers that have DOBs stored as numeric text
+NCL_subset_numericDOB <- NewCustomerList |> 
+  mutate(DOB = as.double(NewCustomerList$DOB)) |> 
+  filter(!(is.na(DOB)))
+
+NCL_subset_numericDOB <- NCL_subset_numericDOB |> 
+  mutate(
+    DOB = as.Date(as.POSIXct("1899-12-30") + 
+      lubridate::days(DOB))
+  )
+
+# customers whose DOBs are not known
+NCL_subset_NA_DOB <- NewCustomerList |> 
+  filter(is.na(DOB)) |> 
+  mutate(DOB = as.Date(DOB))
+
+
+NewCustomerList <- NewCustomerList |> 
+  mutate(DOB = as.Date(NewCustomerList$DOB)) |> 
+  filter(!is.na(DOB))
+
+
+# Combine the tables vertically
+NewCustomerList <- bind_rows(NewCustomerList, NCL_subset_numericDOB, NCL_subset_NA_DOB)
+
+```
+
+
+
+### gender
+
+```{r}
+unique(NewCustomerList$gender)
+```
+
+```{r}
+# to make it consistent with gender column in CustomerDemographic
+NewCustomerList <- NewCustomerList %>%
+  mutate(
+    gender = case_when(
+      gender == "Male" ~ "M",
+      gender == "Female" ~ "F",
+      TRUE ~ gender  # Keep "U" as is
+    )
+  )
+```
+
+
+
+### job_title
+
+```{r}
+head(unique(NewCustomerList$job_title),25)
+```
+
+
+### job_industry_category
+
+```{r}
+head(unique(NewCustomerList$job_industry_category),25)
+```
+
+```{r}
+# change "n/a" into NA value
+NewCustomerList <- NewCustomerList %>%
+  mutate(
+    job_industry_category = ifelse(job_industry_category == "n/a", NA, 
+                                   job_industry_category)
+  )
+```
+
+
+### wealth_segment
+
+```{r}
+unique(NewCustomerList$wealth_segment)
+```
+
+### deceased_indicator
+
+```{r}
+unique(NewCustomerList$deceased_indicator)
+```
+
+```{r}
+NewCustomerList <- NewCustomerList |> 
+  select(-deceased_indicator)
+```
+
+
+### owns_car
+
+```{r}
+unique(NewCustomerList$owns_car)
+```
+
+
+### tenure
+
+```{r}
+summary(NewCustomerList$tenure)
+```
+
+
+### address
+
+```{r}
+head(unique(NewCustomerList$address),25)
+```
+
+
+### state
+
+```{r}
+unique(NewCustomerList$state)
+```
+
+
+### postcode
+
+```{r}
+head(unique(NewCustomerList$postcode),25)
+```
+
+
+### country
+
+```{r}
+unique(NewCustomerList$country)
+```
+
+
+
+
+```{r}
+              #            first_name                           last_name 
+              #                     0                                  29 
+              #                gender past_3_years_bike_related_purchases 
+              #                     0                                   0 
+              #                   DOB                           job_title 
+              #                    17                                 106 
+              # job_industry_category                      wealth_segment 
+              #                     0                                   0 
+              #    deceased_indicator                            owns_car 
+              #                     0                                   0 
+              #                tenure                             address 
+              #                     0                                   0 
+              #              postcode                               state 
+              #                     0                                   0 
+              #               country                  property_valuation 
+              #                     0                                   0 
+```
+
+
+
+
+
+## Export cleansed csv files
+
+final look at the four data sets before export.
+
+```{r}
+Transactions
+str(Transactions)
+```
+```{r}
+CustomerDemographic
+str(CustomerDemographic)
+```
+
+
+```{r}
+CustomerAddress
+str(CustomerAddress)
+```
+
+
+```{r}
+NewCustomerList
+str(NewCustomerList)
+```
+
+```{r}
+# Create the "cleansed data" folder if it doesn't exist
+if (!file.exists("cleansed data")) {
+  dir.create("cleansed data")
+}
+
+# Create the "subsets" folder inside "cleansed data" if it doesn't exist
+subset_folder <- file.path("cleansed data", "subsets")
+if (!file.exists(subset_folder)) {
+  dir.create(subset_folder)
+}
+
+# Export cleansed main files
+write.csv(CustomerAddress, "cleansed data/CustomerAddress.csv", row.names = FALSE)
+write.csv(CustomerDemographic, "cleansed data/CustomerDemographic.csv", row.names = FALSE)
+write.csv(NewCustomerList, "cleansed data/NewCustomerList.csv", row.names = FALSE)
+write.csv(Transactions, "cleansed data/Transactions.csv", row.names = FALSE)
+
+# Export subsets for further analysis
+write.csv(Customer_0tx_past_yr, "cleansed data/subsets/Customer_0tx_past_yr.csv", row.names = FALSE)
+write.csv(Customer_U_gender, "cleansed data/subsets/Customer_U_gender.csv", row.names = FALSE)
+write.csv(Tx_missing_product_info, "cleansed data/subsets/Tx_missing_product_info.csv", row.names = FALSE)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

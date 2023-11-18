@@ -1,0 +1,507 @@
+"customer_id","first_name","last_name","gender","past_3_years_bike_related_purchases","DOB","job_title","job_industry_category","wealth_segment","owns_car","tenure"
+"3949","Costa","Sleightholm","M",24,2001-12-19,"Web Designer IV","Manufacturing","High Net Worth","Yes",1
+"3997","Blanch","Nisuis","F",87,2001-07-13,"Statistician II","Manufacturing","High Net Worth","Yes",1
+"3607","Troy","Blaydes","M",99,2001-05-22,"Clinical Specialist","Health","Mass Customer","No",1
+"3749","Blondelle","Swynley","F",3,2001-04-21,NA,"IT","Affluent Customer","No",1
+"3616","Vale","Dagnan","M",42,2001-04-02,"Product Engineer","Property","High Net Worth","No",2
+"852","Andie","Bonney","F",37,2000-11-04,"Compensation Analyst","Financial Services","Affluent Customer","Yes",2
+"3960","Hobart","Burgan","M",6,2000-03-16,NA,"Property","Mass Customer","No",1
+"3954","Archaimbaud","McAteer","M",63,2000-02-03,"Human Resources Assistant III","Financial Services","High Net Worth","No",2
+"3850","Alexandro","McCullock","M",55,2000-01-07,"Accountant III",NA,"Mass Customer","Yes",2
+"3675","Samuele","Heller","M",88,1999-12-17,"Analog Circuit Design manager","Property","Affluent Customer","Yes",1
+"3651","Baxie",NA,"M",91,1999-11-15,"Human Resources Assistant I","Manufacturing","Mass Customer","No",2
+"3650","Darrelle","Rosas","F",85,1999-10-21,"Office Assistant I","IT","Mass Customer","Yes",2
+"3757","Hyacinthia","Crain","F",75,1999-09-12,"Information Systems Manager",NA,"Affluent Customer","No",2
+"3989","Nicolas","Burdass","M",75,1999-06-23,"Environmental Specialist","Argiculture","Affluent Customer","Yes",1
+"3953","Allyson","Simak","F",79,1999-06-18,"Help Desk Operator","Health","Affluent Customer","Yes",2
+"3908","Dolf","Serridge","M",64,1999-06-09,"Junior Executive","Health","High Net Worth","No",1
+"3772","Anselma","Rennie","F",45,1999-02-07,"Physical Therapy Assistant","Manufacturing","Mass Customer","Yes",2
+"3674","Rodger","Gores","M",59,1998-12-24,"Tax Accountant","Property","Mass Customer","No",3
+"3774","Elizabeth","Christy","F",38,1998-11-07,"Statistician I","Property","High Net Worth","No",2
+"3867","Carmelia","Klimentyonok","F",14,1998-10-09,"Geologist II","IT","Mass Customer","Yes",1
+"3858","Sabina","Tarbin","F",57,1998-08-31,"Librarian","Entertainment","Mass Customer","Yes",1
+"3716","Kari","Bamlett","F",81,1998-08-24,NA,"Retail","Affluent Customer","No",1
+"3544","Benoite","Trahmel","F",25,1998-08-13,"Help Desk Technician",NA,"Affluent Customer","No",1
+"3985","Caryn","Padbury","F",44,1998-06-21,"Web Developer IV","Property","Mass Customer","No",4
+"3990","Reynard","Hagger","M",99,1998-03-05,"Desktop Support Technician","Health","High Net Worth","No",1
+"3663","Hermy","Casement","M",62,1998-02-10,"Information Systems Manager",NA,"Affluent Customer","No",1
+"3943","Adler","Dredge","M",19,1997-12-30,"VP Accounting","Financial Services","Affluent Customer","No",2
+"3917","Artemas","Kyncl","M",79,1997-12-26,"Chemical Engineer","Manufacturing","Mass Customer","No",4
+"3502","Wilfrid","Cleaves","M",5,1997-10-16,"Senior Sales Associate","Retail","High Net Worth","Yes",3
+"3587","Ines","Galfour","F",85,1997-09-24,NA,NA,"Affluent Customer","No",2
+"3609","Chicky","Butterfield","M",69,1997-09-02,"Marketing Manager","Manufacturing","Mass Customer","No",4
+"3753","Ebony","Peagrim","F",16,1997-08-21,"Office Assistant II","Manufacturing","Mass Customer","No",3
+"3556","Larina","Gheeorghie","F",38,1997-07-05,"Senior Developer","Manufacturing","High Net Worth","No",3
+"3868","Rica","Corrado","F",60,1997-06-19,"Social Worker","Health","Affluent Customer","Yes",4
+"2074","Roslyn","Rawdall","F",90,1997-06-11,NA,"Financial Services","Mass Customer","No",4
+"3811","Etta","Leele","F",60,1997-03-19,NA,"Financial Services","High Net Worth","No",4
+"3537","Sholom","Pavlasek","M",1,1997-01-15,"Graphic Designer","Financial Services","Mass Customer","No",4
+"3893","Hadria","Moles","F",7,1996-11-18,NA,NA,"High Net Worth","Yes",4
+"3573","Mab","Dwyer","F",68,1996-10-16,"Accounting Assistant I","Manufacturing","Mass Customer","Yes",3
+"3862","Casey","Kett","F",1,1996-09-22,"Structural Engineer","Health","Mass Customer","No",4
+"3525","Town","Yitzhakov","M",55,1996-08-16,"Editor",NA,"Mass Customer","No",2
+"3638","Fifi","Dorrins","F",73,1996-05-04,"Associate Professor","Manufacturing","Mass Customer","No",6
+"3593","Carry","Abercromby","F",71,1996-04-10,"Legal Assistant","Retail","Mass Customer","No",5
+"3886","Fidela","Haresign","F",74,1996-03-26,"Recruiting Manager","Manufacturing","Affluent Customer","No",5
+"3619","Myranda","Cridland","F",18,1996-02-17,"Administrative Assistant IV",NA,"Mass Customer","Yes",1
+"3854","Melody","Ivanilov","F",47,1996-01-16,"VP Quality Control","Property","High Net Worth","Yes",2
+"3907","Adriana","Heam","F",8,1996-01-11,"Technical Writer",NA,"High Net Worth","Yes",5
+"3698","Devon","Baudic","F",49,1995-10-03,"Geological Engineer","Manufacturing","Mass Customer","No",4
+"3759","Sue","Batstone","F",68,1995-03-04,"Programmer IV","Property","Mass Customer","Yes",4
+"3836","Jolee","Stearndale","F",16,1995-01-25,"Electrical Engineer","Manufacturing","Affluent Customer","Yes",7
+"3598","Penny","McKirdy","M",72,1994-12-17,"Computer Systems Analyst III","Manufacturing","Affluent Customer","Yes",5
+"3851","Fowler","Bauduccio","M",5,1994-11-30,"Senior Sales Associate","Manufacturing","High Net Worth","No",3
+"3824","Giffard","Stollman","M",33,1994-11-21,NA,"Property","Mass Customer","No",3
+"3945","Lazarus","Donaghy","M",77,1994-10-21,NA,"Retail","High Net Worth","No",7
+"3721","Merrili","Potticary","F",84,1994-10-13,"Senior Quality Engineer","Financial Services","Mass Customer","Yes",7
+"3535","Bren","Dabbes","F",8,1994-09-15,"Technical Writer","Manufacturing","High Net Worth","No",6
+"3981","Konstance","Draye","F",34,1994-09-10,"Quality Control Specialist","Health","Mass Customer","No",1
+"3895","Reginald","Struys","M",18,1994-09-06,"Business Systems Development Analyst","IT","Affluent Customer","Yes",2
+"3988","Ammamaria","Ashburne","F",97,1994-07-14,"Automation Specialist IV","Health","Mass Customer","Yes",1
+"3794","Dorrie","Paige","F",47,1994-07-06,NA,"IT","Mass Customer","No",2
+"3755","Stephen","Garnar","M",38,1994-05-10,"Chief Design Engineer","Financial Services","High Net Worth","Yes",7
+"3688","Fritz","Le Merchant","M",87,1994-04-27,"General Manager","IT","Affluent Customer","Yes",5
+"3512","Vladimir","Abramowsky","M",68,1994-03-24,"VP Accounting","Financial Services","Mass Customer","Yes",8
+"3605","Andy","Risely","M",54,1994-01-28,"Internal Auditor",NA,"Mass Customer","No",6
+"3780","Mitchel","Bellefant","M",10,1993-11-01,"Desktop Support Technician","Financial Services","High Net Worth","No",8
+"3723","Justine","Pirt","F",31,1993-10-22,"Accountant II","Financial Services","High Net Worth","No",7
+"3791","Bertrand","Sissons","M",17,1993-05-26,"Quality Control Specialist","Health","Affluent Customer","No",6
+"3707","Marten","Posnette","M",10,1993-05-16,"Senior Editor","Retail","Mass Customer","Yes",4
+"3236","Edsel","Arguile","M",37,1993-04-01,NA,"Manufacturing","Mass Customer","Yes",5
+"3702","Floyd","Meharry","M",74,1993-02-18,"Biostatistician IV","Health","Mass Customer","No",10
+"3713","Cynthy","Snoad","F",72,1993-02-03,NA,"Telecommunications","High Net Worth","Yes",8
+"3769","Kerry","Wooldridge","M",40,1993-01-19,"Desktop Support Technician","Health","High Net Worth","Yes",5
+"3959","Dannie","Sowray","M",76,1992-12-07,NA,NA,"Mass Customer","No",3
+"3552","Ebeneser","Lowde","M",33,1992-09-07,"Internal Auditor","Retail","Affluent Customer","Yes",9
+"3961","Gertie","Caser","F",11,1992-07-05,"Recruiter","Health","High Net Worth","Yes",5
+"3732","Shawn","De Hooge","F",47,1992-06-07,"Research Associate","Manufacturing","Mass Customer","No",2
+"3828","Tessy","Beefon","F",81,1992-05-12,"Dental Hygienist","Health","Mass Customer","No",6
+"3679","Murielle","Klimkov","F",72,1992-05-05,"Developer II",NA,"High Net Worth","No",6
+"3839","Wallie","Christauffour","F",78,1992-04-25,"Account Executive","Manufacturing","High Net Worth","Yes",2
+"3856","Shane","Haseldine","F",74,1992-04-24,"Accounting Assistant III","Property","Affluent Customer","No",7
+"3736","Charles","Brounfield","M",64,1992-03-13,"Senior Developer","Argiculture","Mass Customer","Yes",10
+"3671","Crystie","Deshorts","F",98,1992-01-05,"Programmer Analyst III",NA,"Affluent Customer","No",7
+"4000","Kippy","Oldland","M",76,1991-11-05,"Software Engineer IV",NA,"Affluent Customer","No",11
+"3731","Jandy","Rodgers","F",91,1991-10-27,"Chief Design Engineer",NA,"Mass Customer","No",8
+"3739","Gates","Nelthorpe","F",59,1991-08-27,"Environmental Tech","IT","High Net Worth","No",5
+"3620","Gerry","Ackhurst","M",21,1991-07-30,"Computer Systems Analyst II","Retail","Mass Customer","No",5
+"3574","Eileen","Eland","F",33,1991-02-05,"Clinical Specialist","Health","Mass Customer","No",6
+"3653","Devlen","Perrett","M",7,1991-01-04,"Environmental Specialist",NA,"Mass Customer","Yes",8
+"3699","Lillian","Somerfield","F",40,1990-10-08,"Recruiting Manager","Manufacturing","Mass Customer","No",5
+"3532","May","Birch","F",27,1990-07-24,"Media Manager I","Health","High Net Worth","Yes",7
+"3866","Theressa","Morfield","F",56,1990-07-18,"Structural Engineer","Health","Mass Customer","Yes",9
+"3617","Jessa","Milnthorpe","F",11,1990-05-06,"Structural Analysis Engineer","Manufacturing","Mass Customer","Yes",3
+"3632","Elena","Sandys","F",82,1990-03-27,"Teacher",NA,"Mass Customer","No",9
+"3563","De","Leyband","F",70,1990-03-12,NA,"Financial Services","Affluent Customer","No",10
+"3747","Valerye","Yukhtin","F",8,1990-02-24,"Web Developer IV","Manufacturing","Mass Customer","Yes",10
+"3664","Faina","Czaja","F",5,1990-02-23,"Software Test Engineer I","Manufacturing","Mass Customer","Yes",7
+"3841","Barnebas","Munro","M",64,1990-01-24,"Desktop Support Technician","Manufacturing","Affluent Customer","No",10
+"3837","Alysa","McDiarmid","F",26,1990-01-17,"Professor",NA,"Mass Customer","Yes",17
+"3929","Jacqui","Fortnam","F",50,1989-10-18,NA,NA,"Affluent Customer","Yes",10
+"3522","Lorri","Byrth","F",73,1989-08-21,"Cost Accountant","Financial Services","High Net Worth","Yes",11
+"3685","Solomon","Ruffles","M",86,1989-06-12,"Human Resources Manager","Financial Services","Affluent Customer","Yes",16
+"3843","Mahmoud","Ligerton","M",0,1989-06-06,"Senior Financial Analyst","Financial Services","Mass Customer","Yes",16
+"3994","Stephie","Byars","F",5,1989-04-07,"Structural Analysis Engineer","Manufacturing","Affluent Customer","No",12
+"3665","Toma","Klaaasen","F",19,1989-03-23,"Dental Hygienist","Health","Mass Customer","No",6
+"3550","Daisey","Britto","F",50,1988-11-27,"Environmental Tech","Retail","Mass Customer","Yes",16
+"3602","Alicea","Scamwell","F",23,1988-11-27,"Account Coordinator","Health","Mass Customer","No",12
+"3914","Izabel","Roelofs","F",79,1988-05-21,"Assistant Manager","Entertainment","Affluent Customer","Yes",22
+"3821","Cassandra","Cescotti","F",96,1988-03-27,"VP Marketing","Manufacturing","Affluent Customer","No",14
+"3770","Caddric","Ruddiforth","M",54,1988-02-02,"Legal Assistant","Argiculture","Mass Customer","No",17
+"3930","Blancha","Baldi","F",43,1988-01-06,NA,"Financial Services","High Net Worth","No",22
+"3844","Clotilda","Oret","F",87,1987-12-06,NA,"Manufacturing","Affluent Customer","No",15
+"3909","Micheil","McGeorge","M",1,1987-10-04,NA,"Manufacturing","High Net Worth","Yes",18
+"3579","Rachel","Somes","F",32,1987-09-15,"Software Test Engineer III","Health","High Net Worth","No",20
+"3888","Lusa","Vigers","F",4,1987-09-13,"Programmer Analyst I","IT","High Net Worth","Yes",11
+"3672","Werner","Yglesias","M",32,1987-05-25,NA,"IT","Mass Customer","Yes",13
+"3610","Erl","Markel","M",1,1987-03-29,"Graphic Designer","Financial Services","High Net Worth","Yes",16
+"3838","Mil","Clemitt","F",59,1987-03-24,"Sales Associate","Financial Services","Affluent Customer","Yes",4
+"3543","Shanie","Zahor","F",15,1986-12-25,"Food Chemist","Health","High Net Worth","Yes",21
+"3912","Ryon","Darridon","M",89,1986-10-27,"Social Worker","Health","Affluent Customer","No",22
+"3728","Chanda","Garmons","F",27,1986-09-01,"Technical Writer","Property","Affluent Customer","Yes",21
+"3900","Garland","Wildsmith","F",78,1986-09-01,"GIS Technical Architect","Financial Services","Mass Customer","Yes",3
+"3804","Andria","Keays","F",23,1986-08-21,NA,"Manufacturing","Mass Customer","Yes",4
+"3508","Malvin","Marre","M",89,1986-08-09,"Pharmacist","Health","Mass Customer","No",5
+"3743","Riki","Aimable","F",85,1986-08-02,"Tax Accountant","Property","Mass Customer","No",22
+"3677","Bartel","Fonteyne","M",3,1986-07-11,"Senior Financial Analyst","Financial Services","Mass Customer","Yes",20
+"3932","Hadley","Veracruysse","M",85,1986-07-10,"Senior Editor","Financial Services","Mass Customer","No",11
+"3948","Roberto","Beinke","M",44,1986-06-22,"Occupational Therapist","Health","Mass Customer","No",13
+"3860","Sheila-kathryn","Conklin","F",14,1986-04-05,"Mechanical Systems Engineer",NA,"Affluent Customer","Yes",13
+"3572","Willis","Tilston","M",54,1986-03-21,"Sales Representative","Retail","Affluent Customer","Yes",2
+"3884","Sibley","Thirlwall","F",69,1986-02-06,"Web Designer II","Manufacturing","High Net Worth","Yes",18
+"3594","Gustavo","Juschka","M",45,1986-01-04,"Marketing Assistant","Manufacturing","Mass Customer","No",18
+"3541","Aloin","Harhoff","M",72,1986-01-03,NA,"Health","Mass Customer","No",11
+"3786","Barnie","Blenkensop","M",12,1985-12-28,"Systems Administrator IV",NA,"High Net Worth","No",22
+"3833","Jamie","Staziker","F",88,1985-12-10,"Account Coordinator","Manufacturing","Mass Customer","No",16
+"3863","Virgilio","Haverty","M",30,1985-12-06,"Quality Control Specialist","Retail","High Net Worth","No",20
+"3857","Tanner","McCuthais","M",64,1985-11-26,"Structural Engineer","Financial Services","Mass Customer","Yes",10
+"3991","Rolph","Sweetnam","M",61,1985-08-06,"Chief Design Engineer","Manufacturing","Mass Customer","Yes",13
+"3875","Berti","Arnould","M",2,1985-07-27,"Electrical Engineer","Manufacturing","Mass Customer","Yes",5
+"3640","Merralee","Forman","F",64,1985-04-28,"Staff Scientist",NA,"Mass Customer","No",10
+"3539","Sheelah","Caine","F",94,1985-03-21,NA,"IT","Mass Customer","Yes",16
+"3559","Farra","Bails","F",80,1985-02-19,"Assistant Media Planner","Entertainment","High Net Worth","Yes",17
+"3775","Avie","Cleator","F",16,1985-02-13,NA,"Health","Affluent Customer","No",8
+"3693","Brenna","Raft","F",58,1985-01-19,NA,"Manufacturing","Affluent Customer","Yes",21
+"3623","Oren","Barwack","M",56,1984-11-25,"Senior Quality Engineer","Manufacturing","Affluent Customer","Yes",15
+"3624","Lenka",NA,"F",54,1984-10-16,"Cost Accountant","Financial Services","Mass Customer","Yes",7
+"3870","Fidelia","Cess","F",31,1984-10-13,"Social Worker","Health","Mass Customer","No",5
+"3965","Susannah","Dumphy","F",39,1984-07-24,"Speech Pathologist","Manufacturing","Mass Customer","Yes",13
+"3694","Antoni","MacAllister","M",91,1984-04-19,NA,"Health","Mass Customer","Yes",10
+"869","Addia","Abels","F",7,1984-03-11,"Account Representative I","Financial Services","High Net Worth","Yes",10
+"3871","Magda","Shugg","F",80,1983-11-13,"Recruiting Manager",NA,"Mass Customer","No",4
+"3546","Hally","Pollie","F",91,1983-09-29,"GIS Technical Architect","Manufacturing","Affluent Customer","Yes",9
+"3622","Anetta","Brosenius","F",84,1983-09-02,"Compensation Analyst","Financial Services","Mass Customer","No",2
+"3680","Sawyere","Onele","M",17,1983-08-11,"Accountant I","Retail","High Net Worth","No",3
+"3933","Chiarra","Cops","F",65,1983-07-05,NA,NA,"High Net Worth","Yes",10
+"3814","Constancia","Gebbe","F",10,1983-07-01,"VP Product Management","Financial Services","Mass Customer","Yes",11
+"3784","Davie","Moscon","M",56,1983-06-04,NA,"Financial Services","High Net Worth","No",13
+"3633","Donavon","Ainsby","M",32,1983-04-18,"Biostatistician III","Health","Mass Customer","No",5
+"3667","Nettie","Goghin","F",3,1983-02-06,"Graphic Designer","Retail","Mass Customer","Yes",8
+"3767","Man","Bigglestone","M",25,1982-09-14,"Web Developer IV",NA,"High Net Worth","No",16
+"3928","Kristin","Way","F",71,1982-04-16,NA,"Property","Affluent Customer","Yes",6
+"3852","Zerk","Merrien","M",44,1982-02-04,"Help Desk Operator",NA,"Mass Customer","No",4
+"3894","Burgess","Diaper","M",70,1982-02-02,"Health Coach II","IT","Affluent Customer","No",10
+"3906","Bronny","Claige","M",87,1982-01-29,"Cost Accountant","Financial Services","High Net Worth","No",13
+"3646","Allene","Pauly","F",0,1981-10-22,"Social Worker","Health","Mass Customer","No",4
+"3939","Georges","Dumbelton","M",67,1981-06-25,NA,"Manufacturing","Affluent Customer","No",15
+"3922","Frans","Whitecross","M",90,1981-05-29,"Tax Accountant","Financial Services","Mass Customer","Yes",3
+"3815","Jayson","Gasparro","M",99,1981-04-19,"Librarian","Entertainment","Mass Customer","Yes",5
+"3737","Elyssa","De Witt","F",86,1981-03-21,"Design Engineer","Manufacturing","Affluent Customer","No",8
+"3660","Gradeigh","Hothersall","M",99,1981-03-14,"Administrative Assistant IV","Financial Services","Mass Customer","No",7
+"3533","Neale","Lowings","M",62,1981-02-14,NA,"Financial Services","Affluent Customer","Yes",8
+"3903","Dayna","Cawthera","F",69,1981-02-13,"Research Assistant III",NA,"Mass Customer","Yes",17
+"3763","Law","Jore","M",37,1981-01-27,"Quality Control Specialist",NA,"Affluent Customer","Yes",20
+"3744","Franchot","Loeber","M",57,1981-01-05,NA,"Financial Services","Mass Customer","Yes",9
+"3800","Morena","Ayer","F",19,1980-10-28,"Environmental Tech",NA,"High Net Worth","No",15
+"3567","Eileen","Ilchenko","F",17,1980-09-14,"Nurse","Financial Services","Affluent Customer","Yes",14
+"3910","Hall","Leyfield","M",38,1980-09-10,"VP Sales","IT","Mass Customer","No",10
+"3560","Gav","Bonin","M",98,1980-09-01,"Structural Analysis Engineer","Retail","Mass Customer","Yes",7
+"3829","Cornie","Hillhouse","M",68,1980-09-01,"Account Coordinator",NA,"Mass Customer","Yes",15
+"3518","Magdaia","Beardwell","F",45,1980-06-18,"Biostatistician I","IT","Mass Customer","Yes",8
+"3992","Germain","Tireman","M",99,1980-04-02,"Database Administrator IV","Manufacturing","Affluent Customer","Yes",18
+"3521","Oneida","Olivia","F",27,1980-03-10,"Research Associate",NA,"High Net Worth","Yes",16
+"3820","Maren","Ruske","F",65,1980-03-08,"Business Systems Development Analyst","IT","Mass Customer","No",17
+"3740","Rania","Poulter","F",82,1979-12-03,"Dental Hygienist","Health","Mass Customer","No",8
+"3612","Normand","Matous","M",27,1979-11-27,NA,"IT","High Net Worth","No",15
+"3896","Perla","Blakiston","F",3,1979-10-15,"Tax Accountant",NA,"Mass Customer","Yes",13
+"3673","Tobin","Fucher","M",72,1979-09-28,NA,"Manufacturing","Mass Customer","Yes",11
+"3879","Vin","Attack","M",74,1979-08-28,"Payment Adjustment Coordinator",NA,"High Net Worth","No",19
+"3797","Kriste","Oldall","F",76,1979-08-18,"Occupational Therapist","Health","Affluent Customer","Yes",4
+"3813","Skelly","Caudell","M",12,1979-04-13,"Media Manager IV","IT","Mass Customer","Yes",6
+"3972","Maribelle","Schaffel","F",6,1979-03-28,NA,"Retail","Mass Customer","No",8
+"3503","Tootsie","Rafter","F",53,1979-03-12,"Financial Advisor","Financial Services","Affluent Customer","Yes",10
+"3586","Abby","Brownstein","F",79,1979-02-05,"Registered Nurse","Health","Affluent Customer","No",10
+"3971","Analise","Asbrey","F",2,1979-01-14,"Desktop Support Technician","Financial Services","High Net Worth","No",16
+"3751","Millicent","Nacci","F",44,1978-12-28,"Environmental Specialist",NA,"Affluent Customer","Yes",13
+"3873","Sascha","Paolozzi","M",32,1978-12-05,"Compensation Analyst","Financial Services","Mass Customer","No",11
+"3527","Kiley","Scotson","F",77,1978-12-02,"Senior Cost Accountant","Financial Services","High Net Worth","No",18
+"3925","Cally","Chaim","F",81,1978-11-25,"Statistician I",NA,"High Net Worth","No",7
+"3509","Janine","Hesey","F",85,1978-11-22,"Pharmacist","Health","Mass Customer","Yes",15
+"3630","Jeni","Heymes","F",16,1978-11-15,"Tax Accountant","Property","Affluent Customer","Yes",8
+"3591","Dwight","Kinsey","M",15,1978-10-28,"Accountant III","Financial Services","Mass Customer","No",10
+"3825","Cinda","Rounds","F",82,1978-10-12,"Recruiting Manager","Health","Mass Customer","No",11
+"3697","Zebedee","Christal","M",47,1978-10-10,"Recruiting Manager",NA,"Mass Customer","Yes",8
+"3826","Marlow","Balffye","M",33,1978-09-25,NA,"Health","Mass Customer","No",7
+"3526","Pail","Iacopini","M",84,1978-09-19,"General Manager","Telecommunications","High Net Worth","Yes",13
+"3626","Cora","Hince","F",86,1978-09-02,"Senior Cost Accountant","Financial Services","Mass Customer","Yes",12
+"3957","Bernice","Scotchforth","F",4,1978-07-20,"Business Systems Development Analyst",NA,"High Net Worth","Yes",14
+"3615","Junia","Napton","F",63,1978-07-09,"Safety Technician II","IT","Mass Customer","Yes",8
+"3819","Alvan","Phillput","M",62,1978-06-29,"Staff Accountant I",NA,"High Net Worth","No",3
+"3885","Asher",NA,"M",55,1978-06-17,"Actuary","Financial Services","Mass Customer","Yes",8
+"3682","Dukie","Asson","M",94,1978-06-15,"GIS Technical Architect","Financial Services","Mass Customer","Yes",11
+"3937","Brennen","Mularkey","M",81,1978-06-07,"Tax Accountant","Property","Mass Customer","No",12
+"3519","Aldus","Kenningley","M",16,1978-05-21,"Software Consultant","Manufacturing","Mass Customer","Yes",11
+"3557","Tisha","Gibbings","F",79,1978-05-12,NA,"Health","Affluent Customer","No",18
+"3941","Cinnamon","Batram","F",27,1978-05-03,"Technical Writer","Manufacturing","Mass Customer","Yes",11
+"3967","Lillis","Dobrowolski","F",90,1978-04-18,"Senior Editor","Manufacturing","Affluent Customer","No",7
+"3590","Carolan","Velez","F",32,1978-04-16,NA,"Manufacturing","Mass Customer","Yes",19
+"3554","Briggs","Mower","M",34,1978-04-06,"GIS Technical Architect","IT","Mass Customer","Yes",16
+"3865","Urbanus","Fuxman","M",49,1978-03-15,NA,"Manufacturing","Mass Customer","Yes",11
+"3695","Lem","Clamp","M",33,1978-02-27,"Account Coordinator","Entertainment","Affluent Customer","Yes",3
+"3878","Waldon","Digges","M",99,1978-02-24,"Programmer III",NA,"Mass Customer","No",9
+"3892","Roma","Finlater","M",19,1978-01-29,"Staff Scientist",NA,"Mass Customer","Yes",15
+"3927","Conway",NA,"M",29,1978-01-07,"Electrical Engineer","Manufacturing","Mass Customer","Yes",7
+"3923","Shay","Rayer","M",90,1978-01-04,"Product Engineer","Financial Services","High Net Worth","No",16
+"3662","Pippo","Cator","M",79,1977-12-30,"Community Outreach Specialist","Retail","Mass Customer","No",15
+"3596","Christi","Gilluley","F",57,1977-12-25,"Executive Secretary","Retail","Mass Customer","No",20
+"3968","Alexandra","Kroch","F",99,1977-12-22,NA,"Property","High Net Worth","No",22
+"3904","Arabelle","Nevill","F",15,1977-12-17,"Sales Representative","Retail","Affluent Customer","No",7
+"3745","Randy","Duligall","F",90,1977-12-05,"Dental Hygienist","Health","Mass Customer","Yes",20
+"3934","Cherice","Wehner","F",38,1977-11-25,"Sales Associate","Manufacturing","Mass Customer","Yes",16
+"3940","Anna","Warmington","F",9,1977-11-18,"Sales Representative","Retail","Mass Customer","No",9
+"3538","Kerby","Nassie","M",19,1977-11-14,"Marketing Manager","Health","Mass Customer","No",8
+"3733","Shelden","Rodenburg","M",70,1977-11-01,NA,NA,"Mass Customer","No",11
+"3962","Benoit",NA,"M",17,1977-10-06,"Project Manager","Argiculture","High Net Worth","Yes",14
+"3805","Margaret","McSperrin","F",52,1977-08-16,"Software Test Engineer II","Property","Affluent Customer","No",4
+"3891","Amalea","Elcy","F",61,1977-08-01,"Staff Accountant II","Retail","High Net Worth","Yes",7
+"3969","Randee","Penchen","F",93,1977-07-16,"Accountant II","Manufacturing","Affluent Customer","Yes",10
+"3649","Jayne","Gawthrope","F",66,1977-07-12,"Office Assistant II","Property","Mass Customer","Yes",12
+"3756","Barry",NA,"M",22,1977-07-08,NA,NA,"Affluent Customer","No",10
+"3635","Elset",NA,"F",51,1977-07-06,"VP Marketing","Retail","High Net Worth","No",9
+"3918","Rosalia","Skedge","F",52,1977-07-05,"Junior Executive",NA,"High Net Worth","No",18
+"3812","Sophie","Druhan","F",91,1977-07-04,"VP Product Management","Retail","Mass Customer","Yes",12
+"3669","Maynard","Isaq","M",11,1977-06-18,"Design Engineer","Manufacturing","Affluent Customer","No",18
+"3776","Kennie","Baszniak","M",46,1977-05-02,"Recruiter","Retail","Mass Customer","Yes",19
+"3516","Diarmid","Vearnals","M",93,1977-04-30,NA,"Property","Mass Customer","Yes",15
+"3670","Leupold","Bernardini","M",62,1977-03-20,NA,"Financial Services","Affluent Customer","Yes",17
+"3734","Trixi","Wickes","F",46,1977-01-07,"Help Desk Technician","Manufacturing","Mass Customer","No",21
+"3656","Talia","Sidnell","F",14,1976-12-24,NA,"Property","Mass Customer","Yes",3
+"3659","Farra","Catto","F",76,1976-12-23,"VP Sales","Financial Services","High Net Worth","No",10
+"3986","Oralle","Petrello","F",1,1976-12-01,"Social Worker","Health","Mass Customer","No",21
+"3882","Nona","Tubb","F",18,1976-11-05,"Human Resources Assistant III","Health","Mass Customer","Yes",9
+"3566","Bram","Pheasant","M",96,1976-11-02,"Social Worker","Health","Affluent Customer","Yes",10
+"3629","Vale","Starcks","F",17,1976-10-29,"Editor","Health","High Net Worth","No",22
+"3827","Cherida","Whyffen","F",10,1976-09-05,NA,"Retail","Affluent Customer","No",8
+"3686","Shirley","Siss","F",20,1976-08-06,NA,"Financial Services","High Net Worth","Yes",15
+"3924","Perry","Lampert","M",72,1976-07-03,"Editor","Property","High Net Worth","Yes",10
+"3726","Ange","Austick","F",36,1976-06-17,"GIS Technical Architect","Property","Mass Customer","No",19
+"3571","Othilia","Metcalf","F",9,1976-06-09,"Senior Sales Associate","Property","Mass Customer","Yes",3
+"3760","Bryana","Vennart","F",73,1976-06-09,NA,"Financial Services","Mass Customer","No",18
+"3807","Bibby","Goman","F",73,1976-05-21,"Analyst Programmer","Retail","Mass Customer","No",21
+"3792","Ingunna","Loxston","F",81,1976-04-16,"VP Marketing","Financial Services","Affluent Customer","Yes",5
+"3724","Griffith","Minor","M",24,1976-03-23,NA,"IT","Affluent Customer","No",9
+"3921","Gaby","Lozano","F",93,1976-03-09,"Mechanical Systems Engineer","Manufacturing","High Net Worth","No",10
+"3555","Latashia",NA,"F",96,1976-02-26,"Programmer Analyst II","Manufacturing","Mass Customer","No",21
+"3773","Wadsworth","Ruselin","M",44,1976-02-06,"Accountant I",NA,"Affluent Customer","Yes",18
+"3601","Fanya","Gethyn","F",85,1975-12-23,"Junior Executive","IT","Mass Customer","No",18
+"3995","Rusty","Iapico","M",93,1975-12-12,"Staff Scientist","Manufacturing","Mass Customer","Yes",14
+"3595","Timi","Huson","F",81,1975-12-06,"Software Consultant","Retail","Mass Customer","No",6
+"3722","Merilee","Hammerson","F",69,1975-11-07,NA,"Retail","Mass Customer","No",7
+"3641","Wolfie","Hoyes","M",78,1975-10-02,"Civil Engineer","Manufacturing","Affluent Customer","No",12
+"3889","Dunn","Ziem","M",39,1975-08-09,"General Manager","Retail","Affluent Customer","No",18
+"3996","Rosalia","Halgarth","F",8,1975-08-09,"VP Product Management","Health","Mass Customer","No",19
+"3853","Kerri","Marrington","F",91,1975-06-26,"Accounting Assistant IV",NA,"Mass Customer","Yes",19
+"3506","Mercy","Donisi","F",19,1975-06-18,"Web Designer I","Financial Services","Mass Customer","No",15
+"3523","Lin","Tarver","M",33,1975-06-14,NA,NA,"Affluent Customer","No",19
+"3534","Kacie","Stanbrooke","F",92,1975-05-15,"Associate Professor","Manufacturing","Affluent Customer","Yes",3
+"3704","Haslett","Ropars","M",54,1975-05-08,"Health Coach III","Health","High Net Worth","Yes",6
+"3547","Ganny","Dwerryhouse","M",19,1975-05-06,"Senior Financial Analyst","Financial Services","Affluent Customer","No",8
+"3542","Perl","Suddaby","F",23,1975-03-11,"Financial Analyst","Financial Services","Mass Customer","No",10
+"3951","Ephrem","Hollerin","M",39,1975-02-10,"Quality Control Specialist",NA,"Affluent Customer","Yes",9
+"3621","Umeko","Hearfield","F",13,1975-01-16,"Developer IV","Health","High Net Worth","No",15
+"3515","Leelah","Pynner","F",11,1975-01-14,"Staff Scientist","Telecommunications","High Net Worth","Yes",18
+"3553","Dietrich","Geggie","M",97,1974-12-29,"Graphic Designer","Health","Mass Customer","No",10
+"3869","Amalie","Isabell","F",58,1974-12-22,"Analog Circuit Design manager","Manufacturing","Affluent Customer","No",13
+"3993","Andi","Dumelow","F",6,1974-12-05,"Librarian","Entertainment","Mass Customer","No",10
+"3715","Willow","Rusbridge","F",19,1974-11-08,"Computer Systems Analyst I","Argiculture","High Net Worth","Yes",10
+"3628","Sharron","Gaynes","F",47,1974-10-17,"Financial Advisor","Financial Services","Mass Customer","Yes",14
+"3771","Pippy","Matysiak","F",78,1974-09-08,"Electrical Engineer","Manufacturing","Mass Customer","No",17
+"3810","Cacilie","Grimoldby","F",22,1974-09-05,"Food Chemist","Health","Affluent Customer","No",5
+"3783","Eachelle","Girardey","F",61,1974-08-29,"Compensation Analyst","Financial Services","Mass Customer","No",7
+"3710","Sallyann","Stangoe","F",12,1974-08-22,"Physical Therapy Assistant",NA,"Mass Customer","No",13
+"3505","Dolly","Scallan","F",41,1974-08-06,NA,"Retail","Mass Customer","No",14
+"3545","Wenonah","Filgate","F",66,1974-07-19,"Developer II",NA,"High Net Worth","No",4
+"3979","Kleon","Adam","M",67,1974-07-13,NA,"Financial Services","Mass Customer","Yes",18
+"3655","Waldemar","Mostin","M",82,1974-06-01,NA,NA,"Mass Customer","Yes",19
+"3901","Evelina","Bavin","F",98,1974-05-14,"Marketing Manager","Argiculture","High Net Worth","No",12
+"3684","Jeffie","Mortell","M",13,1974-04-25,"Food Chemist","Health","High Net Worth","Yes",4
+"3701","Anstice","Dunsmuir","F",93,1974-01-20,"Physical Therapy Assistant",NA,"Affluent Customer","No",9
+"3639","Megan","Perrygo","F",49,1974-01-11,"Food Chemist","Health","High Net Worth","No",15
+"3524","Waiter","Piscopello","M",38,1973-12-30,"Design Engineer","Financial Services","Mass Customer","Yes",18
+"3575","Kandace","Desesquelle","F",82,1973-11-06,"Administrative Assistant I","IT","Affluent Customer","Yes",13
+"3999","Patrizius",NA,"M",11,1973-10-24,NA,"Manufacturing","Affluent Customer","Yes",10
+"3530","Erik","Kenneford","M",19,1973-10-23,"Staff Scientist",NA,"High Net Worth","Yes",8
+"3832","Sarajane","Mortimer","F",30,1973-09-26,"Safety Technician III","Financial Services","High Net Worth","No",9
+"3691","Mathew","Seid","M",73,1973-08-16,"Environmental Tech","Retail","Affluent Customer","No",11
+"3938","Dulcy","Wormleighton","F",25,1973-08-06,"Account Executive","Financial Services","High Net Worth","Yes",9
+"3761","Zarla","Seyers","F",87,1973-07-20,"Biostatistician II","Telecommunications","Mass Customer","Yes",13
+"3703","Kelvin","Oldford","M",37,1973-06-18,"Teacher","Property","Affluent Customer","No",9
+"3782","Elijah","Drillot","M",12,1973-06-13,"Environmental Specialist","Financial Services","Mass Customer","No",11
+"3569","Janel","Daice","F",24,1973-05-18,"Senior Editor",NA,"Affluent Customer","No",12
+"3608","Conway","Surgen","M",86,1973-05-17,"Nurse Practicioner","Argiculture","High Net Worth","No",8
+"3944","Urbain","Sinnock","M",28,1973-05-04,"Engineer III","IT","Affluent Customer","No",3
+"3562","Martynne","Bullivant","F",76,1973-01-02,"Recruiting Manager",NA,"Affluent Customer","No",10
+"3834","Bianca","Ricket","F",59,1972-10-31,"Compensation Analyst","Financial Services","Mass Customer","Yes",11
+"3720","Adelice","Tams","F",23,1972-08-15,NA,NA,"Mass Customer","No",15
+"3564","Sandy","Olford","M",43,1972-05-15,"Programmer Analyst IV",NA,"High Net Worth","Yes",18
+"3580","Roby","Samson","F",61,1972-04-24,"Occupational Therapist","Health","Mass Customer","No",10
+"3613","Fairfax","Pummery","M",27,1972-04-21,"Budget/Accounting Analyst II","Health","Mass Customer","Yes",9
+"3750","Yanaton","Beacom","M",78,1972-04-14,"Chemical Engineer","Manufacturing","Affluent Customer","Yes",6
+"3978","Kathlin","Robker","F",4,1972-03-02,"Developer II","Financial Services","Mass Customer","No",5
+"3705","Tedmund","Clawsley","M",26,1971-12-04,NA,"Manufacturing","Mass Customer","Yes",15
+"3647","Carlyle","Frape","M",62,1971-11-07,"Marketing Manager",NA,"Affluent Customer","No",4
+"3687","Jessie","Wards","M",84,1971-10-14,"Software Engineer III","Manufacturing","Mass Customer","Yes",14
+"3700","Lazar","Restall","M",64,1971-09-06,"Associate Professor","Entertainment","Mass Customer","No",19
+"3975","Dianemarie","Kidgell","F",2,1971-08-11,"Administrative Assistant I","Entertainment","Affluent Customer","No",18
+"3842","Van","Durnell","M",24,1971-07-11,"Staff Accountant II",NA,"Mass Customer","Yes",12
+"3778","Ilaire","Redborn","M",99,1971-06-09,"Dental Hygienist","Health","High Net Worth","No",10
+"3831","Kory","Mabson","M",10,1971-06-09,"Librarian","Entertainment","Affluent Customer","Yes",6
+"3604","Findlay","Lubman","M",3,1971-04-09,"VP Quality Control","Health","High Net Worth","Yes",9
+"3801","Auberta","Andrault","F",76,1971-03-06,"Research Nurse","Health","Mass Customer","Yes",17
+"3643","Bettye","Dumberrill","F",62,1971-02-08,"Technical Writer",NA,"Mass Customer","No",15
+"3799","Violetta","Monnery","F",94,1971-01-28,"Tax Accountant","Property","High Net Worth","No",18
+"3877","Georgine","Poutress","F",55,1971-01-28,"Account Coordinator",NA,"High Net Worth","No",11
+"3768","Christina","Grevatt","F",44,1971-01-17,"Senior Financial Analyst","Financial Services","Mass Customer","Yes",14
+"3881","Olivie","Nazair","F",50,1971-01-12,NA,"Financial Services","Affluent Customer","No",18
+"3802","Leila","Elcombe","F",9,1970-10-27,"Chief Design Engineer","Telecommunications","High Net Worth","Yes",5
+"3955","Dido","Austick","F",87,1970-08-05,"Geologist II","Argiculture","Mass Customer","Yes",7
+"3725","Elisha","Venny","M",37,1970-07-21,"Research Assistant II",NA,"Mass Customer","Yes",5
+"3636","Trudi","Bickerstasse","F",42,1970-06-24,"Director of Sales","Financial Services","Mass Customer","Yes",18
+"3947","Tanitansy","McTrustam","F",26,1970-05-12,"GIS Technical Architect",NA,"Mass Customer","No",12
+"3958","Pincus","Woodard","M",8,1970-04-27,"Actuary","Financial Services","Affluent Customer","Yes",16
+"3766","Marcos","Algar","M",47,1970-04-13,"Desktop Support Technician","Financial Services","Mass Customer","Yes",19
+"3611","Uriah","Chantree","M",20,1970-04-10,"Statistician II",NA,"Affluent Customer","Yes",10
+"3741","Mollee","Jeavons","F",19,1970-02-01,"Nurse",NA,"Affluent Customer","Yes",16
+"3501","Kayla","Alentyev","F",63,1970-01-19,"Operator","Telecommunications","Mass Customer","Yes",18
+"3970","Modesty","Storks","F",73,1969-11-27,"Sales Representative","Retail","High Net Worth","Yes",12
+"3816","Farra","Klimkiewich","F",93,1969-10-26,"Safety Technician I","Property","Mass Customer","Yes",18
+"3808","Cal","Wilber","M",66,1969-10-11,"Recruiting Manager","Manufacturing","Mass Customer","Yes",11
+"3576","Rochette","Ebbens","F",10,1969-09-19,"Account Coordinator",NA,"Mass Customer","No",11
+"3678","Tonya","Worthington","F",52,1969-08-06,"Engineer IV","Manufacturing","Mass Customer","No",19
+"3777","Letty","Giacobelli","F",13,1969-06-12,"Cost Accountant","Financial Services","High Net Worth","Yes",6
+"3785","Fernande","Jahan","F",93,1969-04-09,"Compensation Analyst","Financial Services","Affluent Customer","No",14
+"3531","Shannah","Pountain","F",4,1969-01-27,"Marketing Manager","Retail","Affluent Customer","Yes",11
+"3861","Thayne","Canepe","M",87,1968-12-16,"Junior Executive","Retail","Affluent Customer","No",9
+"3561","Emelda","Allbones","F",15,1968-11-16,"Help Desk Operator","Financial Services","Mass Customer","Yes",5
+"3966","Astrix","Sigward","F",53,1968-09-15,"Geologist I",NA,"Mass Customer","Yes",11
+"3950","Alic","Juniper","M",72,1968-09-07,"Senior Financial Analyst","Financial Services","High Net Worth","Yes",12
+"3952","Di","Borsnall","F",96,1968-05-09,NA,"Manufacturing","Affluent Customer","No",10
+"3798","Yorker","Dennison","M",13,1968-02-22,NA,"Manufacturing","Mass Customer","Yes",17
+"3644","Peder","Frotton","M",13,1968-01-18,"Physical Therapy Assistant","Financial Services","High Net Worth","Yes",17
+"3880","Donella","Disley","F",77,1968-01-13,"Web Designer I","Manufacturing","Mass Customer","No",14
+"3849","Marice","Morrice","F",2,1968-01-01,"Database Administrator III","Property","Mass Customer","Yes",15
+"3536","Laurence","Aulsford","M",46,1967-12-24,"Professor","Retail","Affluent Customer","No",18
+"3905","Leodora","Cowill","F",72,1967-10-22,"Product Engineer","Argiculture","High Net Worth","No",5
+"3689","Orel","Joncic","F",26,1967-09-25,NA,"Health","Mass Customer","Yes",7
+"3897","Vanni","McAloren","F",36,1967-06-24,"Junior Executive","Manufacturing","High Net Worth","Yes",5
+"3876","Willow","Cutmere","F",22,1967-05-16,"Internal Auditor","Financial Services","High Net Worth","No",16
+"3762","Marinna","Ors","F",48,1967-03-22,NA,"Property","Mass Customer","No",14
+"3511","Willem","Spraging","M",23,1966-12-31,"Food Chemist","Health","Affluent Customer","No",10
+"3618","Evyn","Rouby","M",2,1966-04-28,"Statistician IV","Retail","Affluent Customer","Yes",19
+"3706","Darby","Jellett","M",20,1966-04-03,"Assistant Professor","Argiculture","Affluent Customer","Yes",10
+"3549","Jodee","Macewan","F",0,1966-02-24,"Sales Representative","Retail","Mass Customer","No",7
+"3661","Tadeas","Shitliff","M",34,1965-12-18,"Research Associate","Manufacturing","Mass Customer","Yes",7
+"3676","Derk","Willingale","M",27,1965-12-15,"Health Coach I","Health","Affluent Customer","No",11
+"3787","Mariejeanne","Kelling","F",1,1965-10-06,"Systems Administrator III","Manufacturing","High Net Worth","No",6
+"3977","Katrinka","Van der Beken","F",31,1965-08-21,"Biostatistician II","Manufacturing","Mass Customer","Yes",16
+"3796","Morgen","Sieghart","M",51,1965-07-27,"Paralegal","Financial Services","Mass Customer","Yes",9
+"3583","Josselyn","Mathey","F",71,1965-05-27,"Assistant Professor","Retail","Affluent Customer","No",5
+"3983","Jarred","Lyste","M",19,1965-04-21,"Graphic Designer",NA,"Mass Customer","Yes",9
+"3942","Barbie","Gergler","F",82,1965-04-02,"Administrative Officer","Manufacturing","Mass Customer","No",12
+"3855","Brnaby","Doughtery","M",89,1965-02-26,"General Manager",NA,"Mass Customer","No",16
+"3823","Corabel","Todd","F",5,1964-12-02,"Budget/Accounting Analyst II","Retail","Affluent Customer","No",4
+"3229","Carrol","Gheorghie","M",69,1964-10-18,"Sales Representative","Retail","High Net Worth","Yes",6
+"3818","Erny","Andryushin","M",5,1964-08-08,"Sales Representative","Retail","Mass Customer","Yes",7
+"3887","Dulcie","Nealon","F",66,1964-07-16,"Computer Systems Analyst IV",NA,"Affluent Customer","No",7
+"3987","Beckie","Wakeham","F",18,1964-05-29,NA,"Argiculture","Mass Customer","No",7
+"3528","Eliot","Scammell","M",69,1964-04-06,"Internal Auditor","Manufacturing","Mass Customer","Yes",7
+"3577","Fowler","Scotsbrook","M",29,1964-02-18,"Staff Scientist","Retail","High Net Worth","No",10
+"3980","Nils","McGebenay","M",41,1964-01-16,"Web Designer I","Manufacturing","Mass Customer","No",12
+"2660","Hunt","Scollard","M",44,1963-11-15,NA,"Retail","High Net Worth","Yes",19
+"3864","Ilyssa","Piaggia","F",23,1963-08-27,"Help Desk Technician",NA,"Mass Customer","Yes",10
+"3520","Travis","Kaszper","M",41,1963-08-17,"Research Nurse","Health","Mass Customer","Yes",16
+"3874","Bendicty","Juste","M",47,1963-08-14,"Actuary","Financial Services","Mass Customer","No",19
+"3919","Traci","Beeckx","F",38,1963-07-30,"Cost Accountant","Financial Services","High Net Worth","No",18
+"3973","Carolan","Jorez","F",24,1963-07-13,"Editor","Manufacturing","High Net Worth","No",17
+"3504","Keriann","Perdue","F",39,1963-07-06,"Business Systems Development Analyst","Manufacturing","Mass Customer","Yes",6
+"3634","Clemence","Kornas","F",35,1963-06-01,"Speech Pathologist",NA,"High Net Worth","Yes",15
+"3765","Bobbe","Lomaz","F",20,1963-06-01,"Automation Specialist IV","Property","Mass Customer","No",18
+"3708","Lois","Laskey","F",72,1963-05-15,"Cost Accountant","Financial Services","Mass Customer","No",19
+"3696","Orlan","Dunning","M",27,1962-12-11,"Senior Financial Analyst","Financial Services","High Net Worth","No",15
+"3658","Bo","Vell","M",15,1962-10-20,NA,"Entertainment","Mass Customer","Yes",9
+"3840","Marc","Torrans","M",27,1962-09-30,NA,NA,"High Net Worth","No",5
+"3514","Darcy","Ilett","M",25,1962-08-24,"Environmental Specialist",NA,"Mass Customer","No",8
+"3585","Concordia","Lunbech","F",41,1962-07-28,NA,"Financial Services","High Net Worth","Yes",20
+"3788","Wilie","Glanton","F",73,1962-07-21,"Environmental Specialist","Financial Services","Mass Customer","No",18
+"3631","Mignonne","Barwood","F",76,1962-07-01,"Project Manager","IT","High Net Worth","Yes",16
+"3982","Maurita","O'Kinedy","F",89,1962-06-02,"General Manager","Manufacturing","Mass Customer","Yes",12
+"3890","Mavra","Padell","F",72,1962-05-25,"Physical Therapy Assistant","Retail","Mass Customer","No",10
+"3642","Ardith","Portigall","F",39,1962-05-21,NA,NA,"Affluent Customer","Yes",8
+"3600","Godart","Gooderick","M",88,1962-05-17,"Staff Accountant II",NA,"Mass Customer","No",16
+"3551","Zed","Douris","M",37,1962-05-10,"Pharmacist","Health","Mass Customer","Yes",8
+"3714","Lemuel","Gerram","M",83,1962-03-30,"VP Sales","Manufacturing","Mass Customer","No",6
+"3589","Nalani","Dummer","F",73,1962-02-19,"Computer Systems Analyst II","Health","High Net Worth","No",17
+"3681","Doll","Benedicto","F",90,1962-02-06,"Community Outreach Specialist","Property","Mass Customer","Yes",20
+"3570","Mordy","Hedin","M",13,1962-01-31,NA,"Entertainment","Mass Customer","No",7
+"3584","Adler","Teale","M",95,1962-01-14,NA,"Health","Mass Customer","No",10
+"3582","Beryle","Qusklay","F",66,1961-12-11,"Media Manager II","Property","Mass Customer","No",17
+"3735","Cchaddie","Heffron","M",91,1961-12-02,"Senior Quality Engineer","Entertainment","Mass Customer","No",15
+"3742","Veda","Faill","F",79,1961-11-09,"Editor","Property","High Net Worth","Yes",16
+"3692","Linea","Kubica","F",47,1961-11-05,"Business Systems Development Analyst",NA,"High Net Worth","Yes",6
+"3781","Karalee","Hosten","F",30,1961-10-16,"Graphic Designer","Retail","Mass Customer","Yes",12
+"3752","Peta","Nunes Nabarro","F",67,1961-09-15,"Administrative Assistant I","Argiculture","Affluent Customer","Yes",16
+"3746","Thaddeus","McLurg","M",64,1961-09-01,"Developer II",NA,"Affluent Customer","Yes",16
+"3627","Loren","Pischof","M",92,1961-08-12,"Teacher","Health","High Net Worth","Yes",14
+"3657","Wyatan","Rogeon","M",95,1961-07-24,NA,NA,"High Net Worth","No",8
+"3645","Cozmo","Rylstone","M",47,1961-07-04,"Structural Analysis Engineer","Manufacturing","High Net Worth","No",14
+"3614","Berkie","Gimber","M",59,1961-06-23,"Environmental Specialist","Retail","Affluent Customer","Yes",18
+"3588","Henrie","Beadman","F",15,1961-06-04,"Web Developer III","Health","Affluent Customer","Yes",18
+"3803","Josepha","Finder","F",54,1961-05-13,"Dental Hygienist","Health","Mass Customer","Yes",11
+"3711","Ellene","Scinelli","F",61,1961-05-04,"Associate Professor","Manufacturing","Affluent Customer","Yes",9
+"3754","Emmy","MacGibbon","F",74,1961-02-16,NA,"Telecommunications","Mass Customer","No",19
+"3847","Erinn","Ewing","F",8,1961-02-12,"Analyst Programmer","Health","Mass Customer","Yes",14
+"3902","Angelia","McPake","F",2,1961-02-11,"Payment Adjustment Coordinator","Manufacturing","Affluent Customer","No",9
+"3974","Misha","Ranklin","F",82,1961-02-11,"Technical Writer",NA,"Affluent Customer","Yes",9
+"3920","Filbert","Deetlefs","M",90,1961-01-21,"Environmental Specialist","Telecommunications","Mass Customer","Yes",9
+"3729","Armand","McNish","M",6,1960-12-16,"Financial Analyst","Financial Services","Mass Customer","No",19
+"3529","Austine","Kinny","F",37,1960-11-23,"Structural Analysis Engineer","IT","High Net Worth","Yes",16
+"3946","Wylie","FitzGilbert","M",85,1960-06-23,NA,"Retail","High Net Worth","Yes",10
+"3936","Rodd","Spare","M",57,1960-05-04,"Paralegal","Financial Services","Affluent Customer","Yes",16
+"3730","Joann","Clemson","F",85,1960-02-18,"Junior Executive","Manufacturing","Affluent Customer","No",6
+"3984","Thadeus","Buxsey","M",74,1960-02-16,"Librarian","Entertainment","Affluent Customer","No",10
+"3913","Phylys","Neenan","F",11,1959-12-29,"Community Outreach Specialist","Retail","Mass Customer","Yes",6
+"3738","Lucila","Smalls","F",19,1959-12-19,"Professor","Financial Services","High Net Worth","Yes",19
+"3758","Naomi","Whiles","F",71,1959-07-30,"Recruiting Manager","Telecommunications","Mass Customer","Yes",12
+"3915","Cybil","Brombell","F",17,1959-06-23,"Statistician I","Financial Services","Affluent Customer","No",15
+"3822","Conny","Speechley","M",37,1959-03-09,NA,"Manufacturing","High Net Worth","Yes",18
+"3835","Jorgan","Crosoer","M",19,1959-02-02,"Project Manager",NA,"Affluent Customer","No",16
+"3898","Demetrius","Youdell","M",91,1958-12-27,"Registered Nurse","Health","Mass Customer","No",6
+"3717","Arlin","Woollacott","M",88,1958-12-07,"Senior Financial Analyst","Financial Services","Mass Customer","Yes",18
+"3916","Myrtia",NA,"F",31,1958-10-17,NA,"Retail","Affluent Customer","Yes",17
+"1373","Shaylynn","Epsley","F",3,1958-09-23,"Director of Sales","Financial Services","Mass Customer","Yes",12
+"3548","Dalli","Seden","M",65,1958-08-02,NA,NA,"Affluent Customer","No",12
+"3848","Luca","Cabotto","M",4,1958-01-13,"Structural Engineer",NA,"High Net Worth","No",13
+"3637","Luigi","Edgeworth","M",84,1958-01-01,NA,"Manufacturing","Affluent Customer","Yes",11
+"3976","Gretel","Chrystal","F",0,1957-11-20,"Internal Auditor",NA,"Affluent Customer","Yes",13
+"3712","Esmeralda","Klousner","F",22,1957-07-12,"Recruiting Manager","Financial Services","Mass Customer","No",19
+"3581","Lindsy","Ygo","F",38,1957-07-10,NA,NA,"Mass Customer","Yes",6
+"3517","Domeniga","Terney","F",47,1957-07-04,"Accounting Assistant IV",NA,"Mass Customer","Yes",6
+"3872","Wilma","Budcock","F",14,1957-05-15,"Sales Representative","Retail","High Net Worth","Yes",12
+"3793","Shannen","Pitcock","F",49,1957-05-12,"Engineer IV",NA,"Affluent Customer","Yes",15
+"3690","Sheela","Nutton","F",86,1957-05-11,"Chemical Engineer","Manufacturing","Mass Customer","No",17
+"3764","Nonie","Newson","F",29,1957-05-06,"Cost Accountant","Financial Services","Mass Customer","Yes",15
+"3817","Tuckie",NA,"M",65,1957-05-02,"VP Product Management","Manufacturing","High Net Worth","No",13
+"3683","Lorain","Maliphant","F",67,1957-03-30,"Chief Design Engineer",NA,"Mass Customer","Yes",11
+"3666","Mathew","Marousek","M",56,1957-03-27,"Statistician II","Health","High Net Worth","No",10
+"3606","Jamima","Wainscot","F",52,1957-02-09,"Graphic Designer",NA,"High Net Worth","No",15
+"3956","Hector","Poundsford","M",54,1957-01-17,"Administrative Assistant III","Retail","Mass Customer","Yes",12
+"3578","Dorella","Sineath","F",57,1956-10-27,"Staff Accountant IV","Property","Mass Customer","No",12
+"3719","Dorette","Attridge","F",26,1956-10-19,"Sales Representative","Retail","Mass Customer","No",6
+"3789","Conn","Westberg","M",52,1956-08-08,"Civil Engineer","Manufacturing","Mass Customer","Yes",6
+"3964","Aubrey","Souten","F",28,1956-07-21,"Sales Associate","Manufacturing","High Net Worth","No",5
+"3795","Taylor","Dollimore","M",88,1956-06-24,"Systems Administrator III","Argiculture","High Net Worth","Yes",5
+"3859","Boonie","Searle","M",81,1956-03-20,"Software Consultant","Manufacturing","Mass Customer","No",14
+"3846","Nariko","McClymont","F",57,1956-03-12,"Geologist III","Manufacturing","Mass Customer","No",15
+"3599","Lane","Maguire","M",11,1956-02-27,"Physical Therapy Assistant",NA,"High Net Worth","Yes",6
+"3748","Maurise","Beal","M",82,1956-01-10,"Staff Scientist",NA,"Affluent Customer","Yes",18
+"3899","Rex","Gittings","M",23,1955-12-28,"Research Associate","Health","Affluent Customer","Yes",6
+"3568","Berthe","Griniov","F",13,1955-09-15,"Nurse","Retail","Affluent Customer","No",5
+"3809","Angelita","Itzcovichch","F",44,1955-09-08,"VP Quality Control","Manufacturing","Affluent Customer","No",11
+"3845","Bonnie","Goracci","F",72,1955-06-07,"Legal Assistant","Manufacturing","Mass Customer","Yes",5
+"3709","Lilly","Roubay","F",31,1955-03-31,"GIS Technical Architect","Health","Mass Customer","No",8
+"3507","Christoph","Greatreax","M",70,1955-03-03,"Physical Therapy Assistant","Financial Services","Mass Customer","No",5
+"3668","Katlin","Ragsdale","F",79,1955-02-09,"Desktop Support Technician","Property","Mass Customer","Yes",6
+"3652","Aldrich","Camble","M",20,1955-02-06,"Nurse","Health","High Net Worth","Yes",17
+"3830","Jareb","Filippucci","M",92,1954-10-31,"Sales Representative","Retail","High Net Worth","No",8
+"3603","Cale","Yaneev","M",90,1954-09-27,"Sales Representative","Retail","Mass Customer","Yes",14
+"3558","Torey","Sarney","M",16,1954-09-05,NA,NA,"High Net Worth","Yes",7
+"3926","Allistir","Heckney","M",24,1954-09-04,"Account Executive","Manufacturing","Mass Customer","Yes",18
+"3540","Ali","Naris","M",49,1954-08-27,NA,NA,"Mass Customer","Yes",7
+"3963","Ardelle","Dasent","F",10,1954-08-22,"Software Test Engineer II",NA,"Mass Customer","No",13
+"3597","Giorgi",NA,"M",71,1954-06-16,"Analog Circuit Design manager","Property","Affluent Customer","Yes",16
+"3911","Valeda","Ezele","F",81,1954-05-25,"Recruiting Manager",NA,"Mass Customer","No",5
+"3592","Pall","MacCart","M",72,1954-04-27,"Junior Executive",NA,"Mass Customer","No",12
+"3648","Tracie","Bartolomeoni","F",82,1954-02-21,"Paralegal","Financial Services","Mass Customer","No",5
+"3806","Ado","Gailor","M",1,1954-02-08,NA,"Property","Mass Customer","No",7
+"3625","Cammie","Rubinfeld","F",24,1953-11-30,"VP Marketing","Manufacturing","High Net Worth","Yes",18
+"3510","Jemima","Izaac","U",48,NA,"Safety Technician II","IT","Affluent Customer","Yes",NA
+"3513","Enriqueta","Waterhowse","U",80,NA,"Internal Auditor","IT","Affluent Customer","Yes",NA
+"3565","Charyl","Pottiphar","U",14,NA,"Structural Engineer","IT","High Net Worth","Yes",NA
+"3654","Kenyon","Paddefield","U",78,NA,"Electrical Engineer","Manufacturing","Mass Customer","No",NA
+"3718","Damiano",NA,"U",22,NA,"Geologist IV","IT","Mass Customer","Yes",NA
+"3727","Eba","Youle","U",65,NA,"Assistant Professor","IT","Mass Customer","No",NA
+"3779","Ulick","Daspar","U",68,NA,NA,"IT","Affluent Customer","No",NA
+"3883","Nissa","Conrad","U",35,NA,"Legal Assistant","IT","Mass Customer","No",NA
+"3931","Kylie","Epine","U",19,NA,NA,"IT","High Net Worth","Yes",NA
+"3935","Teodor","Alfonsini","U",72,NA,NA,"IT","High Net Worth","Yes",NA
+"3998","Sarene","Woolley","U",60,NA,"Assistant Manager","IT","High Net Worth","No",NA
