@@ -1,6 +1,10 @@
 ---
 title: "data quality assessment"
-format: html
+format:
+  html:
+    toc: true
+    html-math-method: katex
+    css: styles.css
 editor: visual
 ---
 
@@ -80,14 +84,14 @@ count_nulls <- function(df) {
 # Use the function to count nulls
 count_nulls(CustomerDemographic)
 ```
-last_name, job_title, default, tenure, DOB are columns with null values.
 
+last_name, job_title, default, tenure, DOB are columns with null values.
 
 ```{r}
 str(CustomerDemographic)
 ```
-All data types are correct.
 
+All data types are correct.
 
 ### DOB
 
@@ -97,6 +101,7 @@ CustomerDemographic <-
   CustomerDemographic |> 
     filter(customer_id != 34)
 ```
+
 DOB column has been cleaned.
 
 ```{r}
@@ -105,7 +110,6 @@ CustomerDemographic <-
   mutate(DOB = as.Date(CustomerDemographic$DOB))
 ```
 
-
 ### customer_id
 
 ```{r}
@@ -113,8 +117,8 @@ CustomerDemographic <-
 length(unique(CustomerDemographic$customer_id))
 cat("CustomerDemographic dimensions: ", dim(CustomerDemographic), "\n")
 ```
-Total rows of the table is 3999 and number of unique values in customer_id is also 3999.
 
+Total rows of the table is 3999 and number of unique values in customer_id is also 3999.
 
 We should also check if customer_id from CustomerDemographic, CustomerAddress, and Transactions tables contain the same ids.
 
@@ -126,20 +130,18 @@ CustomerAddress$customer_id[!(CustomerAddress$customer_id %in% CustomerDemograph
 ```{r}
 unique(Transactions$customer_id[!(Transactions$customer_id %in% CustomerDemographic$customer_id)])
 ```
+
 Additional customer_ids in the Transactions table and Customer Address table but not in CustomerDemographic.
 
 34 753 3790 4001 4002 4003 5034
 
-
 We decide that only customers in the CustomerDemographic table will used for training.
-
 
 ### gender
 
 ```{r}
 unique(CustomerDemographic$gender)
 ```
-
 
 ```{r}
 CustomerDemographic <- CustomerDemographic  |> 
@@ -152,21 +154,17 @@ CustomerDemographic <- CustomerDemographic  |>
 # Print the unique values after transformation
 unique(CustomerDemographic$gender)
 ```
-We will assume "U" as "Unknown" because these customers did not provide this information.
 
+We will assume "U" as "Unknown" because these customers did not provide this information.
 
 ```{r}
 table(CustomerDemographic$gender)
 ```
 
-
 ```{r}
 # subset this "U" group in case there's meaning analysis
 Customer_U_gender <- subset(CustomerDemographic, gender == "U")
 ```
-
-
-
 
 ### first_name and last_name
 
@@ -174,8 +172,8 @@ Customer_U_gender <- subset(CustomerDemographic, gender == "U")
 # 125 counts of customers whose last names are not provided or they don't have one
 CustomerDemographic |> filter(is.na(last_name))
 ```
-Leave as is for now (no removal or imputation).
 
+Leave as is for now (no removal or imputation).
 
 ```{r}
 # Check and remove leading/trailing spaces from first_name and last_name
@@ -186,7 +184,6 @@ CustomerDemographic <- CustomerDemographic |>
   )
 ```
 
-
 ### past_3_years_bike_related_purchases
 
 ```{r}
@@ -195,8 +192,8 @@ ggplot(CustomerDemographic, aes(past_3_years_bike_related_purchases)) +
 
 summary(CustomerDemographic$past_3_years_bike_related_purchases)
 ```
-Distribution of this column looks reasonable.
 
+Distribution of this column looks reasonable.
 
 ### job_title
 
@@ -204,9 +201,7 @@ Distribution of this column looks reasonable.
 unique(CustomerDemographic$job_title)
 ```
 
-
 ### job_industry_category
-
 
 ```{r}
 unique(CustomerDemographic$job_industry_category)
@@ -220,22 +215,19 @@ CustomerDemographic <- CustomerDemographic |>
 unique(CustomerDemographic$job_industry_category)
 ```
 
-
-
 ### wealth_segment
 
 ```{r}
 unique(CustomerDemographic$wealth_segment)
 ```
 
-
 ### deceased_indicator
 
 ```{r}
 table(CustomerDemographic$deceased_indicator)
 ```
-Deceased customers serve no purpose to analysis because the new targeted customers are obviously alive.
-Thus, the deceased customers will be removed.
+
+Deceased customers serve no purpose to analysis because the new targeted customers are obviously alive. Thus, the deceased customers will be removed.
 
 ```{r}
 # remove deceased customers
@@ -245,37 +237,31 @@ CustomerDemographic <- filter(CustomerDemographic, deceased_indicator == "N")
 CustomerDemographic <- select(CustomerDemographic, -deceased_indicator)
 ```
 
-
 ```{r}
 
 ```
-
-
 
 ```{r}
 dlookr::diagnose(CustomerDemographic)
 ```
-
 
 ### default
 
 ```{r}
 head(CustomerDemographic$default,25)
 ```
-Seems to be some corrupted text metadata.
-We will remove this column also.
+
+Seems to be some corrupted text metadata. We will remove this column also.
 
 ```{r}
 CustomerDemographic <- select(CustomerDemographic, !default)
 ```
 
-
 ### owns_car
+
 ```{r}
 table(CustomerDemographic$owns_car)
 ```
-
-
 
 ### tenure
 
@@ -289,13 +275,12 @@ ggplot(CustomerDemographic, aes(tenure)) +
 ggplot(CustomerDemographic, aes(tenure)) +
   geom_bar()
 ```
-We will assume that tenure represents the number of years each customer has been a customer of the company.
 
+We will assume that tenure represents the number of years each customer has been a customer of the company.
 
 ```{r}
 count_nulls(CustomerDemographic)
 ```
-
 
 ## Clean CustomerAddress
 
@@ -308,11 +293,9 @@ CustomerAddress$customer_id <- as.character(CustomerAddress$customer_id)
 CustomerAddress$postcode <- as.character(CustomerAddress$postcode)
 ```
 
-
 ```{r}
 count_nulls(CustomerAddress)
 ```
-
 
 ### customer_id
 
@@ -322,15 +305,11 @@ CustomerAddress <- CustomerAddress |>
   filter(!(customer_id %in% c("34", "753", "3790", "4001", "4002", "4003")))
 ```
 
-
-
 ### address
 
 ```{r}
 head(CustomerAddress$address, 15)
 ```
-
-
 
 ### postcode
 
@@ -344,7 +323,6 @@ head(CustomerAddress$postcode, 10)
 unique(CustomerAddress$state)
 ```
 
-
 ```{r}
 CustomerAddress <- CustomerAddress |> 
   mutate(state = case_when(
@@ -355,14 +333,11 @@ CustomerAddress <- CustomerAddress |>
   ))
 ```
 
-
-
 ### country
 
 ```{r}
 unique(CustomerAddress$country)
 ```
-
 
 ### property_valuation
 
@@ -370,14 +345,11 @@ unique(CustomerAddress$country)
 summary(CustomerAddress$property_valuation)
 ```
 
-
 ## Clean Transactions
-
 
 ```{r}
 str(Transactions)
 ```
-
 
 ```{r}
 Transactions
@@ -389,21 +361,18 @@ Transactions <- Transactions |>
     transaction_id = as.character(transaction_id),
     customer_id = as.character(customer_id),
     product_id = as.character(product_id),
-    product_first_sold_date = as.Date(as.POSIXct("1899-12-30")) + 
-      lubridate::days(product_first_sold_date),
+    product_first_sold_date = as.Date(as.character(Transactions$product_first_sold_date)),
     transaction_date = as.Date(transaction_date)
   )
+
+# as.Date(as.character(Transactions$product_first_sold_date))
 ```
-
-
 
 ```{r}
 count_nulls(Transactions)
 ```
 
-brand, product_size, product_size, product_line, product_class, standard_cost
-are missing with the same amount of values.
-Potentially, 197 transaction observations are missing this product info.
+brand, product_size, product_size, product_line, product_class, standard_cost are missing with the same amount of values. Potentially, 197 transaction observations are missing this product info.
 
 We will remove these transactions from training and subset it for further analysis.
 
@@ -416,11 +385,12 @@ Tx_missing_product_info <- Transactions |>
 
 Tx_missing_product_info
 ```
+
 ```{r}
 unique(Tx_missing_product_info$product_id)
 ```
-There appears to be missing product info only for product id 0.
 
+There appears to be missing product info only for product id 0.
 
 ```{r}
 # # remove transactions missing product info
@@ -431,15 +401,14 @@ There appears to be missing product info only for product id 0.
 #   )
 ```
 
-
 ### transaction_date
 
 ```{r}
 min(format(Transactions$transaction_date, "%Y-%m-%d"))
 max(format(Transactions$transaction_date, "%Y-%m-%d"))
 ```
-a year worth of transaction data.
 
+a year worth of transaction data.
 
 ### transaction_id
 
@@ -448,14 +417,13 @@ length(unique(Transactions$transaction_id))
 nrow(Transactions)
 ```
 
-
 ### product_id
 
 ```{r}
 length(unique(Transactions$product_id))
 ```
-101 products.
 
+101 products.
 
 ### customer_id
 
@@ -471,6 +439,7 @@ Transactions <- Transactions |>
 length(unique(Transactions$customer_id))
 length(unique(CustomerDemographic$customer_id))
 ```
+
 within the past year, 506 customers did not make a transaction.
 
 ```{r}
@@ -481,16 +450,11 @@ Customer_0tx_past_yr <- CustomerDemographic %>%
 Customer_0tx_past_yr
 ```
 
-
 ### product_first_sold_date
 
 ```{r}
 summary(as.Date(Transactions$product_first_sold_date))
 ```
-
-
-
-
 
 ```{r}
 Tx_missing_product_info |> 
@@ -510,10 +474,10 @@ unique(Transactions$order_status)
 ```
 
 ### brand
+
 ```{r}
 unique(Transactions$brand)
 ```
-
 
 ### product_line
 
@@ -527,20 +491,17 @@ unique(Transactions$product_line)
 unique(Transactions$product_class)
 ```
 
-
 ### product_size
 
 ```{r}
 unique(Transactions$product_size)
 ```
 
-
 ### product_size
 
 ```{r}
 unique(Transactions$product_size)
 ```
-
 
 ### standard_cost
 
@@ -584,7 +545,6 @@ NewCustomerList <- NewCustomerList |>
 summary(NewCustomerList$past_3_years_bike_related_purchases)
 ```
 
-
 ### property_valuation
 
 ```{r}
@@ -607,7 +567,6 @@ head(unique(NewCustomerList$first_name),25)
 ```{r}
 head(unique(NewCustomerList$last_name),25)
 ```
-
 
 ### DOB
 
@@ -639,8 +598,6 @@ NewCustomerList <- bind_rows(NewCustomerList, NCL_subset_numericDOB, NCL_subset_
 
 ```
 
-
-
 ### gender
 
 ```{r}
@@ -659,14 +616,11 @@ NewCustomerList <- NewCustomerList %>%
   )
 ```
 
-
-
 ### job_title
 
 ```{r}
 head(unique(NewCustomerList$job_title),25)
 ```
-
 
 ### job_industry_category
 
@@ -682,7 +636,6 @@ NewCustomerList <- NewCustomerList %>%
                                    job_industry_category)
   )
 ```
-
 
 ### wealth_segment
 
@@ -701,13 +654,11 @@ NewCustomerList <- NewCustomerList |>
   select(-deceased_indicator)
 ```
 
-
 ### owns_car
 
 ```{r}
 unique(NewCustomerList$owns_car)
 ```
-
 
 ### tenure
 
@@ -715,13 +666,11 @@ unique(NewCustomerList$owns_car)
 summary(NewCustomerList$tenure)
 ```
 
-
 ### address
 
 ```{r}
 head(unique(NewCustomerList$address),25)
 ```
-
 
 ### state
 
@@ -729,22 +678,17 @@ head(unique(NewCustomerList$address),25)
 unique(NewCustomerList$state)
 ```
 
-
 ### postcode
 
 ```{r}
 head(unique(NewCustomerList$postcode),25)
 ```
 
-
 ### country
 
 ```{r}
 unique(NewCustomerList$country)
 ```
-
-
-
 
 ```{r}
               #            first_name                           last_name 
@@ -765,10 +709,6 @@ unique(NewCustomerList$country)
               #                     0                                   0 
 ```
 
-
-
-
-
 ## Export cleansed csv files
 
 final look at the four data sets before export.
@@ -777,17 +717,16 @@ final look at the four data sets before export.
 Transactions
 str(Transactions)
 ```
+
 ```{r}
 CustomerDemographic
 str(CustomerDemographic)
 ```
 
-
 ```{r}
 CustomerAddress
 str(CustomerAddress)
 ```
-
 
 ```{r}
 NewCustomerList
@@ -818,19 +757,3 @@ write.csv(Customer_U_gender, "cleansed data/subsets/Customer_U_gender.csv", row.
 write.csv(Tx_missing_product_info, "cleansed data/subsets/Tx_missing_product_info.csv", row.names = FALSE)
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

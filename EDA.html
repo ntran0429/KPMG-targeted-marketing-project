@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>EDA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="EDA_files/libs/clipboard/clipboard.min.js"></script>
+<script src="EDA_files/libs/quarto-html/quarto.js"></script>
+<script src="EDA_files/libs/quarto-html/popper.min.js"></script>
+<script src="EDA_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="EDA_files/libs/quarto-html/anchor.min.js"></script>
+<link href="EDA_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="EDA_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="EDA_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="EDA_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="EDA_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="EDA_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="EDA_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#import-libraries" id="toc-import-libraries" class="nav-link" data-scroll-target="#import-libraries">Import libraries</a></li>
+  <li><a href="#read-in-data" id="toc-read-in-data" class="nav-link" data-scroll-target="#read-in-data">Read in data</a></li>
+  <li><a href="#explore-data" id="toc-explore-data" class="nav-link" data-scroll-target="#explore-data">Explore data</a>
+  <ul class="collapse">
+  <li><a href="#recode-data-types" id="toc-recode-data-types" class="nav-link" data-scroll-target="#recode-data-types">Recode data types</a></li>
+  </ul></li>
+  <li><a href="#impute-data" id="toc-impute-data" class="nav-link" data-scroll-target="#impute-data">Impute data</a>
+  <ul class="collapse">
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#gender" id="toc-gender" class="nav-link" data-scroll-target="#gender">gender</a></li>
+  </ul></li>
+  <li><a href="#join-data" id="toc-join-data" class="nav-link" data-scroll-target="#join-data">Join data</a></li>
+  <li><a href="#label-data-define-target" id="toc-label-data-define-target" class="nav-link" data-scroll-target="#label-data-define-target">Label data (define target)</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">EDA</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+</section>
+<section id="import-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="import-libraries">Import libraries</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.3.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.3.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.3.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># automated EDA libraries</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SmartEDA)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dlookr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dlookr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:tidyr':
+
+    extract</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:base':
+
+    transform</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>&nbsp;</p>
+</section>
+<section id="read-in-data" class="level2">
+<h2 class="anchored" data-anchor-id="read-in-data">Read in data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>CustomerDemographic <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'cleansed data/CustomerDemographic.csv'</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>CustomerAddress <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'cleansed data/CustomerAddress.csv'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>Transactions <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'cleansed data/Transactions.csv'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>NewCustomerList <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'cleansed data/NewCustomerList.csv'</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>Customer_U_gender <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'cleansed data/subsets/Customer_U_gender.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="explore-data" class="level2">
+<h2 class="anchored" data-anchor-id="explore-data">Explore data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(CustomerDemographic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table style="width: auto;" class="table table-condensed">
+<caption>
+Data summary
+</caption>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Name
+</td>
+<td style="text-align:left;">
+CustomerDemographic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of rows
+</td>
+<td style="text-align:left;">
+3997
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of columns
+</td>
+<td style="text-align:left;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+_______________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Column type frequency:
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+character
+</td>
+<td style="text-align:left;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+________________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Group variables
+</td>
+<td style="text-align:left;">
+None
+</td>
+</tr>
+</tbody>
+
+</table>
+<p><strong>Variable type: character</strong></p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+<th style="text-align:right;">
+empty
+</th>
+<th style="text-align:right;">
+n_unique
+</th>
+<th style="text-align:right;">
+whitespace
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+first_name
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3138
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+last_name
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3722
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gender
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DOB
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3445
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+job_title
+</td>
+<td style="text-align:right;">
+506
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+195
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+job_industry_category
+</td>
+<td style="text-align:right;">
+656
+</td>
+<td style="text-align:right;">
+0.84
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wealth_segment
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+owns_car
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+
+</table>
+<p><strong>Variable type: numeric</strong></p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+p0
+</th>
+<th style="text-align:right;">
+p25
+</th>
+<th style="text-align:right;">
+p50
+</th>
+<th style="text-align:right;">
+p75
+</th>
+<th style="text-align:right;">
+p100
+</th>
+<th style="text-align:left;">
+hist
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+customer_id
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+2000.86
+</td>
+<td style="text-align:right;">
+1154.34
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1002
+</td>
+<td style="text-align:right;">
+2001
+</td>
+<td style="text-align:right;">
+3000
+</td>
+<td style="text-align:right;">
+4000
+</td>
+<td style="text-align:left;">
+▇▇▇▇▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+past_3_years_bike_related_purchases
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+48.87
+</td>
+<td style="text-align:right;">
+28.71
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:left;">
+▇▇▇▇▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tenure
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+<td style="text-align:right;">
+10.66
+</td>
+<td style="text-align:right;">
+5.66
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:left;">
+▇▇▇▇▅
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(CustomerDemographic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   3997 obs. of  11 variables:
+ $ customer_id                        : int  66 1888 3435 2858 422 2296 470 3949 1402 1519 ...
+ $ first_name                         : chr  "Anselm" "Sibyl" "Stevena" "Benedicto" ...
+ $ last_name                          : chr  "Gawne" "Scholtz" "Allcock" "Radki" ...
+ $ gender                             : chr  "M" "F" "F" "M" ...
+ $ past_3_years_bike_related_purchases: int  46 67 80 4 78 16 22 24 58 35 ...
+ $ DOB                                : chr  "2002-03-11" "2002-01-26" "2002-01-15" "2002-01-09" ...
+ $ job_title                          : chr  "Account Executive" "Food Chemist" "Senior Editor" "Recruiting Manager" ...
+ $ job_industry_category              : chr  "Argiculture" "Health" NA NA ...
+ $ wealth_segment                     : chr  "High Net Worth" "Mass Customer" "Affluent Customer" "Mass Customer" ...
+ $ owns_car                           : chr  "No" "Yes" "No" "Yes" ...
+ $ tenure                             : int  1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+</div>
+<p>We won’t need first_name and last_name for training.</p>
+<p>However, we need names to present our findings to business people.\</p>
+<p>First impression and to-do list</p>
+<ul>
+<li><p>change customer_id to chr type</p></li>
+<li><p>recode DOB to date</p></li>
+<li><p>recode gender, job_title, job_industry_category, wealth_segment, owns_car to factor</p></li>
+<li><p>last_name’s missing values are not needed to impute, leave as is</p></li>
+<li></li>
+<li><p>87 missing for DOB, customers with “U” as gender, and tenure (likely the same 87 customers)</p></li>
+<li><p>reduce cardinality of job_industry_category by generalizing (Doctor, Engineer, Coach, Designer, etc.)</p></li>
+<li></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'flextable' was built under R version 4.3.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'flextable'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    compose</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dlookr<span class="sc">::</span><span class="fu">diagnose_numeric</span>(CustomerDemographic) <span class="sc">|&gt;</span> <span class="fu">flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-e7805942{}.cl-e77d1566{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e77e7a64{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e77e7a6e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e77e8400{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e77e840a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e77e840b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e77e840c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e77e8414{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e77e841e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-e7805942"><thead><tr style="overflow-wrap:break-word;"><th class="cl-e77e8400"><p class="cl-e77e7a64"><span class="cl-e77d1566">variables</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">min</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">Q1</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">mean</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">median</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">Q3</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">max</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">zero</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">minus</span></p></th><th class="cl-e77e840a"><p class="cl-e77e7a6e"><span class="cl-e77d1566">outlier</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-e77e840b"><p class="cl-e77e7a64"><span class="cl-e77d1566">customer_id</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">1</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">1,002</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">2,000.85639</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">2,001</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">3,000</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">4,000</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e77e840b"><p class="cl-e77e7a64"><span class="cl-e77d1566">past_3_years_bike_related_purchases</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">24</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">48.86865</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">48</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">73</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">99</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">38</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td><td class="cl-e77e840c"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e77e8414"><p class="cl-e77e7a64"><span class="cl-e77d1566">tenure</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">1</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">6</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">10.65627</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">11</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">15</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">22</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td><td class="cl-e77e841e"><p class="cl-e77e7a6e"><span class="cl-e77d1566">0</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<section id="recode-data-types" class="level3">
+<h3 class="anchored" data-anchor-id="recode-data-types">Recode data types</h3>
+<p>Frequency distribution of factor variables by count.</p>
+<p>4 columns ignored with more than 50 categories.</p>
+<p>first_name: 3138 categories</p>
+<p>last_name: 3723 categories</p>
+<p>DOB: 3446 categories</p>
+<p>job_title: 196 categories</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(CustomerDemographic<span class="sc">$</span>past_3_years_bike_related_purchases)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   24.00   48.00   48.87   73.00   99.00 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(CustomerDemographic<span class="sc">$</span>past_3_years_bike_related_purchases, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from DataExplorer</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot factor variables based on frequency (number of customers in each category)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(CustomerDemographic, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>4 columns ignored with more than 50 categories.
+first_name: 3138 categories
+last_name: 3723 categories
+DOB: 3446 categories
+job_title: 196 categories</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># with indicates name of continuous feature to be summed. </span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># default is NULL, i.e., frequency.</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(CustomerDemographic, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">with =</span> <span class="st">"past_3_years_bike_related_purchases"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>4 columns ignored with more than 50 categories.
+first_name: 3138 categories
+last_name: 3723 categories
+DOB: 3446 categories
+job_title: 196 categories</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Gender distribution is pretty balanced, so we will not have any gender bias in training.</p>
+<p>Most of the customers in 2017 are in the Mass segment and work in Manufacturing, Financial Services, and Health.</p>
+<p>This majority of the customers also have the most bike related purchases in the last 3 years.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming your data frame is called CustomerDemographic</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>CustomerDemographic <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(job_industry_category) <span class="sc">|&gt;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_purchases =</span> <span class="fu">sum</span>(past_3_years_bike_related_purchases, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_purchases)) <span class="sc">|&gt;</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(job_industry_category, total_purchases), </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> total_purchases, </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> job_industry_category)) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bike Purchases by Job Industry Category"</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Job Industry Category"</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Past 3 Years Bike Related Purchases"</span>) <span class="sc">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(CustomerDemographic, </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">by =</span> <span class="st">'gender'</span>, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>4 columns ignored with more than 50 categories.
+first_name: 3138 categories
+last_name: 3723 categories
+DOB: 3446 categories
+job_title: 196 categories</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Customers who did not provide their gender information appear to work mostly in IT.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  CustomerDemographic <span class="sc">|&gt;</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(job_industry_category <span class="sc">==</span> <span class="st">"IT"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>           gender <span class="sc">==</span> <span class="st">"U"</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 71</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  CustomerDemographic <span class="sc">|&gt;</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">"U"</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 87</code></pre>
+</div>
+</div>
+<p>A <a href="https://anitab.org/research-and-impact/top-companies/2020-results/">2020 study</a> by the AnitaB.org Institute found that women make up 28.8% of the tech workforce, a steady increase from the past few years -- 25.9% in 2018 and 26.2% in 2019.</p>
+<p>So we will assume/expect that majority of U gender customers are Male.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># current gender distribution, before imputation</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  (CustomerDemographic <span class="sc">|&gt;</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">filter</span>(job_industry_category <span class="sc">==</span> <span class="st">"IT"</span>))[, <span class="st">"gender"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ F  M  U 
+79 72 71 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(CustomerDemographic, </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">by =</span> <span class="st">'wealth_segment'</span>, </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>4 columns ignored with more than 50 categories.
+first_name: 3138 categories
+last_name: 3723 categories
+DOB: 3446 categories
+job_title: 196 categories</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(CustomerDemographic, </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">by =</span> <span class="st">'job_industry_category'</span>, </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>4 columns ignored with more than 50 categories.
+first_name: 3138 categories
+last_name: 3723 categories
+DOB: 3446 categories
+job_title: 196 categories</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="impute-data" class="level2">
+<h2 class="anchored" data-anchor-id="impute-data">Impute data</h2>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1"></h3>
+</section>
+<section id="gender" class="level3">
+<h3 class="anchored" data-anchor-id="gender">gender</h3>
+<p>Since first names often indicate gender, it should be possible to predict gender using names.</p>
+<p>We will impute gender (or more precisely, sex assigned at birth) based on first names using historical data.</p>
+<p>The R package <a href="https://www.rdocumentation.org/packages/gender/versions/0.6.0"><em>gender</em></a> uses historical datasets from the U.S. Social Security Administration, the U.S. Census Bureau (via <a href="https://usa.ipums.org/usa/">IPUMS USA</a>), and the <a href="https://www.nappdata.org/napp/">North Atlantic Population Project</a> to provide predictions of gender for first names for particular countries and time periods.</p>
+<p>Other package/API options</p>
+<ul>
+<li><p><a href="https://gender-api.com/" class="uri">https://gender-api.com/</a></p></li>
+<li><p><a href="genderize.io">genderize.io</a></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># one limitation of using gender package instead of genderize is</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the ability to specify country = 'AU'</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The "genderize" method uses the Genderize.io &lt;https://genderize.io/&gt; API, </span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co"># which is based on "user profiles across major social networks."</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>imputedUCustomers <span class="ot">&lt;-</span> <span class="fu">gender</span>(Customer_U_gender<span class="sc">$</span>first_name, </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">method =</span> <span class="st">"genderize"</span>)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>imputedUCustomers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 4
+   name      gender proportion_male proportion_female
+   &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+ 1 Jory      male            0.6               0.4   
+ 2 Reggie    male            0.94              0.0600
+ 3 Edgar     male            1                 0     
+ 4 Giorgio   male            1                 0     
+ 5 Marlow    male            0.94              0.0600
+ 6 Cornelius male            1                 0     
+ 7 Eugenie   female          0.0100            0.99  
+ 8 Darelle   female          0.26              0.74  
+ 9 Kienan    male            0.99              0.0100
+10 Ardelle   female          0                 1     
+# ℹ 77 more rows</code></pre>
+</div>
+</div>
+<p>check for missing values where gender() couldn’t impute.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(imputedUCustomers<span class="sc">$</span>gender))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>imputedUCustomers <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(gender) <span class="sc">==</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  name      gender proportion_male proportion_female
+  &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+1 Goldarina &lt;NA&gt;                NA                NA
+2 Devland   &lt;NA&gt;                NA                NA
+3 Sutherlan &lt;NA&gt;                NA                NA</code></pre>
+</div>
+</div>
+<p>Manual imputation of these three names (source: thebump.com)</p>
+<p><a href="https://www.thebump.com/b/goldarina-baby-name">Goldarina female name</a></p>
+<p><a href="https://www.thebump.com/b/devland-baby-name">Devland male name</a></p>
+<p><a href="https://www.thebump.com/b/sutherland-baby-name">Sutherlan male name</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>imputedUCustomers <span class="ot">&lt;-</span> imputedUCustomers <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gender =</span> <span class="fu">case_when</span>(</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"Goldarina"</span> <span class="sc">~</span> <span class="st">"F"</span>,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"Devland"</span> <span class="sc">~</span> <span class="st">"M"</span>,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"Sutherlan"</span> <span class="sc">~</span> <span class="st">"M"</span>,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">as.character</span>(gender)</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>standardize gender column values</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>imputedUCustomers <span class="ot">&lt;-</span> imputedUCustomers <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gender =</span> <span class="fu">ifelse</span>(gender <span class="sc">==</span> <span class="st">"male"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>))</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>imputedUCustomers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 4
+   name      gender proportion_male proportion_female
+   &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+ 1 Jory      M               0.6               0.4   
+ 2 Reggie    M               0.94              0.0600
+ 3 Edgar     M               1                 0     
+ 4 Giorgio   M               1                 0     
+ 5 Marlow    M               0.94              0.0600
+ 6 Cornelius M               1                 0     
+ 7 Eugenie   F               0.0100            0.99  
+ 8 Darelle   F               0.26              0.74  
+ 9 Kienan    M               0.99              0.0100
+10 Ardelle   F               0                 1     
+# ℹ 77 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(imputedUCustomers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [87 × 4] (S3: tbl_df/tbl/data.frame)
+ $ name             : chr [1:87] "Jory" "Reggie" "Edgar" "Giorgio" ...
+ $ gender           : chr [1:87] "M" "M" "M" "M" ...
+ $ proportion_male  : num [1:87] 0.6 0.94 1 1 0.94 1 0.01 0.26 0.99 0 ...
+ $ proportion_female: num [1:87] 0.4 0.06 0 0 0.06 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(CustomerDemographic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   3997 obs. of  11 variables:
+ $ customer_id                        : int  66 1888 3435 2858 422 2296 470 3949 1402 1519 ...
+ $ first_name                         : chr  "Anselm" "Sibyl" "Stevena" "Benedicto" ...
+ $ last_name                          : chr  "Gawne" "Scholtz" "Allcock" "Radki" ...
+ $ gender                             : chr  "M" "F" "F" "M" ...
+ $ past_3_years_bike_related_purchases: int  46 67 80 4 78 16 22 24 58 35 ...
+ $ DOB                                : chr  "2002-03-11" "2002-01-26" "2002-01-15" "2002-01-09" ...
+ $ job_title                          : chr  "Account Executive" "Food Chemist" "Senior Editor" "Recruiting Manager" ...
+ $ job_industry_category              : chr  "Argiculture" "Health" NA NA ...
+ $ wealth_segment                     : chr  "High Net Worth" "Mass Customer" "Affluent Customer" "Mass Customer" ...
+ $ owns_car                           : chr  "No" "Yes" "No" "Yes" ...
+ $ tenure                             : int  1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+</div>
+<p>apply imputed gender values to original CustomerDemographic dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>imputedU_CD <span class="ot">&lt;-</span> CustomerDemographic <span class="sc">|&gt;</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(imputedUCustomers, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"first_name"</span> <span class="ot">=</span> <span class="st">"name"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># uses mutate and ifelse to update the "gender" column </span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># based on the values in the "gender.x" and "gender.y" columns.</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gender =</span> <span class="fu">ifelse</span>(gender.x <span class="sc">==</span> <span class="st">"U"</span>, gender.y, gender.x)) <span class="sc">|&gt;</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"gender."</span>))</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, 'imputedU_CD' contains the updated/imputed 'gender' column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>imputedU_CD should have same number of rows as CustomerDemographic, ie. 3997.</p>
+<p>Check if majority of imputed U customers are Male.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(imputedUCustomers<span class="sc">$</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ F  M 
+43 44 </code></pre>
+</div>
+</div>
+<p>Turns out our hypothesis that there are more IT male customers is wrong.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  imputedU_CD[imputedU_CD<span class="sc">$</span>job_industry_category <span class="sc">==</span> <span class="st">"IT"</span>, <span class="st">"gender"</span>]</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  F   M 
+114 108 </code></pre>
+</div>
+</div>
+<p>The business attracts IT customers roughly equally in terms of gender.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(imputedU_CD, </span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">by =</span> <span class="st">'gender'</span>, </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>4 columns ignored with more than 50 categories.
+first_name: 3138 categories
+last_name: 3723 categories
+DOB: 3446 categories
+job_title: 196 categories</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(CustomerDemographic, </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">by =</span> <span class="st">'gender'</span>, </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>4 columns ignored with more than 50 categories.
+first_name: 3138 categories
+last_name: 3723 categories
+DOB: 3446 categories
+job_title: 196 categories</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="EDA_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using genderize package</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="co"># x &lt;- Customer_U_gender$first_name</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="co"># xPrepared = textPrepare(x)</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="co"># givenNames &lt;- findGivenNames(xPrepared, </span></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                             country = 'AU',</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                             textPrepare = FALSE,</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                             progress = FALSE)</span></span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a><span class="co"># genderize(x, </span></span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a><span class="co">#           genderDB = givenNames,</span></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a><span class="co">#           progress = TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>CustomerDemographic <span class="sc">|&gt;</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">"U"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   customer_id    first_name   last_name gender
+1          144          Jory  Barrabeale      U
+2          168        Reggie   Broggetti      U
+3          267         Edgar     Buckler      U
+4          290       Giorgio      Kevane      U
+5          451        Marlow   Flowerdew      U
+6          453     Cornelius    Yarmouth      U
+7          454       Eugenie      Domenc      U
+8          480       Darelle         Ive      U
+9          513        Kienan        Soar      U
+10         526       Ardelle        &lt;NA&gt;      U
+11         548       Georgie  Cudbertson      U
+12         582         Rhoda     McKeown      U
+13         599      Ernestus      Cruden      U
+14         680           Gay Pickersgill      U
+15         685         Booth      Birkin      U
+16         799       Harland     Spilisy      U
+17         839        Charis     Greaves      U
+18         883        Lolita      Bennie      U
+19         892        Conroy       Healy      U
+20         950          Bret    Ivakhnov      U
+21         975     Goldarina     Rzehorz      U
+22         983       Shaylyn       Riggs      U
+23         996          Aura     Bemlott      U
+24        1038        Fraser       Acome      U
+25        1044     Frederico     Whilder      U
+26        1082     Guinevere       Kelby      U
+27        1174 Shellysheldon Gooderridge      U
+28        1210       Shandie      Sprigg      U
+29        1244         Glenn      Tinham      U
+30        1351  Lorettalorna        &lt;NA&gt;      U
+31        1477           Leo    Balharry      U
+32        1509        Sibley       Janek      U
+33        1583        Krysta   O' Reagan      U
+34        1628      Hermione    Brereton      U
+35        1683         Brenn       Bacon      U
+36        1740        Faythe Janaszewski      U
+37        1773      Nickolas     Guittet      U
+38        1780         Maude      Tixier      U
+39        1806           Gil De Gregorio      U
+40        1918         Devin    Sandeson      U
+41        1938        Austin      Toopin      U
+42        1990          Mira      Askham      U
+43        2000          Kain        Rene      U
+44        2021        Ulrica   Abelwhite      U
+45        2069           Sol     Holdron      U
+46        2165        Marlie    Teesdale      U
+47        2205          Birk      Elphey      U
+48        2252        Darcey       Annis      U
+49        2295        Farris     Hazelby      U
+50        2335        Payton      Sheach      U
+51        2341      Caterina     Scedall      U
+52        2414        Basile      Bowlas      U
+53        2426         Yancy       Ovett      U
+54        2469        Kermie      Hedger      U
+55        2540       Donavon        &lt;NA&gt;      U
+56        2642      Arabelle    Rentelll      U
+57        2647      Marcelia     Blannin      U
+58        2696      Isabelle    Bursnoll      U
+59        2697       Klarika       Yerby      U
+60        2854         Vikky        Dyde      U
+61        2920         Casar    Ritchley      U
+62        2963      Christin      Fricke      U
+63        2999       Rinaldo      Diggin      U
+64        3012       Devland     Probart      U
+65        3086        Pieter     Gadesby      U
+66        3151         Thorn     Choffin      U
+67        3222       Caralie     Sellors      U
+68        3223         Tiffi       Wortt      U
+69        3255     Sutherlan       Truin      U
+70        3288          Fair       Dewen      U
+71        3298     Christine    Baignard      U
+72        3312        Franky   Nanninini      U
+73        3322           Hew     Sworder      U
+74        3343     Cristabel         Bim      U
+75        3365       Karlens     Chaffyn      U
+76        3473     Sanderson     Alloway      U
+77        3510        Jemima       Izaac      U
+78        3513     Enriqueta  Waterhowse      U
+79        3565        Charyl   Pottiphar      U
+80        3654        Kenyon  Paddefield      U
+81        3718       Damiano        &lt;NA&gt;      U
+82        3727           Eba       Youle      U
+83        3779         Ulick      Daspar      U
+84        3883         Nissa      Conrad      U
+85        3931         Kylie       Epine      U
+86        3935        Teodor   Alfonsini      U
+87        3998        Sarene     Woolley      U
+   past_3_years_bike_related_purchases  DOB
+1                                   71 &lt;NA&gt;
+2                                    8 &lt;NA&gt;
+3                                   53 &lt;NA&gt;
+4                                   42 &lt;NA&gt;
+5                                   37 &lt;NA&gt;
+6                                   81 &lt;NA&gt;
+7                                   58 &lt;NA&gt;
+8                                   67 &lt;NA&gt;
+9                                   30 &lt;NA&gt;
+10                                   9 &lt;NA&gt;
+11                                  84 &lt;NA&gt;
+12                                  21 &lt;NA&gt;
+13                                  48 &lt;NA&gt;
+14                                  22 &lt;NA&gt;
+15                                  28 &lt;NA&gt;
+16                                  39 &lt;NA&gt;
+17                                  14 &lt;NA&gt;
+18                                  73 &lt;NA&gt;
+19                                  22 &lt;NA&gt;
+20                                  24 &lt;NA&gt;
+21                                  26 &lt;NA&gt;
+22                                  49 &lt;NA&gt;
+23                                  67 &lt;NA&gt;
+24                                  57 &lt;NA&gt;
+25                                   4 &lt;NA&gt;
+26                                  90 &lt;NA&gt;
+27                                   9 &lt;NA&gt;
+28                                  81 &lt;NA&gt;
+29                                  80 &lt;NA&gt;
+30                                  32 &lt;NA&gt;
+31                                  42 &lt;NA&gt;
+32                                  10 &lt;NA&gt;
+33                                  18 &lt;NA&gt;
+34                                  13 &lt;NA&gt;
+35                                  72 &lt;NA&gt;
+36                                  83 &lt;NA&gt;
+37                                  82 &lt;NA&gt;
+38                                  52 &lt;NA&gt;
+39                                  95 &lt;NA&gt;
+40                                  83 &lt;NA&gt;
+41                                  47 &lt;NA&gt;
+42                                   9 &lt;NA&gt;
+43                                  68 &lt;NA&gt;
+44                                  31 &lt;NA&gt;
+45                                  32 &lt;NA&gt;
+46                                  16 &lt;NA&gt;
+47                                  76 &lt;NA&gt;
+48                                  31 &lt;NA&gt;
+49                                  35 &lt;NA&gt;
+50                                  42 &lt;NA&gt;
+51                                  41 &lt;NA&gt;
+52                                  18 &lt;NA&gt;
+53                                  64 &lt;NA&gt;
+54                                  18 &lt;NA&gt;
+55                                  14 &lt;NA&gt;
+56                                  36 &lt;NA&gt;
+57                                   1 &lt;NA&gt;
+58                                  42 &lt;NA&gt;
+59                                  70 &lt;NA&gt;
+60                                  49 &lt;NA&gt;
+61                                   0 &lt;NA&gt;
+62                                  17 &lt;NA&gt;
+63                                  28 &lt;NA&gt;
+64                                  81 &lt;NA&gt;
+65                                  18 &lt;NA&gt;
+66                                  20 &lt;NA&gt;
+67                                  40 &lt;NA&gt;
+68                                  44 &lt;NA&gt;
+69                                  47 &lt;NA&gt;
+70                                  47 &lt;NA&gt;
+71                                   1 &lt;NA&gt;
+72                                  49 &lt;NA&gt;
+73                                  24 &lt;NA&gt;
+74                                   3 &lt;NA&gt;
+75                                  29 &lt;NA&gt;
+76                                  34 &lt;NA&gt;
+77                                  48 &lt;NA&gt;
+78                                  80 &lt;NA&gt;
+79                                  14 &lt;NA&gt;
+80                                  78 &lt;NA&gt;
+81                                  22 &lt;NA&gt;
+82                                  65 &lt;NA&gt;
+83                                  68 &lt;NA&gt;
+84                                  35 &lt;NA&gt;
+85                                  19 &lt;NA&gt;
+86                                  72 &lt;NA&gt;
+87                                  60 &lt;NA&gt;
+                              job_title job_industry_category    wealth_segment
+1                    Environmental Tech                    IT     Mass Customer
+2                       General Manager                    IT Affluent Customer
+3                                  &lt;NA&gt;                    IT    High Net Worth
+4                Senior Sales Associate                    IT     Mass Customer
+5            Quality Control Specialist                    IT    High Net Worth
+6                   Assistant Professor                    IT    High Net Worth
+7                        Research Nurse                Health Affluent Customer
+8                      Registered Nurse                Health     Mass Customer
+9                        Tax Accountant                    IT     Mass Customer
+10                        Social Worker                Health     Mass Customer
+11                                 &lt;NA&gt;                    IT    High Net Worth
+12                      Staff Scientist                    IT Affluent Customer
+13             Senior Financial Analyst    Financial Services     Mass Customer
+14                                 &lt;NA&gt;                    IT    High Net Worth
+15                     Senior Developer                    IT     Mass Customer
+16                         Programmer I                    IT     Mass Customer
+17         Structural Analysis Engineer                    IT     Mass Customer
+18                            Recruiter                    IT     Mass Customer
+19                  Office Assistant II                    IT     Mass Customer
+20                            Recruiter                    IT    High Net Worth
+21             Automation Specialist IV                    IT     Mass Customer
+22                                 &lt;NA&gt;                    IT Affluent Customer
+23                    Assistant Manager                    IT     Mass Customer
+24                           Engineer I         Manufacturing     Mass Customer
+25                         Food Chemist                Health    High Net Worth
+26                    Financial Analyst    Financial Services     Mass Customer
+27                  Executive Secretary                    IT     Mass Customer
+28                        Programmer II                    IT     Mass Customer
+29                    Financial Analyst    Financial Services     Mass Customer
+30                  Office Assistant IV                    IT    High Net Worth
+31                              Actuary    Financial Services     Mass Customer
+32           Computer Systems Analyst I                    IT    High Net Worth
+33                         Geologist IV                    IT     Mass Customer
+34                    Assistant Manager                    IT     Mass Customer
+35          Budget/Accounting Analyst I                    IT     Mass Customer
+36                   Research Associate                    IT     Mass Customer
+37                                 &lt;NA&gt;                    IT     Mass Customer
+38                   Research Associate                    IT     Mass Customer
+39            Software Test Engineer IV                    IT     Mass Customer
+40                  Staff Accountant II                    IT Affluent Customer
+41             Automation Specialist IV                    IT     Mass Customer
+42             Senior Financial Analyst    Financial Services    High Net Worth
+43                  Assistant Professor                    IT    High Net Worth
+44             Software Test Engineer I                    IT    High Net Worth
+45            Software Test Engineer IV                    IT     Mass Customer
+46                       Civil Engineer         Manufacturing Affluent Customer
+47             Accounting Assistant III                    IT     Mass Customer
+48                              Teacher                    IT    High Net Worth
+49                     Internal Auditor                    IT     Mass Customer
+50                    Account Executive                    IT     Mass Customer
+51                      Web Designer II                    IT     Mass Customer
+52                     Registered Nurse                Health     Mass Customer
+53                                 &lt;NA&gt;                    IT Affluent Customer
+54              Accounting Assistant II                    IT     Mass Customer
+55                  Executive Secretary                    IT     Mass Customer
+56                        VP Accounting    Financial Services    High Net Worth
+57           Physical Therapy Assistant                    IT    High Net Worth
+58                        Social Worker                Health     Mass Customer
+59                      Legal Assistant                    IT    High Net Worth
+60                      Project Manager                    IT    High Net Worth
+61 Business Systems Development Analyst                    IT     Mass Customer
+62                 Safety Technician II                    IT Affluent Customer
+63 Business Systems Development Analyst                    IT Affluent Customer
+64                     Technical Writer                    IT     Mass Customer
+65                    Biostatistician I                    IT    High Net Worth
+66                     Senior Developer                    IT Affluent Customer
+67                        Senior Editor                    IT Affluent Customer
+68           Database Administrator III                    IT     Mass Customer
+69                          Engineer IV                    IT    High Net Worth
+70                         Engineer III                    IT    High Net Worth
+71                   VP Quality Control                    IT Affluent Customer
+72               Administrative Officer                    IT    High Net Worth
+73                    Financial Analyst    Financial Services Affluent Customer
+74                            Recruiter                    IT     Mass Customer
+75                         Engineer III                    IT     Mass Customer
+76        Analog Circuit Design manager                    IT     Mass Customer
+77                 Safety Technician II                    IT Affluent Customer
+78                     Internal Auditor                    IT Affluent Customer
+79                  Structural Engineer                    IT    High Net Worth
+80                  Electrical Engineer         Manufacturing     Mass Customer
+81                         Geologist IV                    IT     Mass Customer
+82                  Assistant Professor                    IT     Mass Customer
+83                                 &lt;NA&gt;                    IT Affluent Customer
+84                      Legal Assistant                    IT     Mass Customer
+85                                 &lt;NA&gt;                    IT    High Net Worth
+86                                 &lt;NA&gt;                    IT    High Net Worth
+87                    Assistant Manager                    IT    High Net Worth
+   owns_car tenure
+1        No     NA
+2       Yes     NA
+3        No     NA
+4        No     NA
+5        No     NA
+6        No     NA
+7       Yes     NA
+8       Yes     NA
+9        No     NA
+10      Yes     NA
+11      Yes     NA
+12       No     NA
+13      Yes     NA
+14      Yes     NA
+15       No     NA
+16      Yes     NA
+17      Yes     NA
+18      Yes     NA
+19      Yes     NA
+20      Yes     NA
+21       No     NA
+22       No     NA
+23      Yes     NA
+24      Yes     NA
+25       No     NA
+26      Yes     NA
+27       No     NA
+28       No     NA
+29      Yes     NA
+30       No     NA
+31      Yes     NA
+32      Yes     NA
+33      Yes     NA
+34       No     NA
+35      Yes     NA
+36      Yes     NA
+37      Yes     NA
+38       No     NA
+39       No     NA
+40       No     NA
+41      Yes     NA
+42       No     NA
+43      Yes     NA
+44      Yes     NA
+45      Yes     NA
+46       No     NA
+47       No     NA
+48      Yes     NA
+49      Yes     NA
+50       No     NA
+51      Yes     NA
+52      Yes     NA
+53      Yes     NA
+54      Yes     NA
+55      Yes     NA
+56       No     NA
+57       No     NA
+58      Yes     NA
+59       No     NA
+60      Yes     NA
+61      Yes     NA
+62      Yes     NA
+63      Yes     NA
+64      Yes     NA
+65       No     NA
+66      Yes     NA
+67       No     NA
+68      Yes     NA
+69       No     NA
+70       No     NA
+71      Yes     NA
+72       No     NA
+73      Yes     NA
+74      Yes     NA
+75       No     NA
+76       No     NA
+77      Yes     NA
+78      Yes     NA
+79      Yes     NA
+80       No     NA
+81      Yes     NA
+82       No     NA
+83       No     NA
+84       No     NA
+85      Yes     NA
+86      Yes     NA
+87       No     NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(CustomerDemographic <span class="sc">|&gt;</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">"U"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  customer_id      first_name         last_name            gender         
+ Min.   : 144.0   Length:87          Length:87          Length:87         
+ 1st Qu.: 989.5   Class :character   Class :character   Class :character  
+ Median :2021.0   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :2053.3                                                           
+ 3rd Qu.:3118.5                                                           
+ Max.   :3998.0                                                           
+                                                                          
+ past_3_years_bike_related_purchases     DOB             job_title        
+ Min.   : 0.00                       Length:87          Length:87         
+ 1st Qu.:20.50                       Class :character   Class :character  
+ Median :40.00                       Mode  :character   Mode  :character  
+ Mean   :42.06                                                            
+ 3rd Qu.:66.00                                                            
+ Max.   :95.00                                                            
+                                                                          
+ job_industry_category wealth_segment       owns_car             tenure   
+ Length:87             Length:87          Length:87          Min.   : NA  
+ Class :character      Class :character   Class :character   1st Qu.: NA  
+ Mode  :character      Mode  :character   Mode  :character   Median : NA  
+                                                             Mean   :NaN  
+                                                             3rd Qu.: NA  
+                                                             Max.   : NA  
+                                                             NA's   :87   </code></pre>
+</div>
+</div>
+<p>U gender customers also don’t have info on DOB and tenure</p>
+</section>
+</section>
+<section id="join-data" class="level2">
+<h2 class="anchored" data-anchor-id="join-data">Join data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>customerInfo <span class="ot">&lt;-</span> <span class="fu">merge</span>(CustomerDemographic, CustomerAddress,</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">by =</span> <span class="st">'customer_id'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>customerInfo.and.Tx <span class="ot">&lt;-</span> <span class="fu">merge</span>(customerInfo, Transactions,</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>                             <span class="at">by =</span> <span class="st">'customer_id'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="label-data-define-target" class="level2">
+<h2 class="anchored" data-anchor-id="label-data-define-target">Label data (define target)</h2>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
