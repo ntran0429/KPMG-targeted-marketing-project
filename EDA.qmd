@@ -26,7 +26,11 @@ library(dlookr)
 library(skimr)
 ```
 
- 
+```{r}
+library(bea.R)
+beaKey <- 'CEFAE885-216B-4BBA-BBA6-6C9F58CBEF90'
+# https://github.com/us-bea/bea.R
+```
 
 ## Read in data
 
