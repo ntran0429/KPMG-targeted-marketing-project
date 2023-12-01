@@ -194,6 +194,16 @@ str(NewCustomerList)
 Tx_missing_prodInfo <- Transactions[is.na(Transactions$product_first_sold_date),]
 ```
 
+```{r}
+plot_na_pareto(Transactions)
+```
+
+Can we tell whether missing values in these different columns belong to the same observations?
+
+```{r}
+
+```
+
 ### gender
 
 Since first names often indicate gender, it should be possible to predict gender using names.
@@ -327,6 +337,12 @@ summary(CustomerDemographic |>
 ```
 
 U gender customers also don't have info on DOB and tenure
+
+### online_order
+
+```{r}
+
+```
 
 ## Join data
 
