@@ -191,7 +191,8 @@ Tx_missing_prodInfo <- Transactions[is.na(Transactions$product_first_sold_date),
 ```
 
 ```{r}
-plot_na_pareto(Transactions)
+plot_na_pareto(Transactions) +
+  ylim(0,500)
 ```
 
 Can we tell whether missing values in these different columns belong to the same observations?
