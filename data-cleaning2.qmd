@@ -1,0 +1,779 @@
+---
+title: "data-cleaning2"
+format:
+  html:
+    toc: true
+    html-math-method: katex
+    css: styles.css
+---
+
+## 
+
+## Import libraries
+
+```{r}
+library(tidyverse)
+library(GGally)
+library(gender)
+library(missRanger)
+```
+
+```{r}
+# automated EDA libraries
+library(SmartEDA)
+library(DataExplorer)
+library(dlookr)
+library(skimr)
+```
+
+
+## Read in data
+
+```{r}
+CustomerDemographic <- read.csv('cleansed data/CustomerDemographic.csv')
+CustomerAddress <- read.csv('cleansed data/CustomerAddress.csv')
+Transactions <- read.csv('cleansed data/Transactions.csv')
+NewCustomerList <- read.csv('cleansed data/NewCustomerList.csv')
+
+Customer_U_gender <- read.csv('cleansed data/subsets/Customer_U_gender.csv')
+```
+
+## Convert data types
+
+```{r}
+skim(CustomerDemographic)
+str(CustomerDemographic)
+```
+
+We won't need first_name and last_name for training.
+
+However, we need names to present our findings to business people.
+
+```{r}
+CustomerDemographic$customer_id <- as.character(CustomerDemographic$customer_id)
+class(CustomerDemographic$customer_id)
+```
+
+```{r}
+CustomerDemographic$gender <- factor(CustomerDemographic$gender,
+                                        ordered = FALSE)
+class(CustomerDemographic$gender)
+```
+
+```{r}
+CustomerDemographic$job_title <- factor(
+  CustomerDemographic$job_title,
+  ordered = FALSE)
+
+CustomerDemographic$job_industry_category <- factor(
+  CustomerDemographic$job_industry_category,
+  ordered = FALSE)
+# levels(CustomerDemographic$job_industry_category)
+# to list out levels in a factor
+
+CustomerDemographic$wealth_segment <- factor(
+  CustomerDemographic$wealth_segment,
+  ordered = TRUE,
+  levels = c('Mass Customer', 'Affluent Customer', 'High Net Worth'))
+
+
+CustomerDemographic$owns_car <- factor(
+  CustomerDemographic$owns_car,
+  ordered = FALSE)
+```
+
+```{r}
+str(CustomerDemographic$DOB)
+
+CustomerDemographic$DOB <- as.Date(CustomerDemographic$DOB)
+
+
+head(CustomerDemographic$DOB)
+sum(is.na(CustomerDemographic$DOB)) # still expect 87 NAs
+```
+
+```{r}
+str(CustomerDemographic)
+```
+
+First impression and to-do list
+
+-   change customer_id to chr type
+
+-   recode gender, job_title, job_industry_category, wealth_segment, owns_car to factor
+
+-   recode DOB to date
+
+-   last_name's missing values are not needed to impute, leave as is
+
+-   impute job_titles and job_industry_category
+
+-   87 missing for DOB, customers with "U" as gender, and tenure (likely the same 87 customers)
+
+-   reduce cardinality of job_industry_category by generalizing (Doctor, Engineer, Coach, Designer, etc.)
+
+```{r}
+skim(CustomerAddress)
+str(CustomerAddress)
+```
+
+```{r}
+CustomerAddress$customer_id <- as.character(CustomerAddress$customer_id)
+CustomerAddress$postcode <- as.character(CustomerAddress$postcode)
+```
+
+```{r}
+skim(Transactions)
+str(Transactions)
+```
+
+```{r}
+Transactions$transaction_id <- as.character(Transactions$transaction_id)
+Transactions$product_id <- as.character(Transactions$product_id)
+Transactions$customer_id <- as.character(Transactions$customer_id)
+
+Transactions$transaction_date <- as.Date(Transactions$transaction_date)
+Transactions$online_order <- factor(Transactions$online_order, ordered = FALSE)
+Transactions$order_status <- factor(Transactions$order_status, ordered = FALSE)
+Transactions$product_line <- factor(Transactions$product_line, ordered = FALSE)
+
+Transactions$product_first_sold_date <- as.Date(Transactions$product_first_sold_date)
+```
+
+```{r}
+Transactions$product_class <- factor(Transactions$product_class, 
+                                     ordered = TRUE,
+                                     levels = c('low', 'medium', 'high'))
+Transactions$product_size <- factor(Transactions$product_size, 
+                                    ordered = TRUE,
+                                    levels = c('small', 'medium', 'large'))
+Transactions$brand <- factor(Transactions$brand, ordered = FALSE)
+```
+
+```{r}
+str(Transactions)
+```
+
+```{r}
+skim(NewCustomerList)
+str(NewCustomerList)
+```
+
+```{r}
+# convert gender, job_title, job_industry_category, wealth segment, owns_car, postcode, state, country to factor type
+NewCustomerList$gender <- as.factor(NewCustomerList$gender)
+NewCustomerList$job_title <- as.factor(NewCustomerList$job_title)
+
+NewCustomerList$job_industry_category <- as.factor(NewCustomerList$job_industry_category)
+NewCustomerList$wealth_segment <- factor(
+  NewCustomerList$wealth_segment,
+  ordered = TRUE,
+  levels = c('Mass Customer', 'Affluent Customer', 'High Net Worth'))
+
+NewCustomerList$owns_car <- as.factor(NewCustomerList$owns_car)
+NewCustomerList$postcode <- as.character(NewCustomerList$postcode)
+NewCustomerList$state <- as.factor(NewCustomerList$state)
+NewCustomerList$country <- as.factor(NewCustomerList$country)
+```
+
+```{r}
+str(NewCustomerList)
+```
+
+## Impute or remove data
+
+
+### gender
+
+Since first names often indicate gender, it should be possible to predict gender using names.
+
+We will impute gender (or more precisely, sex assigned at birth) based on first names using historical data.
+
+The R package [*gender*](https://www.rdocumentation.org/packages/gender/versions/0.6.0) uses historical datasets from the U.S. Social Security Administration, the U.S. Census Bureau (via [IPUMS USA](https://usa.ipums.org/usa/)), and the [North Atlantic Population Project](https://www.nappdata.org/napp/) to provide predictions of gender for first names for particular countries and time periods.
+
+Other package/API options
+
+-   <https://gender-api.com/>
+
+-   [genderize.io](genderize.io)
+
+```{r}
+# one limitation of using gender package instead of genderize is
+# the ability to specify country = 'AU'
+
+# The "genderize" method uses the Genderize.io <https://genderize.io/> API, 
+# which is based on "user profiles across major social networks."
+imputedUCustomers <- gender(Customer_U_gender$first_name, 
+                            method = "genderize")
+imputedUCustomers
+```
+
+check for missing values where gender() couldn't impute.
+
+```{r}
+sum(is.na(imputedUCustomers$gender))
+
+imputedUCustomers |> filter(is.na(gender) == TRUE)
+```
+
+Manual imputation of these three names (source: thebump.com)
+
+[Goldarina female name](https://www.thebump.com/b/goldarina-baby-name)
+
+[Devland male name](https://www.thebump.com/b/devland-baby-name)
+
+[Sutherlan male name](https://www.thebump.com/b/sutherland-baby-name)
+
+```{r}
+imputedUCustomers <- imputedUCustomers |>
+  mutate(gender = case_when(
+    name == "Goldarina" ~ "F",
+    name == "Devland" ~ "M",
+    name == "Sutherlan" ~ "M",
+    TRUE ~ as.character(gender)
+  ))
+```
+
+standardize gender column values
+
+```{r}
+imputedUCustomers <- imputedUCustomers |>
+  mutate(gender = ifelse(gender == "male", "M", "F"))
+
+imputedUCustomers
+```
+
+```{r}
+str(imputedUCustomers)
+str(CustomerDemographic)
+```
+
+apply imputed gender values to original CustomerDemographic dataset.
+
+```{r}
+imputedU_CD <- CustomerDemographic |> 
+  left_join(imputedUCustomers, by = c("first_name" = "name")) |>
+  # uses mutate and ifelse to update the "gender" column 
+  # based on the values in the "gender.x" and "gender.y" columns.
+  mutate(gender = ifelse(gender.x == "U", gender.y,
+                         ifelse(gender.x == "M", "M", "F"))) |>
+  select(-starts_with("gender.")) |> 
+  select(-c(proportion_male, proportion_female))
+
+# Now, 'imputedU_CD' contains the updated/imputed 'gender' column
+```
+
+imputedU_CD should have same number of rows as CustomerDemographic, ie. 3997.
+
+Check if majority of imputed U customers are Male.
+
+```{r}
+table(imputedUCustomers$gender)
+```
+
+Turns out our hypothesis that there are more IT male customers is wrong.
+
+```{r}
+table(
+  imputedU_CD[imputedU_CD$job_industry_category == "IT", "gender"]
+  )
+```
+
+The business attracts IT customers roughly equally in terms of gender.
+
+```{r}
+plot_bar(imputedU_CD, 
+         by = 'gender', 
+         ncol = 2)
+
+plot_bar(CustomerDemographic, 
+         by = 'gender', 
+         ncol = 2)
+```
+
+```{r using-genderize}
+# using genderize package
+
+# x <- Customer_U_gender$first_name
+# 
+# xPrepared = textPrepare(x)
+# 
+# givenNames <- findGivenNames(xPrepared, 
+#                             country = 'AU',
+#                             textPrepare = FALSE,
+#                             progress = FALSE)
+# 
+# genderize(x, 
+#           genderDB = givenNames,
+#           progress = TRUE)
+```
+
+
+Let's now impute gender column in NewCustomerList as well.
+```{r}
+# subset new customers with missing DOB
+NCL_missingDOB <- NewCustomerList |> 
+  filter(is.na(DOB))
+
+NCL_missingDOB
+```
+
+
+```{r}
+summary(NewCustomerList$gender)
+```
+
+```{r}
+NCL_UCustomers <- NewCustomerList |> 
+  filter(gender == "U")
+
+
+NCL_imputedUCustomers <- gender(NCL_UCustomers$first_name, 
+                            method = "genderize")
+NCL_imputedUCustomers
+```
+
+Check for missing values where gender() couldn't impute.
+```{r}
+sum(is.na(NCL_imputedUCustomers$gender))
+```
+
+
+
+standardize gender column values
+
+```{r}
+NCL_imputedUCustomers <- NCL_imputedUCustomers |>
+  mutate(gender = ifelse(gender == "male", "M", "F"))
+
+NCL_imputedUCustomers
+```
+
+
+apply imputed gender values to original NewCustomerList dataset.
+
+```{r}
+imputedU_NCL <- NewCustomerList |> 
+  left_join(NCL_imputedUCustomers, by = c("first_name" = "name")) |>
+  # uses mutate and ifelse to update the "gender" column 
+  # based on the values in the "gender.x" and "gender.y" columns.
+  mutate(gender = ifelse(gender.x == "U", gender.y,
+                         ifelse(gender.x == "M", "M", "F"))) |>
+  select(-starts_with("gender.")) |> 
+  select(-c(proportion_male, proportion_female))
+
+# Now, 'imputedU_CD' contains the updated/imputed 'gender' column
+```
+
+imputedU_NCL should have same number of rows as NewCustomerList, ie. 1000.
+```{r}
+nrow(imputedU_NCL)
+```
+
+```{r}
+table(imputedU_NCL$gender)
+```
+
+```{r}
+table(imputedU_CD$gender)
+```
+
+
+
+Save a copy of the original data for each CustomerDemographic and NewCustomerList
+
+```{r}
+CustomerDemographic_original <- CustomerDemographic
+NewCustomerList_original <- NewCustomerList
+
+CustomerDemographic <- imputedU_CD
+NewCustomerList <- imputedU_NCL
+```
+
+```{r}
+# relocate gender column after first_name and last_name in CustomerDemographic
+CustomerDemographic <- CustomerDemographic |> 
+  relocate(first_name, last_name, gender, everything())
+
+NewCustomerList <- NewCustomerList |> 
+  relocate(first_name, last_name, gender, everything())
+```
+
+
+
+
+```{r}
+CustomerDemographic_original |> 
+  filter(gender == "U")
+
+summary(CustomerDemographic_original |> 
+  filter(gender == "U"))
+```
+
+U gender customers in CustomerDemographic also don't have data on DOB and tenure.
+
+```{r}
+skim(CustomerDemographic)
+```
+last_name, DOB, job_title, job_industry_category, tenure have missing values.
+
+merge first_name and last_name into one column customer_name
+impute DOB/age with mean age of IT customers
+impute job_title, job_industry_category with missRanger
+impute tenure with mean
+
+
+```{r}
+skim(NewCustomerList)
+```
+last_name, DOB, job_title, job_industry_category have missing values.
+
+merge first_name and last_name into one column customer_name
+impute DOB/age with mean age of IT customers
+impute job_title, job_industry_category with missRanger
+
+
+```{r}
+
+```
+
+
+```{r}
+# remove rows that have missing values in NewCustomerList using complete.cases()
+# NewCustomerList <- NewCustomerList[complete.cases(NewCustomerList), ]
+```
+
+
+### impute columns in NewCustomerList and CustomerDemographic
+
+```{r}
+skim(NewCustomerList)
+```
+
+```{r}
+# combine first_name and last_name to create a new variable called customer_name,
+# then remove first_name and last_name,
+# and relocate customer_name to the first column
+NewCustomerList <- NewCustomerList |> 
+  mutate(customer_name = paste(first_name, last_name, sep = ' ')) |> 
+  select(customer_name, everything()) |> 
+  select(-first_name, -last_name)
+```
+
+
+
+```{r dlookr-impute}
+# dlookr::imputate_na(NewCustomerList, 
+#             DOB,
+#             method = )
+```
+
+```{r}
+# missRanger predicts multiple variables at the same time 
+# by using all other variables in a dataset as predictors
+d_imputed <- NewCustomerList |> 
+  missRanger(formula = . ~ .,
+             num.trees = 1000, verbose = 2, seed = 999, returnOOB = T)
+
+# verbose=2 to print the OOB prediction error per iteration (1 minus R-squared for regression)
+```
+
+```{r}
+skim(NewCustomerList)
+```
+
+
+
+
+
+```{r}
+skim(d_imputed)
+str(d_imputed)
+```
+```{r}
+# categorical imputation
+ggplot() +
+  geom_bar(data = NewCustomerList, aes(DOB), width = 0.3) +
+  geom_bar(data = d_imputed, aes(DOB), fill = "red",
+           position = position_nudge(x = 0.25), width = 0.3) +
+  theme_minimal()
+```
+
+
+
+```{r}
+ggplot() +
+  geom_bar(data = NewCustomerList, aes(job_industry_category), width = 0.3) +
+  geom_bar(data = d_imputed, aes(job_industry_category), fill = "red",
+           position = position_nudge(x = 0.25), width = 0.3) +
+  theme_minimal() +
+  # display x-axis labels vertically
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+```{r}
+ggplot() +
+  geom_bar(data = NewCustomerList, aes(job_title), width = 0.3) +
+  geom_bar(data = d_imputed, aes(job_title), fill = "red",
+           position = position_nudge(x = 0.25), width = 0.3) +
+  theme_minimal() +
+  # display x-axis labels vertically
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+
+
+
+
+```{r}
+# count customers in d_imputed by DOB
+d_imputed |> 
+  count(DOB) |> 
+  arrange(desc(n))
+
+NewCustomerList |> 
+  count(DOB) |> 
+  arrange(desc(n))
+```
+
+
+
+### online_order & 'product related' variables in Transactions
+
+```{r}
+skim(Transactions)
+```
+
+
+```{r}
+# https://stackoverflow.com/questions/50213446/how-to-prevent-a-plot-cut-off
+plot_na_pareto(Transactions) +
+  expand_limits(y = 500)
+```
+
+Can we tell whether missing values in these different columns belong to the same observations?
+
+```{r}
+plot_na_intersect(Transactions) 
+```
+2 observations have missing values in all missing variables
+194 observations have missing values in the 'product info' variables
+358 observations only have missing values in online_order
+
+
+```{r}
+# subset transactions with missing product info
+# filter for rows with missing brand, product_line, product_class, product_size, 
+# standard_cost, product_first_sold_date
+Tx_missing_prodInfo <- Transactions |> 
+  filter(is.na(brand) | is.na(product_line) | is.na(product_class) | 
+           is.na(product_size) | is.na(standard_cost) | is.na(product_first_sold_date))
+```
+
+```{r}
+# subset transactions with missing online_order status
+Tx_missing_onlineOrder <- Transactions |> 
+  filter(is.na(online_order))
+```
+
+```{r}
+table(Transactions$online_order)
+```
+
+Check if missing values in online_order is related to product
+```{r}
+ggplot(Transactions, aes(x = product_id, fill = online_order)) +
+  geom_bar(position = 'fill') +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 5))
+```
+NA values seem to be randomly distributed across product_id.
+
+```{r}
+# take a random sample of customer id from Transactions
+# and check if missing values in online_order is related to customer id
+# set.seed(123)
+sample_cust_id <- sample(Transactions$customer_id, 100)
+Transactions |> 
+  filter(customer_id %in% sample_cust_id) |> 
+  ggplot(aes(x = customer_id, fill = online_order)) +
+  geom_bar(position = 'fill') +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 5))
+```
+
+For simplicity, we will remove observations with missing values in 'product info' variables and online_order.
+
+```{r}
+# remove observations with missing values in 'product info' variables and online_order
+Transactions <- Transactions |> 
+  filter(
+    !is.na(brand) & 
+    !is.na(product_line) & 
+    !is.na(product_class) & 
+    !is.na(product_size) & 
+    !is.na(standard_cost) & 
+    !is.na(product_first_sold_date) &
+    !is.na(online_order)
+    )
+```
+
+
+
+
+## Join data
+
+```{r}
+customerInfo <- merge(CustomerDemographic, CustomerAddress,
+                      by = 'customer_id')
+```
+
+```{r}
+customerInfo.and.Tx <- merge(customerInfo, Transactions,
+                             by = 'customer_id')
+```
+
+
+
+
+## Label data (define target)
+
+
+
+## Split data into train and validation
+
+
+
+
+## Explore data
+
+Frequency distribution of factor variables by count.
+
+4 columns ignored with more than 50 categories.
+
+first_name: 3138 categories
+
+last_name: 3723 categories
+
+DOB: 3446 categories
+
+job_title: 196 categories
+
+```{r}
+summary(CustomerDemographic$past_3_years_bike_related_purchases)
+boxplot(CustomerDemographic$past_3_years_bike_related_purchases, horizontal = TRUE)
+```
+
+```{r}
+# from DataExplorer
+
+# plot factor variables based on frequency (number of customers in each category)
+plot_bar(CustomerDemographic, 
+         nrow = 2, ncol = 2)
+
+# with indicates name of continuous feature to be summed. 
+# default is NULL, i.e., frequency.
+plot_bar(CustomerDemographic, 
+         with = "past_3_years_bike_related_purchases",
+         nrow = 2, ncol = 2)
+```
+
+Gender distribution is pretty balanced, so we will not have any gender bias in training.
+
+Most of the customers in 2017 are in the Mass segment and work in Manufacturing, Financial Services, and Health.
+
+This majority of the customers also have the most bike related purchases in the last 3 years.
+
+```{r}
+# Assuming your data frame is called CustomerDemographic
+CustomerDemographic |>
+  group_by(job_industry_category) |>
+  summarise(total_purchases = sum(past_3_years_bike_related_purchases, na.rm = TRUE)) |>
+  arrange(desc(total_purchases)) |>
+  ggplot(aes(x = reorder(job_industry_category, total_purchases), 
+             y = total_purchases, 
+             by = job_industry_category)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Bike Purchases by Job Industry Category",
+       x = "Job Industry Category",
+       y = "Total Past 3 Years Bike Related Purchases") +
+  coord_flip()
+```
+
+```{r}
+plot_bar(CustomerDemographic, 
+         by = 'gender', 
+         ncol = 2)
+```
+
+Customers who did not provide their gender information appear to work mostly in IT.
+
+```{r}
+nrow(
+  CustomerDemographic |> 
+    filter(job_industry_category == "IT",
+           gender == "U")
+)
+
+nrow(
+  CustomerDemographic |> 
+    filter(gender == "U")
+)
+```
+
+A [2020 study](https://anitab.org/research-and-impact/top-companies/2020-results/) by the AnitaB.org Institute found that women make up 28.8% of the tech workforce, a steady increase from the past few years \-- 25.9% in 2018 and 26.2% in 2019.
+
+So we will assume/expect that majority of U gender customers are Male.
+
+```{r}
+# current gender distribution, before imputation
+table(
+  (CustomerDemographic |> 
+     filter(job_industry_category == "IT"))[, "gender"])
+```
+
+```{r}
+plot_bar(CustomerDemographic, 
+         by = 'wealth_segment', 
+         ncol = 2)
+```
+
+```{r}
+plot_bar(CustomerDemographic, 
+         by = 'job_industry_category', 
+         ncol = 2)
+```
+
+## 
+
+```{r}
+# library(flextable)
+dlookr::diagnose_numeric(CustomerDemographic)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
