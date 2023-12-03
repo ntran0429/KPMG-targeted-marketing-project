@@ -1,6 +1,6 @@
 # Data Cleaning
 
-data-cleaning1: perform data quality accessment
+data-cleaning1: perform data quality assessment
 
 data-cleaning2: convert to appropriate data types, impute missing values
 
