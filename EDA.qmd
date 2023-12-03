@@ -12,8 +12,6 @@ library(tidyverse)
 library()
 ```
 
-
-
 ## Explore data
 
 Frequency distribution of factor variables by count.
@@ -119,32 +117,3 @@ plot_bar(CustomerDemographic,
 # library(flextable)
 dlookr::diagnose_numeric(CustomerDemographic)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

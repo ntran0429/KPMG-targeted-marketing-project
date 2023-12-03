@@ -1,0 +1,21 @@
+---
+title: "data-cleaning3"
+format: html
+editor: visual
+---
+
+## Join data
+
+```{r}
+customerInfo <- merge(CustomerDemographic, CustomerAddress,
+                      by = 'customer_id')
+```
+
+```{r}
+customerInfo.and.Tx <- merge(customerInfo, Transactions,
+                             by = 'customer_id')
+```
+
+## Label data (define target)
+
+## Split data into train and validation
