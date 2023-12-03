@@ -4,6 +4,24 @@ format: html
 editor: visual
 ---
 
+## Load packages
+
+```{r}
+library(tidyverse)
+library(dlookr)
+```
+
+## Import data
+
+```{r}
+CustomerDemographic <- read.csv('cleansed data 2/CustomerDemographic.csv')
+CustomerAdress <- read.csv('cleansed data 2/CustomerAddress.csv')
+Transactions <- read.csv('cleansed data 2/Transactions.csv')
+NewCustomerList <- read.csv('cleansed data 2/NewCustomerList.csv')
+```
+
+
+
 ## Join data
 
 ```{r}
