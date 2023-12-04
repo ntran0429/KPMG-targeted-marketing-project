@@ -645,6 +645,9 @@ CD_before_impute2 |>
   labs(title = "Before and after imputation for age column") +
   scale_color_manual(values = c("black", "red"))
 ```
+The goal is to ensure that the imputed distribution reasonably represents the original distribution and doesn't introduce significant distortions or biases.
+
+Based on these plots, we may conclude that the imputation process has not introduced any significant distortions or biases in the data.
 
 
 ```{r}
@@ -800,6 +803,9 @@ write.csv(CustomerAddress, "cleansed data 2/CustomerAddress.csv", row.names = FA
 write.csv(CustomerDemographic, "cleansed data 2/CustomerDemographic.csv", row.names = FALSE)
 write.csv(NewCustomerList, "cleansed data 2/NewCustomerList.csv", row.names = FALSE)
 write.csv(Transactions, "cleansed data 2/Transactions.csv", row.names = FALSE)
+
+write.csv(CD_before_impute2, "cleansed data 2/CD_before_impute2.csv", row.names = FALSE)
+write.csv(NCL_before_impute2, "cleansed data 2/NCL_before_impute2.csv", row.names = FALSE)
 ```
 
 
