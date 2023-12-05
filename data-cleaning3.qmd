@@ -333,6 +333,17 @@ rfm_scores %>%
 ```
 
 
+Export data to csv file
+
+```{r}
+if (!file.exists("cleansed data 3")) {
+  dir.create("cleansed data 3")
+}
+
+write.csv(CD_CA_T, 'cleansed data 3/CD_CA_T.csv', row.names = FALSE)
+```
+
+
 
 ## Split data into train and validation
 
