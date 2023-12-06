@@ -25,7 +25,7 @@ NewCustomerList <- read.csv('cleansed data 2/NewCustomerList.csv')
 ```{r}
 # data after gender imputation but before mice imputation
 CD_before_impute2 <- read.csv('cleansed data 2/CD_before_impute2.csv')
-CD_after_impute2 <- read.csv('cleansed data 2/CD_after_impute2.csv')
+NCL_before_impute2 <- read.csv('cleansed data 2/NCL_before_impute2.csv')
 
 # CustomerAddress needed no imputation as it had no missing values
 # Transactions missing values were removed
@@ -65,7 +65,7 @@ Check if customer_id values in CustomerDemographic are also in Transactions
 sum(CustomerDemographic$customer_id %in% Transactions$customer_id)
 nrow(CustomerDemographic)
 ```
-3997 - 3489 = 508 customers don't have transaction information.
+3997 - 3489 = 508 customers don't have transaction information or never made a purchase in 2017.
 
 
 Create a profit column in Transactions
@@ -77,7 +77,6 @@ Transactions$profit <- Transactions$list_price - Transactions$standard_cost
 Split address column in CustomerAddress into street number and street name
 using 
 ```{r}
-# Create a new data frame with separated columns
 CustomerAddress <- separate(CustomerAddress, address, into = c("street_number", "street_name"), sep = " ", remove = FALSE, extra = "merge")
 # extra = "merge" to indicate that any additional separators should be merged back 
 # into the last column. This is for cases where street names have spaces.
@@ -91,6 +90,23 @@ CustomerAddress <- CustomerAddress |> select(-address)
 ```
 
 
+Split address column in NewCustomerList into street number and street name
+using 
+```{r}
+NewCustomerList <- separate(NewCustomerList, address, into = c("street_number", "street_name"), sep = " ", remove = FALSE, extra = "merge")
+# extra = "merge" to indicate that any additional separators should be merged back 
+# into the last column. This is for cases where street names have spaces.
+
+head(NewCustomerList)
+```
+
+
+```{r}
+# remove address column
+NewCustomerList <- NewCustomerList |> select(-address)
+```
+
+
 
 Join CustomerDemographic and CustomerAddress
 ```{r}
@@ -99,8 +115,21 @@ CD_CA <- inner_join(CustomerDemographic, CustomerAddress, by = 'customer_id')
 
 Join CD_CA and Transactions
 ```{r}
-CD_CA_T <- inner_join(CD_CA, Transactions, by = 'customer_id')
+CD_CA_T <- left_join(CD_CA, Transactions, by = 'customer_id')
 ```
+
+
+Subset CD_CA_T to customers that don't have transaction data.
+```{r}
+CD_CA_T_no_transaction <- CD_CA_T[is.na(CD_CA_T$transaction_id),]
+```
+
+
+Subset CD_CA_T to customers that have transaction data.
+```{r}
+CD_CA_T <- CD_CA_T[!is.na(CD_CA_T$transaction_id),]
+```
+
 
 
 Convert to proper data types
@@ -144,11 +173,22 @@ skim(CD_CA_T)
 
 ## Label data (define target)
 
+### RFM Analysis
 
 Calculate Recency, Frequency, and Monetary Value (RFM) for each customer
 * Recency: the number of days since the last purchase
 * Frequency: the number of purchases made in the last 12 months
 * Monetary Value: the total amount of money spent in the last 12 months
+
+
+
+Firstly, let's set their RFM_Score as 000 and Target as Low-Value for CD_CA_T_no_transaction
+since they have no transaction data.
+```{r}
+CD_CA_T_no_transaction$RFM_Score <- as.numeric(0)
+CD_CA_T_no_transaction$Target <- 'Low-Value'
+```
+
 
 
 ```{r}
@@ -333,7 +373,44 @@ rfm_scores %>%
 ```
 
 
-Export data to csv file
+### Create final set
+
+Append CD_CA_T with CD_CA_T_no_transaction.
+```{r}
+CD_CA_T <- rbind(CD_CA_T, CD_CA_T_no_transaction)
+```
+
+remove duplicates in CD_CA_T (due to previously merging with Transactions data set)
+```{r}
+CD_CA_T <- CD_CA_T[!duplicated(CD_CA_T$customer_id), ]
+```
+
+
+Now, create the final train set with target.
+```{r}
+# join Target with CD_CA
+final_dataset <- inner_join(CD_CA,
+                      CD_CA_T[c('customer_id', 'Target')],
+                      by = 'customer_id')
+
+head(final_dataset)
+```
+
+
+
+
+```{r}
+colnames(NewCustomerList)
+```
+
+```{r}
+colnames(final_dataset)
+```
+
+
+
+
+## Export data to csv file
 
 ```{r}
 if (!file.exists("cleansed data 3")) {
@@ -341,16 +418,8 @@ if (!file.exists("cleansed data 3")) {
 }
 
 write.csv(CD_CA_T, 'cleansed data 3/CD_CA_T.csv', row.names = FALSE)
+write.csv(final_dataset, 'cleansed data 3/final_dataset.csv', row.names = FALSE)
 ```
-
-
-
-## Split data into train and validation
-
-```{r}
-
-```
-
 
 
 
