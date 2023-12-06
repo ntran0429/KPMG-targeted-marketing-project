@@ -85,6 +85,21 @@ head(CustomerAddress)
 ```
 
 ```{r}
+# remove leading zeros in any street_number values that have them
+CustomerAddress$street_number <- as.character(as.numeric(CustomerAddress$street_number))
+```
+
+
+```{r}
+# retrieve customer Benedicto Radki
+final_dataset[final_dataset$customer_name == 'Benedicto Radki', ]
+```
+
+```{r}
+CustomerAddress[CustomerAddress$customer_id == '2858', ]
+```
+
+```{r}
 # remove address column
 CustomerAddress <- CustomerAddress |> select(-address)
 ```
@@ -99,6 +114,12 @@ NewCustomerList <- separate(NewCustomerList, address, into = c("street_number", 
 
 head(NewCustomerList)
 ```
+
+```{r}
+# remove leading zeros in any street_number values that have them
+NewCustomerList$street_number <- as.character(as.numeric(NewCustomerList$street_number))
+```
+
 
 
 ```{r}
@@ -420,9 +441,6 @@ if (!file.exists("cleansed data 3")) {
 write.csv(CD_CA_T, 'cleansed data 3/CD_CA_T.csv', row.names = FALSE)
 write.csv(final_dataset, 'cleansed data 3/final_dataset.csv', row.names = FALSE)
 ```
-
-
-
 
 
 
