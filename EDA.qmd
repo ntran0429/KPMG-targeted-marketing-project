@@ -227,28 +227,37 @@ final_dataset <- final_dataset |> select(-age)
 
 
 
-Aggregate job titles into 4 categories to reduce high cardinality:
-1. Managerial
-2. Administrative
-2. Technical
-3. Quantitative
+Aggregate job titles into five categories to reduce high cardinality:
+
+Managerial
+
+Administrative
+
+Technical
+
+Quantitative
+
+Healthcare
 ```{r}
 source("aggregate_job_titles.R")
 
 # View the result
 table(CD_CA_T$job_type)
+table(NewCustomerList$job_type)
 ```
+
 
 ```{r}
 # remove job_title column
 CD_CA_T <- CD_CA_T |> select(-job_title)
 final_dataset <- final_dataset |> select(-job_title)
-
+NewCustomerList <- NewCustomerList |> select(-job_title)
 ```
 
 
 ## Explore data
 
+### Automated reports
 ```{r}
 final_dataset |>
   eda_web_report(target = "Target", browser = FALSE, 
@@ -264,6 +273,14 @@ CD_CA_T |>
                  output_dir = "./", output_file = "CD_CA_T_EDA.html", 
                  theme = "blue")
 ```
+
+```{r}
+NewCustomerList |> 
+  eda_web_report(browser = FALSE, 
+                 output_dir = "./", output_file = "NewCustomerList_EDA.html", 
+                 theme = "blue")
+```
+
 
 
 
@@ -429,31 +446,7 @@ plot_bar(CD_CA_T,
          ncol = 2)
 ```
 
-Customers who did not provide their gender information appear to work mostly in IT.
 
-```{r}
-nrow(
-  CD_CA_T |> 
-    filter(job_industry_category == "IT",
-           gender == "U")
-)
-
-nrow(
-  CD_CA_T |> 
-    filter(gender == "U")
-)
-```
-
-A [2020 study](https://anitab.org/research-and-impact/top-companies/2020-results/) by the AnitaB.org Institute found that women make up 28.8% of the tech workforce, a steady increase from the past few years \-- 25.9% in 2018 and 26.2% in 2019.
-
-So we will assume/expect that majority of U gender customers are Male.
-
-```{r}
-# current gender distribution, before imputation
-table(
-  (CD_CA_T |> 
-     filter(job_industry_category == "IT"))[, "gender"])
-```
 
 ```{r}
 plot_bar(CD_CA_T, 
@@ -466,6 +459,13 @@ plot_bar(CD_CA_T,
          by = 'job_industry_category', 
          ncol = 2)
 ```
+
+```{r}
+plot_bar(CD_CA_T, 
+         by = 'job_type', 
+         ncol = 2)
+```
+
 
 
 ```{r}
