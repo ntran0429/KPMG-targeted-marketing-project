@@ -254,6 +254,13 @@ final_dataset <- final_dataset |> select(-job_title)
 NewCustomerList <- NewCustomerList |> select(-job_title)
 ```
 
+```{r}
+# convert to factor type
+CD_CA_T$job_type <- as.factor(CD_CA_T$job_type)
+final_dataset$job_type <- as.factor(final_dataset$job_type)
+NewCustomerList$job_type <- as.factor(NewCustomerList$job_type)
+```
+
 
 ## Explore data
 
