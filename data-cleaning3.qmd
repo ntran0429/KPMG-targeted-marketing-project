@@ -21,7 +21,6 @@ Transactions <- read.csv('cleansed data 2/Transactions.csv')
 NewCustomerList <- read.csv('cleansed data 2/NewCustomerList.csv')
 ```
 
-
 ```{r}
 # data after gender imputation but before mice imputation
 CD_before_impute2 <- read.csv('cleansed data 2/CD_before_impute2.csv')
@@ -30,7 +29,6 @@ NCL_before_impute2 <- read.csv('cleansed data 2/NCL_before_impute2.csv')
 # CustomerAddress needed no imputation as it had no missing values
 # Transactions missing values were removed
 ```
-
 
 ```{r}
 # in CD_before_impute2, get the customers/rows 
@@ -48,34 +46,34 @@ CustomerDemographic[is.na(CustomerDemographic$job_title),]
 which(is.na(CustomerDemographic$job_title))
 ```
 
-
-
 ## Join data
 
 Check if customer_id values in CustomerDemographic are also in CustomerAddress
+
 ```{r}
 sum(CustomerDemographic$customer_id %in% CustomerAddress$customer_id)
 nrow(CustomerDemographic)
 ```
+
 4 customers don't have address information.
 
-
 Check if customer_id values in CustomerDemographic are also in Transactions
+
 ```{r}
 sum(CustomerDemographic$customer_id %in% Transactions$customer_id)
 nrow(CustomerDemographic)
 ```
+
 3997 - 3489 = 508 customers don't have transaction information or never made a purchase in 2017.
 
-
 Create a profit column in Transactions
+
 ```{r}
 Transactions$profit <- Transactions$list_price - Transactions$standard_cost
 ```
 
+Split address column in CustomerAddress into street number and street name using
 
-Split address column in CustomerAddress into street number and street name
-using 
 ```{r}
 CustomerAddress <- separate(CustomerAddress, address, into = c("street_number", "street_name"), sep = " ", remove = FALSE, extra = "merge")
 # extra = "merge" to indicate that any additional separators should be merged back 
@@ -89,24 +87,13 @@ head(CustomerAddress)
 CustomerAddress$street_number <- as.character(as.numeric(CustomerAddress$street_number))
 ```
 
-
-```{r}
-# retrieve customer Benedicto Radki
-final_dataset[final_dataset$customer_name == 'Benedicto Radki', ]
-```
-
-```{r}
-CustomerAddress[CustomerAddress$customer_id == '2858', ]
-```
-
 ```{r}
 # remove address column
 CustomerAddress <- CustomerAddress |> select(-address)
 ```
 
-
 Split address column in NewCustomerList into street number and street name
-using 
+
 ```{r}
 NewCustomerList <- separate(NewCustomerList, address, into = c("street_number", "street_name"), sep = " ", remove = FALSE, extra = "merge")
 # extra = "merge" to indicate that any additional separators should be merged back 
@@ -120,40 +107,37 @@ head(NewCustomerList)
 NewCustomerList$street_number <- as.character(as.numeric(NewCustomerList$street_number))
 ```
 
-
-
 ```{r}
 # remove address column
 NewCustomerList <- NewCustomerList |> select(-address)
 ```
 
-
-
 Join CustomerDemographic and CustomerAddress
+
 ```{r}
 CD_CA <- inner_join(CustomerDemographic, CustomerAddress, by = 'customer_id')
 ```
 
 Join CD_CA and Transactions
+
 ```{r}
 CD_CA_T <- left_join(CD_CA, Transactions, by = 'customer_id')
 ```
 
-
 Subset CD_CA_T to customers that don't have transaction data.
+
 ```{r}
 CD_CA_T_no_transaction <- CD_CA_T[is.na(CD_CA_T$transaction_id),]
 ```
 
-
 Subset CD_CA_T to customers that have transaction data.
+
 ```{r}
 CD_CA_T <- CD_CA_T[!is.na(CD_CA_T$transaction_id),]
 ```
 
-
-
 Convert to proper data types
+
 ```{r}
 # for column that contains 'date', convert to date type
 CD_CA_T$product_first_sold_date <- as.Date(CD_CA_T$product_first_sold_date)
@@ -181,36 +165,29 @@ CD_CA_T$product_size <- factor(CD_CA_T$product_size,
                                     levels = c('small', 'medium', 'large'))
 ```
 
-
 ```{r}
 skim(CD_CA)
 ```
-
 
 ```{r}
 skim(CD_CA_T)
 ```
 
-
 ## Label data (define target)
 
 ### RFM Analysis
 
-Calculate Recency, Frequency, and Monetary Value (RFM) for each customer
-* Recency: the number of days since the last purchase
-* Frequency: the number of purchases made in the last 12 months
-* Monetary Value: the total amount of money spent in the last 12 months
+Calculate Recency, Frequency, and Monetary Value (RFM) for each customer \* Recency: the number of days since the last purchase \* Frequency: the number of purchases made in the last 12 months \* Monetary Value: the total amount of money spent in the last 12 months
 
+Firstly, let's set their RFM_Score as 000 and Target as Low-Value for CD_CA_T_no_transaction since they have no transaction data.
 
-
-Firstly, let's set their RFM_Score as 000 and Target as Low-Value for CD_CA_T_no_transaction
-since they have no transaction data.
 ```{r}
 CD_CA_T_no_transaction$RFM_Score <- as.numeric(0)
+CD_CA_T_no_transaction$Recency <- as.numeric(0)
+CD_CA_T_no_transaction$Frequency <- as.numeric(0)
+CD_CA_T_no_transaction$Monetary <- as.numeric(0)
 CD_CA_T_no_transaction$Target <- 'Low-Value'
 ```
-
-
 
 ```{r}
 # to calculate recency score for each customer, first group by customer_id,
@@ -240,8 +217,6 @@ CD_CA_T |>
   arrange(desc(transaction_date))
 ```
 
-
-
 ```{r}
 # Calculate Recency, Frequency, Monetary metrics
 RFM <- CD_CA_T %>%
@@ -252,9 +227,6 @@ RFM <- CD_CA_T %>%
 
 head(RFM)
 ```
-
-
-
 
 ```{r}
 # Assign scores based on quartiles
@@ -278,7 +250,6 @@ RFM$Monetary_Score <- cut(RFM$Monetary,
 
 ```
 
-
 ```{r}
 quantile(RFM$Recency,
          probs = seq(0, 1, 0.25))
@@ -293,7 +264,6 @@ quantile(RFM$Monetary,
          probs = seq(0, 1, 0.25), 
          type = 6)
 ```
-
 
 ```{r}
 # lower values receive higher scores for Recency
@@ -328,7 +298,6 @@ RFM$Monetary_Score <- cut(RFM$Monetary,
 
 ```
 
-
 ```{r}
 # Combine scores into RFM scores
 rfm_scores <- RFM %>%
@@ -343,7 +312,6 @@ quantile(as.numeric(rfm_scores$RFM_Score),
          probs = seq(0, 1, 0.33))
 ```
 
-
 ```{r}
 # Define Target Variable based on RFM scores
 rfm_scores$Target <- cut(as.numeric(rfm_scores$RFM_Score), 
@@ -355,25 +323,21 @@ rfm_scores$Target <- cut(as.numeric(rfm_scores$RFM_Score),
                           right = TRUE)
 ```
 
-
 ```{r}
 # join RFM scores and target variable with customer demographics
 CD_CA_T <- inner_join(CD_CA_T,
-                      rfm_scores[c('customer_id', 'RFM_Score', 'Target')],
+                      RFM[c('customer_id', 
+                                   'Recency',
+                                   'Frequency',
+                                   'Monetary')],
                       by = 'customer_id')
 ```
 
-
 ```{r}
-# plot distribution of Target variable
-CD_CA_T %>%
-  ggplot(aes(x = Target)) +
-  geom_bar() +
-  labs(title = 'Distribution of Target Variable',
-       x = 'Target',
-       y = 'Count')
-
-table(CD_CA_T$Target)
+CD_CA_T <- inner_join(CD_CA_T,
+                      rfm_scores[c('customer_id', 
+                                   'RFM_Score', 'Target')],
+                      by = 'customer_id')
 ```
 
 ```{r}
@@ -393,21 +357,40 @@ rfm_scores %>%
             RFM_Score = mean(RFM_Score))
 ```
 
-
 ### Create final set
 
 Append CD_CA_T with CD_CA_T_no_transaction.
+
 ```{r}
 CD_CA_T <- rbind(CD_CA_T, CD_CA_T_no_transaction)
 ```
 
 remove duplicates in CD_CA_T (due to previously merging with Transactions data set)
+
 ```{r}
 CD_CA_T <- CD_CA_T[!duplicated(CD_CA_T$customer_id), ]
+
+CD_CA_T <- CD_CA_T |> 
+  select(-profit)
 ```
 
+```{r}
+CD_CA_T %>%
+  ggplot(aes(x = Target)) +
+  geom_bar(aes(fill = Target)) +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = -0.5) +
+  labs(title = 'Distribution of Target Variable',
+       x = 'Target',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'none') +
+  scale_fill_manual(values = c('Low-Value' = 'darkred',
+                               'Mid-Value' = 'lightyellow',
+                               'High-Value' = 'darkgreen'))
+```
 
 Now, create the final train set with target.
+
 ```{r}
 # join Target with CD_CA
 final_dataset <- inner_join(CD_CA,
@@ -417,9 +400,6 @@ final_dataset <- inner_join(CD_CA,
 head(final_dataset)
 ```
 
-
-
-
 ```{r}
 colnames(NewCustomerList)
 ```
@@ -427,9 +407,6 @@ colnames(NewCustomerList)
 ```{r}
 colnames(final_dataset)
 ```
-
-
-
 
 ## Export data to csv file
 
@@ -440,29 +417,6 @@ if (!file.exists("cleansed data 3")) {
 
 write.csv(CD_CA_T, 'cleansed data 3/CD_CA_T.csv', row.names = FALSE)
 write.csv(final_dataset, 'cleansed data 3/final_dataset.csv', row.names = FALSE)
+write.csv(rfm_scores, 'cleansed data 3/rfm_scores.csv', row.names = FALSE)
+write.csv(RFM, 'cleansed data 3/RFM.csv', row.names = FALSE)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
