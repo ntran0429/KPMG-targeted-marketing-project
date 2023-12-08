@@ -50,7 +50,7 @@ map_job_to_group <- function(job_title) {
 }
 
 # Apply the mapping function to create a new column 'job_group'
-CD_CA_T$job_type <- sapply(CD_CA_T$job_title, map_job_to_group)
+CD_CA_rfm$job_type <- sapply(CD_CA_rfm$job_title, map_job_to_group)
 final_dataset$job_type <- sapply(final_dataset$job_title, map_job_to_group)
 NewCustomerList$job_type <- sapply(NewCustomerList$job_title, map_job_to_group)
 

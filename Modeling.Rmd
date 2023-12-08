@@ -1,0 +1,57 @@
+---
+title: "Modeling"
+output: html_document
+date: "2023-12-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## Import packages
+```{r}
+library(tidyverse)
+library(caret)
+```
+
+
+
+## Load data
+```{r}
+final_dataset <- read_csv("post EDA data/final_dataset.csv")
+NewCustomerList <- read_csv("post EDA data/NewCustomerList.csv")
+```
+
+
+# Preprocess Data
+
+
+```{r}
+# Importing the dataset
+dataset = read.csv('Data.csv')
+```
+
+
+```{r}
+# Splitting the dataset into the Training set and Test set
+# install.packages('caTools')
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$DependentVariable, SplitRatio = 0.8)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+
+
+```{r}
+# Feature Scaling
+# training_set = scale(training_set)
+# test_set = scale(test_set)
+```
+
+
+
+## Select relevant features
+

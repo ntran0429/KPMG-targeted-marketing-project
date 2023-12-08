@@ -1,0 +1,795 @@
+---
+title: "EDA"
+format:
+  html:
+    toc: true
+    html-math-method: katex
+    css: styles.css
+---
+
+
+## Import packages
+```{r}
+library(tidyverse)
+library(dlookr)
+library(DataExplorer)
+```
+
+
+
+
+
+
+
+
+## Load data
+
+```{r}
+CD_CA_rfm <- read_csv("cleansed data 3/CD_CA_rfm.csv")
+final_dataset <- read_csv("cleansed data 3/final_dataset.csv")
+NewCustomerList <- read_csv("cleansed data 2/NewCustomerList.csv")
+Transactions <- read_csv("cleansed data 2/Transactions.csv")
+coordinates_df_final <- read_csv("./coordinates_df_final.csv")
+# remove duplicated postcodes in coordinates_df_final
+coordinates_df_final <- coordinates_df_final |> distinct(postcode, .keep_all = TRUE)
+
+
+# left join CD_CA_rfm and Transactions
+CD_CA_rfm_T <- merge(CD_CA_rfm, Transactions, by = "customer_id", all.x = TRUE)
+```
+
+
+```{r}
+# join CD_CA_rfm and coordinates_df_final based on postcode
+# keep postcode column from CD_CA_rfm
+CD_CA_rfm <- left_join(CD_CA_rfm, coordinates_df_final, by = "postcode")
+```
+
+```{r}
+colSums(is.na(CD_CA_rfm))
+```
+
+
+
+```{r}
+final_dataset <- left_join(final_dataset, coordinates_df_final, by = "postcode")
+```
+
+```{r}
+# find column with missing values in final_dataset
+colSums(is.na(final_dataset))
+```
+
+
+
+```{r}
+NewCustomerList <- left_join(NewCustomerList, coordinates_df_final, by = "postcode")
+```
+
+```{r}
+# get missing lat and lon coords for NewCustomerList
+
+# subset NewCustomerList with missing lat and lon coords
+missing_coords_NCL <- unique(NewCustomerList[is.na(NewCustomerList$lat),] |> 
+  select(postcode))
+```
+
+```{r}
+# library(ggmap)
+# 
+# google_api_key <- Sys.getenv("google_api_key")
+# register_google(key = google_api_key)
+# 
+# postcodes <- as.character((missing_coords_NCL$postcode))
+# 
+# # Function to get lat and lon using ggmap
+# get_lat_lon_ggmap <- function(postcode, api_key) {
+#   geo_data <- geocode(paste(postcode, ", Australia", sep = ""))
+#   return(geo_data)
+# }
+# 
+# # Get coordinates for each postcode
+# results_ggmap <- lapply(postcodes, get_lat_lon_ggmap, api_key = api_key)
+# 
+# # Extract lat and lon from results
+# coordinates_df_ggmap <- data.frame(
+#   postcode = postcodes,
+#   lat = sapply(results_ggmap, function(x) x$lat),
+#   lon = sapply(results_ggmap, function(x) x$lon)
+# )
+# 
+# # Print the resulting data frame
+# print(coordinates_df_ggmap)
+```
+
+```{r}
+coordinates_df_final_wNCL <- read_csv("./coordinates_df_NCL_final.csv")
+# write.csv(coordinates_df_ggmap, "./additional_lat_lon_for_NCL.csv")
+```
+
+```{r}
+coordinates_df_final_wNCL <- coordinates_df_final_wNCL |> 
+  distinct(postcode, .keep_all = TRUE)
+
+```
+
+
+```{r}
+NewCustomerList <- NewCustomerList |> 
+  select(-lat, -lon, ) |>
+  mutate(postcode = as.numeric(postcode)) |> 
+  left_join(coordinates_df_final_wNCL, 
+                             by = "postcode")
+```
+
+
+
+
+### Convert to proper data types
+
+```{r}
+CD_CA_rfm$customer_id <- as.character(CD_CA_rfm$customer_id)
+CD_CA_rfm$postcode <- as.character(CD_CA_rfm$postcode)
+```
+
+
+```{r}
+final_dataset$customer_id <- as.character(final_dataset$customer_id)
+final_dataset$postcode <- as.character(final_dataset$postcode)
+```
+
+
+
+```{r}
+CD_CA_rfm$gender <- factor(CD_CA_rfm$gender, ordered = FALSE)
+final_dataset$gender <- factor(final_dataset$gender, ordered = FALSE)
+```
+
+
+
+```{r}
+CD_CA_rfm$job_title <- factor(
+  CD_CA_rfm$job_title,
+  ordered = FALSE)
+
+CD_CA_rfm$job_industry_category <- factor(
+  CD_CA_rfm$job_industry_category,
+  ordered = FALSE)
+# levels(CD_CA_rfm$job_industry_category)
+# to list out levels in a factor
+
+CD_CA_rfm$wealth_segment <- factor(
+  CD_CA_rfm$wealth_segment,
+  ordered = TRUE,
+  levels = c('Mass Customer', 'Affluent Customer', 'High Net Worth'))
+
+
+CD_CA_rfm$owns_car <- factor(
+  CD_CA_rfm$owns_car,
+  ordered = FALSE)
+```
+
+```{r}
+final_dataset$job_title <- factor(
+  final_dataset$job_title,
+  ordered = FALSE)
+
+final_dataset$job_industry_category <- factor(
+  final_dataset$job_industry_category,
+  ordered = FALSE)
+# levels(CD_CA_rfm$job_industry_category)
+# to list out levels in a factor
+
+final_dataset$wealth_segment <- factor(
+  final_dataset$wealth_segment,
+  ordered = TRUE,
+  levels = c('Mass Customer', 'Affluent Customer', 'High Net Worth'))
+
+
+final_dataset$owns_car <- factor(
+  final_dataset$owns_car,
+  ordered = FALSE)
+
+final_dataset$street_number <- as.character(final_dataset$street_number)
+
+final_dataset$state <- as.factor(final_dataset$state)
+final_dataset$country <- as.factor(final_dataset$country)
+
+final_dataset$Target <- factor(final_dataset$Target, 
+                         ordered = TRUE,
+                         levels = c('Low-Value', 'Mid-Value', 'High-Value'))
+```
+
+
+
+```{r}
+NewCustomerList$gender <- as.factor(NewCustomerList$gender)
+NewCustomerList$job_title <- as.factor(NewCustomerList$job_title)
+
+NewCustomerList$job_industry_category <- as.factor(NewCustomerList$job_industry_category)
+NewCustomerList$wealth_segment <- factor(
+  NewCustomerList$wealth_segment,
+  ordered = TRUE,
+  levels = c('Mass Customer', 'Affluent Customer', 'High Net Worth'))
+
+NewCustomerList$owns_car <- as.factor(NewCustomerList$owns_car)
+NewCustomerList$postcode <- as.character(NewCustomerList$postcode)
+NewCustomerList$state <- as.factor(NewCustomerList$state)
+NewCustomerList$country <- as.factor(NewCustomerList$country)
+```
+
+```{r}
+CD_CA_rfm$street_number <- as.character(CD_CA_rfm$street_number)
+CD_CA_rfm$state <- as.factor(CD_CA_rfm$state)
+CD_CA_rfm$country <- as.factor(CD_CA_rfm$country)
+CD_CA_rfm_T$transaction_id <- as.character(CD_CA_rfm_T$transaction_id)
+CD_CA_rfm_T$order_status <- as.factor(CD_CA_rfm_T$order_status)
+
+
+CD_CA_rfm_T$product_id <- as.character(CD_CA_rfm_T$product_id)
+CD_CA_rfm_T$product_class <- factor(CD_CA_rfm_T$product_class, 
+                                     ordered = TRUE,
+                                     levels = c('low', 'medium', 'high'))
+CD_CA_rfm_T$product_size <- factor(CD_CA_rfm_T$product_size, 
+                                    ordered = TRUE,
+                                    levels = c('small', 'medium', 'large'))
+CD_CA_rfm_T$brand <- factor(CD_CA_rfm_T$brand, ordered = FALSE)
+
+CD_CA_rfm$Target <- factor(CD_CA_rfm$Target, 
+                         ordered = TRUE,
+                         levels = c('Low-Value', 'Mid-Value', 'High-Value'))
+```
+
+
+Split address column in NewCustomerList into street number and street name
+```{r}
+NewCustomerList <- separate(NewCustomerList, address, into = c("street_number", "street_name"), sep = " ", remove = FALSE, extra = "merge")
+# extra = "merge" to indicate that any additional separators should be merged back 
+# into the last column. This is for cases where street names have spaces.
+```
+
+```{r}
+# remove leading zeros in any street_number values that have them
+NewCustomerList$street_number <- as.character(as.numeric(NewCustomerList$street_number))
+```
+
+```{r}
+# remove address column
+NewCustomerList <- NewCustomerList |> select(-address)
+```
+
+
+```{r}
+head(NewCustomerList)
+```
+
+
+
+```{r}
+glimpse(CD_CA_rfm)
+```
+
+
+
+```{r}
+glimpse(final_dataset)
+```
+
+
+```{r}
+glimpse(NewCustomerList)
+```
+
+
+## Add new features
+
+```{r}
+Transactions$profit <- Transactions$list_price - Transactions$standard_cost
+```
+
+
+### age groups
+Categorize age into 4 groups
+18-24, 25-34, 35-44, 45-54, 55-64 and 65 and over
+
+```{r}
+CD_CA_rfm$age_group <- case_when(
+  CD_CA_rfm$age >= 18 & CD_CA_rfm$age <= 24 ~ '18-24',
+  CD_CA_rfm$age >= 25 & CD_CA_rfm$age <= 34 ~ '25-34',
+  CD_CA_rfm$age >= 35 & CD_CA_rfm$age <= 44 ~ '35-44',
+  CD_CA_rfm$age >= 45 & CD_CA_rfm$age <= 54 ~ '45-54',
+  CD_CA_rfm$age >= 55 & CD_CA_rfm$age <= 64 ~ '55-64',
+  CD_CA_rfm$age >= 65 ~ '65+'
+)
+CD_CA_rfm$age_group <- factor(CD_CA_rfm$age_group, ordered = TRUE,
+                            levels = c('18-24', '25-34', '35-44', '45-54', '55-64', '65+'))
+
+
+final_dataset$age_group <- case_when(
+  final_dataset$age >= 18 & final_dataset$age <= 24 ~ '18-24',
+  final_dataset$age >= 25 & final_dataset$age <= 34 ~ '25-34',
+  final_dataset$age >= 35 & final_dataset$age <= 44 ~ '35-44',
+  final_dataset$age >= 45 & final_dataset$age <= 54 ~ '45-54',
+  final_dataset$age >= 55 & final_dataset$age <= 64 ~ '55-64',
+  final_dataset$age >= 65 ~ '65+'
+)
+final_dataset$age_group <- factor(final_dataset$age_group, ordered = TRUE,
+                            levels = c('18-24', '25-34', '35-44', '45-54', '55-64', '65+'))
+```
+
+```{r}
+# remove age column
+CD_CA_rfm <- CD_CA_rfm |> select(-age)
+final_dataset <- final_dataset |> select(-age)
+```
+
+
+
+### job types
+
+Aggregate job titles into five categories to reduce high cardinality:
+
+Managerial
+
+Administrative
+
+Technical
+
+Quantitative
+
+Healthcare
+```{r}
+source("aggregate_job_titles.R")
+
+# View the result
+table(CD_CA_rfm$job_type)
+table(NewCustomerList$job_type)
+```
+
+
+```{r}
+# remove job_title column
+CD_CA_rfm <- CD_CA_rfm |> select(-job_title)
+final_dataset <- final_dataset |> select(-job_title)
+NewCustomerList <- NewCustomerList |> select(-job_title)
+```
+
+```{r}
+# convert to factor type
+CD_CA_rfm$job_type <- as.factor(CD_CA_rfm$job_type)
+final_dataset$job_type <- as.factor(final_dataset$job_type)
+NewCustomerList$job_type <- as.factor(NewCustomerList$job_type)
+```
+
+
+
+### derive new features from postcode
+
+
+Extract median salary from postcode
+```{r}
+taxation_stats_by_postcode <- read_csv("./taxation_stats_by_postcode_2017.csv")
+```
+
+```{r}
+median_salary_by_postcode <- taxation_stats_by_postcode |> 
+  select(Postcode, `Median salary or wages`)
+```
+
+```{r}
+head(median_salary_by_postcode)
+```
+
+
+```{r}
+# Join the datasets based on the common key 'Postcode'
+CD_CA_rfm <- CD_CA_rfm |> 
+  mutate(postcode = as.numeric(postcode)) |>
+  left_join(median_salary_by_postcode, by = c("postcode" = "Postcode"))
+
+# Print the resulting tibble/data frame
+print(CD_CA_rfm)
+
+```
+
+```{r}
+# Join the datasets based on the common key 'Postcode'
+final_dataset <- final_dataset |> 
+  mutate(postcode = as.numeric(postcode)) |>
+  left_join(median_salary_by_postcode, by = c("postcode" = "Postcode"))
+
+# Print the resulting tibble/data frame
+print(final_dataset)
+```
+
+
+
+```{r}
+# Join the datasets based on the common key 'Postcode'
+NewCustomerList <- NewCustomerList |> 
+  mutate(postcode = as.numeric(postcode)) |>
+  left_join(median_salary_by_postcode, by = c("postcode" = "Postcode"))
+
+# Print the resulting tibble/data frame
+print(NewCustomerList)
+```
+
+
+
+```{r}
+CD_CA_rfm$`Median salary or wages` <- 
+  CD_CA_rfm$`Median salary or wages` |> 
+  replace_na(median(CD_CA_rfm$`Median salary or wages`, na.rm = TRUE))
+```
+
+```{r}
+# impute missing values in final_dataset's Median salary or wages 
+# with median of that column
+final_dataset$`Median salary or wages` <- 
+  final_dataset$`Median salary or wages` |> 
+  replace_na(median(final_dataset$`Median salary or wages`, na.rm = TRUE))
+```
+
+
+
+
+## Explore data
+
+### Automated reports
+```{r}
+# final_dataset |>
+#   eda_web_report(target = "Target", browser = FALSE,
+#                  output_dir = "./", output_file = "final_dataset_EDA.html",
+#                  theme = "blue")
+```
+
+```{r}
+# CD_CA_rfm |>
+#   eda_web_report(target = "Target", browser = FALSE,
+#                  output_dir = "./", output_file = "CD_CA_rfm_EDA.html",
+#                  theme = "blue")
+```
+
+```{r}
+# NewCustomerList |>
+#   eda_web_report(browser = FALSE,
+#                  output_dir = "./", output_file = "NewCustomerList_EDA.html",
+#                  theme = "blue")
+```
+
+```{r}
+# create_report(final_dataset, y = "Target")
+```
+
+
+
+### Univariate analysis
+
+Recall CD_CA_rfm contains observations at the customer level.
+
+Each row represents a customer, with information about their demographics, sum of profit accrued from their transactions, how many purchases they made, their target value (low, mid, or high value customer), etc.
+
+```{r}
+CD_CA_rfm |>
+  ggplot(aes(x = Target)) +
+  geom_bar(aes(fill = Target)) +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = -0.5) +
+  labs(title = 'Distribution of Target Variable',
+       x = 'Target',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'none') +
+  scale_fill_manual(values = c('Low-Value' = 'darkred',
+                               'Mid-Value' = 'lightyellow',
+                               'High-Value' = 'darkgreen'))
+```
+Count of Low-Value customers is high because out of 3993 customers (that are used for fitting models), there are 508 that do not have transaction data in the past year but have demographic and address data and have made purchases in the past three years.
+
+However, including them will lead to a potential class imbalance problem. Thus, we will omit these customers from training.
+
+
+#### 508 customers with no transactions in the past year 
+
+```{r}
+Cust_past_yr_no_purchase <- CD_CA_rfm_T |>
+  filter(is.na(transaction_id))
+
+Cust_past_yr_no_purchase
+```
+
+```{r}
+# plot histogram distribution of bike purchases for Cust_past_yr_no_purchase
+ggplot(Cust_past_yr_no_purchase, aes(x = past_3_years_bike_related_purchases)) +
+  geom_histogram(binwidth = 5) +
+  labs(
+    title = 'Distribution of Bike Purchases for Customers with No Purchases in the Past Year',
+       x = 'Bike Purchases',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+Seems to be two populations of customers: those who have made less than average bike purchases, and those who have made more than the average.
+Should check in with the existing customers in the second population to see if they are still interested in our products.
+
+```{r}
+CD_CA_rfm <- CD_CA_rfm |> 
+  filter(!(customer_id %in% Cust_past_yr_no_purchase$customer_id))
+```
+
+```{r}
+final_dataset <- final_dataset |> 
+  filter(!(customer_id %in% Cust_past_yr_no_purchase$customer_id))
+```
+
+
+```{r}
+CD_CA_rfm |> 
+  ggplot(aes(x = Target)) +
+  geom_bar(aes(fill = Target)) +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = -0.5) +
+  labs(title = 'Distribution of Target Variable',
+       x = 'Target',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'none') +
+  scale_fill_manual(values = c('Low-Value' = 'darkred',
+                               'Mid-Value' = 'lightyellow',
+                               'High-Value' = 'darkgreen'))
+```
+
+
+
+```{r}
+plot_boxplot(CD_CA_rfm, by = "Target")
+```
+
+
+
+
+```{r}
+CD_CA_rfm |>
+  ggplot(aes(x = age_group)) +
+  geom_bar(aes(fill = age_group)) +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = -0.5) +
+  labs(title = 'Distribution of Age Groups',
+       x = 'Age Group',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'none')
+```
+
+Our customer base is mostly made up of middle-aged customers, with the 45-54 age group being the largest.
+
+
+```{r}
+	plot_hist_numeric(CD_CA_rfm, each = F)
+```
+
+
+
+
+### Bivariate analysis
+
+
+```{r}
+# plot distribution of age group and wealth segment
+CD_CA_rfm |>
+  ggplot(aes(x = age_group, fill = wealth_segment)) +
+  geom_bar(position = "dodge") +
+  labs(title = 'Distribution of Age Group and Wealth Segment',
+       x = 'Age Group',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'bottom')
+```
+Across all age groups, the majority of customers are in the Mass Customer wealth segment.
+The Affluent Customer segment and the High Net Worth segment are roughly the same size.
+This indicates that overall, our main audience is Mass Customers.
+
+```{r}
+# frequency table of wealth segment
+CD_CA_rfm |>
+  count(wealth_segment) |>
+  mutate(prop = n / sum(n))
+```
+
+
+Let's see if the majority of our customers (ie. Mass Customers) are also the ones who bring in the most profit.
+```{r}
+# make a clustered bar plot to answer:
+# which age group and wealth segment bring in the most profit (Monetary column)?
+CD_CA_rfm |>
+  ggplot(aes(x = age_group, y = Monetary, fill = wealth_segment)) +
+  geom_col(position = 'dodge') +
+  labs(title = 'Distribution of Profit by Age Group and Wealth Segment',
+       x = 'Age Group',
+       y = 'Profit') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'bottom')
+```
+
+
+```{r}
+# make a bar plot to answer:
+# which age group and wealth segment bring in the most profit (Monetary column)?
+CD_CA_rfm |>
+  ggplot(aes(x = age_group, y = Monetary, fill = wealth_segment)) +
+  geom_boxplot() +
+  labs(title = 'Distribution of Monetary by Age Group and Wealth Segment',
+       x = 'Age Group',
+       y = 'Monetary') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'bottom')
+```
+
+
+```{r}
+# using dplyr, summarize past 3 years bike related purchases by industry
+CD_CA_rfm |> summarize(
+  total_bike_purchases = sum(past_3_years_bike_related_purchases),
+  .by = job_industry_category) |> arrange(desc(total_bike_purchases)) |> 
+  # plot a bar chart
+  ggplot(aes(y = reorder(job_industry_category, total_bike_purchases), 
+             x = total_bike_purchases)) +
+  geom_bar(stat="identity") +
+  labs(title = 'Distribution of Past 3 Years Bike Related Purchases by Industry',
+       x = 'Past 3 Years Bike Related Purchases',
+       y = 'Industry')
+```
+Top 3 industries with the most past 3 years bike related purchases are Manufacturing, Financial Services, and Health.
+
+
+```{r}
+# from DataExplorer
+
+# plot factor variables based on frequency (number of customers in each category)
+plot_bar(CD_CA_rfm, 
+         nrow = 2, ncol = 2)
+```
+
+```{r}
+# with = indicates name of continuous feature to be summed. 
+# default is NULL, i.e., frequency.
+plot_bar(CD_CA_rfm, 
+         with = "past_3_years_bike_related_purchases",
+         nrow = 1, ncol = 1)
+```
+
+
+
+Gender distribution is pretty balanced, so we will not have any gender bias in training.
+
+Most of the customers in 2017 are in the Mass segment and work in Manufacturing, Financial Services, and Health.
+
+This majority of the customers also have the most bike related purchases in the last 3 years.
+
+
+
+```{r}
+plot_bar(CD_CA_rfm, 
+         by = 'gender', 
+         ncol = 2)
+```
+
+
+
+```{r}
+plot_bar(CD_CA_rfm, 
+         by = 'wealth_segment', 
+         ncol = 2)
+```
+
+```{r}
+plot_bar(CD_CA_rfm, 
+         by = 'job_industry_category', 
+         ncol = 2)
+```
+
+```{r}
+plot_bar(CD_CA_rfm, 
+         by = 'job_type', 
+         ncol = 2)
+```
+
+
+
+```{r}
+# library(flextable)
+dlookr::diagnose_numeric(CD_CA_rfm)
+```
+
+
+
+## Geospatial analysis
+
+```{r}
+# create an Australian map of customer locations using lat and lon in CD_CA_rfm
+# filled by Target
+
+# Install and load necessary packages
+# install.packages("ggplot2")
+# install.packages("maps")
+library(ggplot2)
+library(maps)
+
+# Assuming your dataset is named CD_CA_rfm
+# Replace lat_column and lon_column with the actual column names from your dataset
+lat_column <- "lat"
+lon_column <- "lon"
+
+# Create a base map of Australia
+australia <- map_data("world", region = "Australia")
+
+# Create a scatter plot of customer locations on the map
+customer_map <- ggplot() +
+  geom_polygon(data = australia, aes(x = long, y = lat, group = group), fill = "white", color = "black") +
+  geom_point(data = CD_CA_rfm, aes_string(x = lon_column, y = lat_column), color = "red", size = 2) +
+  labs(title = "Customer Locations in Australia")
+
+# Print the map
+print(customer_map)
+
+
+
+
+```
+
+
+
+
+
+```{r}
+
+# Assuming your dataset is named CD_CA_rfm
+# Replace lat_column, lon_column, and target_column with the actual column names from your dataset
+lat_column <- "lat"
+lon_column <- "lon"
+target_column <- "Target"
+
+# Create a base map of Australia
+australia <- map_data("world", region = "Australia")
+
+# Create a scatter plot of customer locations on the map with points filled by Target
+customer_map <- ggplot() +
+  geom_polygon(data = australia, aes(x = long, y = lat, group = group), fill = "white", color = "black") +
+  geom_point(data = CD_CA_rfm, aes_string(x = lon_column, y = lat_column, 
+                                          fill = target_column), size = 2, shape = 21) +
+  scale_fill_manual(values = c("red", "yellow", "green")) +  # Customize fill colors as needed
+  labs(title = "Customer Locations in Australia")
+
+# Print the map
+print(customer_map)
+
+```
+
+
+
+
+
+```{r}
+if (!file.exists("post EDA data")) {
+  dir.create("post EDA data")
+}
+
+write.csv(CD_CA_rfm, 'post EDA data/CD_CA_rfm.csv', row.names = FALSE)
+write.csv(final_dataset, 'post EDA data/final_dataset.csv', row.names = FALSE)
+write.csv(NewCustomerList, 'post EDA data/NewCustomerList.csv', row.names = FALSE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
