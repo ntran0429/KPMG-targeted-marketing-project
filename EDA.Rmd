@@ -324,6 +324,25 @@ final_dataset <- final_dataset |> select(-age)
 ```
 
 
+```{r}
+NewCustomerList$age_group <- case_when(
+  NewCustomerList$age >= 18 & NewCustomerList$age <= 24 ~ '18-24',
+  NewCustomerList$age >= 25 & NewCustomerList$age <= 34 ~ '25-34',
+  NewCustomerList$age >= 35 & NewCustomerList$age <= 44 ~ '35-44',
+  NewCustomerList$age >= 45 & NewCustomerList$age <= 54 ~ '45-54',
+  NewCustomerList$age >= 55 & NewCustomerList$age <= 64 ~ '55-64',
+  NewCustomerList$age >= 65 ~ '65+'
+)
+NewCustomerList$age_group <- factor(NewCustomerList$age_group, ordered = TRUE,
+                            levels = c('18-24', '25-34', '35-44', 
+                                       '45-54', '55-64', '65+'))
+
+NewCustomerList <- NewCustomerList |> select(-age)
+
+```
+
+
+
 
 ### job types
 
@@ -410,7 +429,6 @@ NewCustomerList <- NewCustomerList |>
   mutate(postcode = as.numeric(postcode)) |>
   left_join(median_salary_by_postcode, by = c("postcode" = "Postcode"))
 
-# Print the resulting tibble/data frame
 print(NewCustomerList)
 ```
 
@@ -605,6 +623,8 @@ CD_CA_rfm |>
        y = 'Profit') +
   theme(plot.title = element_text(hjust = 0.5),
         legend.position = 'bottom')
+  # 'Low-Value' = 'darkred','Mid-Value' = 'lightyellow','High-Value' = 'darkgreen'
+
 ```
 
 
@@ -620,6 +640,95 @@ CD_CA_rfm |>
   theme(plot.title = element_text(hjust = 0.5),
         legend.position = 'bottom')
 ```
+
+
+```{r}
+# plot Target by age group
+CD_CA_rfm |>
+  ggplot(aes(x = age_group, fill = Target)) +
+  geom_bar(position = "dodge") +
+  labs(title = 'Distribution of Age Group and Target',
+       x = 'Age Group',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'bottom') +
+  scale_fill_manual(values = c('Low-Value' = 'darkred',
+                               'Mid-Value' = 'lightyellow',
+                               'High-Value' = 'darkgreen'))
+```
+
+```{r}
+# plot Target by age group in terms of proportion
+CD_CA_rfm |>
+  count(age_group, Target) |>
+  group_by(age_group) |>
+  mutate(prop = n / sum(n))
+
+CD_CA_rfm |>
+  count(age_group, Target) |>
+  group_by(age_group) |>
+  mutate(prop = n / sum(n)) |>
+  ggplot(aes(x = age_group, y = prop, fill = Target)) +
+  geom_col(position = "dodge") +
+  labs(title = 'Proportion of Target by Age Group',
+       x = 'Age Group',
+       y = 'Proportion') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'bottom') +
+  scale_fill_manual(values = c('Low-Value' = 'darkred',
+                               'Mid-Value' = 'lightyellow',
+                               'High-Value' = 'darkgreen'))
+
+```
+Across all age groups, 18-24 year olds are the most likely to be low-value customers.
+
+
+```{r}
+# plot Target by gender
+CD_CA_rfm |> 
+  ggplot(aes(x = gender, fill = Target)) +
+  geom_bar(position = "dodge") +
+  labs(title = 'Distribution of Age Group and Target',
+       x = 'Age Group',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'bottom') +
+  scale_fill_manual(values = c('Low-Value' = 'darkred',
+                               'Mid-Value' = 'lightyellow',
+                               'High-Value' = 'darkgreen'))
+```
+
+```{r}
+# frequency table of customers by age group
+CD_CA_rfm |>
+  count(age_group) |>
+  mutate(prop = n / sum(n))
+```
+
+
+```{r}
+# plot Target by gender in terms of proportion
+CD_CA_rfm |>
+  count(gender, Target) |>
+  group_by(gender) |>
+  mutate(prop = n / sum(n))
+
+CD_CA_rfm |>
+  count(gender, Target) |>
+  group_by(gender) |>
+  mutate(prop = n / sum(n)) |>
+  ggplot(aes(x = gender, y = prop, fill = Target)) +
+  geom_col(position = "dodge") +
+  labs(title = 'Proportion of Target Gender',
+       x = 'Gender',
+       y = 'Proportion') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'bottom') +
+  scale_fill_manual(values = c('Low-Value' = 'darkred',
+                               'Mid-Value' = 'lightyellow',
+                               'High-Value' = 'darkgreen'))
+```
+By gender, there are subtle differences (~0.5%-1%) in the proportions of Target.
 
 
 ```{r}
@@ -667,6 +776,13 @@ This majority of the customers also have the most bike related purchases in the 
 ```{r}
 plot_bar(CD_CA_rfm, 
          by = 'gender', 
+         ncol = 2)
+```
+
+
+```{r}
+plot_bar(CD_CA_rfm, 
+         by = 'owns_car', 
          ncol = 2)
 ```
 
@@ -780,6 +896,11 @@ write.csv(NewCustomerList, 'post EDA data/NewCustomerList.csv', row.names = FALS
 
 
 
+## NewCustomerList
+
+```{r}
+
+```
 
 
 

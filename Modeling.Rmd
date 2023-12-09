@@ -14,44 +14,370 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library(caret)
+library(caTools)
 ```
 
 
 
 ## Load data
 ```{r}
-final_dataset <- read_csv("post EDA data/final_dataset.csv")
-NewCustomerList <- read_csv("post EDA data/NewCustomerList.csv")
+ final_dataset <- read_csv("post EDA data/final_dataset.csv")
+ NewCustomerList <- read_csv("post EDA data/NewCustomerList.csv")
 ```
-
-
-# Preprocess Data
-
-
+ 
 ```{r}
-# Importing the dataset
-dataset = read.csv('Data.csv')
+# rename Median salary or wages to Median_salary_or_wages
+final_dataset <- final_dataset |> 
+  rename(Median_salary_or_wages = `Median salary or wages`)
+
+NewCustomerList <- NewCustomerList |> 
+  rename(Median_salary_or_wages = `Median salary or wages`)
 ```
 
+ 
+```{r}
 
+# Select relevant features
+ final_set <- final_dataset |>
+   select(-c(property_valuation, street_number,street_name,
+             postcode, customer_id, customer_name, country))
+```
+ 
+```{r}
+ glimpse(final_set)
+```
+ 
+## Split data into 75/25
 ```{r}
 # Splitting the dataset into the Training set and Test set
 # install.packages('caTools')
-library(caTools)
-set.seed(123)
-split = sample.split(dataset$DependentVariable, SplitRatio = 0.8)
-training_set = subset(dataset, split == TRUE)
-test_set = subset(dataset, split == FALSE)
+set.seed(999)
+split = sample.split(final_set$Target, SplitRatio = 0.75)
+training_set = subset(final_set, split == TRUE)
+test_set = subset(final_set, split == FALSE)
+
+Training_Set <- training_set
+Test_Set <- test_set
+```
+ 
+
+## Preprocess Data
+
+```{r}
+# Specify the names of the columns to convert to factor
+to_factor_cols <- c("gender", "job_industry_category", "wealth_segment", 
+                         "owns_car", "state", "Target", "age_group", "job_type")
+
+
+# Convert specified columns to factor
+Training_Set[to_factor_cols] <- 
+  lapply(Training_Set[to_factor_cols], as.factor)
+
+# ordinal factors: wealth segment, Target, age_group
+# Ordinal data is classified into categories within a variable 
+# that have a natural rank order. However, the distances between 
+# the categories are uneven or unknown.
+Training_Set$wealth_segment <- factor(Training_Set$wealth_segment, 
+                                      ordered = TRUE,
+                                      levels = c("Mass Customer", 
+                                                 "Affluent Customer", 
+                                                 "High Net Worth"))
+
+Training_Set$Target <- factor(Training_Set$Target, ordered = TRUE,
+                              levels = c("Low-Value", "Mid-Value", "High-Value"))
+
+Training_Set$age_group <- factor(Training_Set$age_group, ordered = TRUE,
+                                 levels = c("18-24", "25-34", "35-44", 
+                                            "45-54", "55-64", "65+"))
+
+
+# Check the updated column types
+glimpse(Training_Set)
+```
+
+```{r}
+# Specify the names of the columns to convert to factor
+to_factor_cols <- c("gender", "job_industry_category", "wealth_segment", 
+                    "owns_car", "state", "Target", "age_group", "job_type")
+
+
+# Convert specified columns to factor
+Test_Set[to_factor_cols] <- 
+  lapply(Test_Set[to_factor_cols], as.factor)
+
+# ordinal factors: wealth segment, Target, age_group
+# Ordinal data is classified into categories within a variable 
+# that have a natural rank order. However, the distances between 
+# the categories are uneven or unknown.
+Test_Set$wealth_segment <- factor(Test_Set$wealth_segment, 
+                                      ordered = TRUE,
+                                      levels = c("Mass Customer", 
+                                                 "Affluent Customer", 
+                                                 "High Net Worth"))
+
+Test_Set$Target <- factor(Test_Set$Target, ordered = TRUE,
+                              levels = c("Low-Value", "Mid-Value", "High-Value"))
+
+Test_Set$age_group <- factor(Test_Set$age_group, ordered = TRUE,
+                                 levels = c("18-24", "25-34", "35-44", 
+                                            "45-54", "55-64", "65+"))
+
+
+# Check the updated column types
+glimpse(Test_Set)
+```
+
+
+### training_set
+```{r}
+# Select numeric columns
+numeric_columns <- sapply(training_set, is.numeric) 
+training_set_numeric <- training_set[, numeric_columns]
+
+# Feature scaling
+preprocess_params <- preProcess(training_set_numeric, method = c("center", "scale"))
+
+# Apply preprocessing to the numeric data
+training_set_scaled <- predict(preprocess_params, newdata = training_set_numeric)
 ```
 
 
 ```{r}
-# Feature Scaling
-# training_set = scale(training_set)
-# test_set = scale(test_set)
+# Select categorical variables
+training_set_categorical <- training_set[, !numeric_columns] |> select(-c(Target))
+# Create dummy variables (one-hot encoding)
+dummy_variables <- dummyVars(~., data = training_set_categorical, fullRank = TRUE)
+
+# Apply dummy variables to the original dataset
+training_set_encoded <- predict(dummy_variables, newdata = training_set_categorical)
+```
+
+
+```{r}
+# Combine scaled numeric variables with encoded categorical variables
+training_set_processed <- 
+  cbind(training_set_scaled, training_set_encoded) |>
+  bind_cols(training_set |> select(Target)) |> 
+  mutate(Target = factor(Target, ordered = TRUE,
+                         levels = c("Low-Value", 
+                                    "Mid-Value", 
+                                    "High-Value")))
+
+# Check the processed dataset
+glimpse(training_set_processed)
+```
+
+```{r}
+# apply summary function to the first five variables 
+# in training_set_processed only
+summary(training_set_processed[,1:5])
 ```
 
 
 
-## Select relevant features
+### test_set
+```{r}
+# Select numeric columns
+numeric_columns <- sapply(test_set, is.numeric)
+test_set_numeric <- test_set[, numeric_columns]
+
+# Feature scaling
+preprocess_params <- preProcess(test_set_numeric, method = c("center", "scale"))
+
+# Apply preprocessing to the numeric data
+test_set_scaled <- predict(preprocess_params, newdata = test_set_numeric)
+```
+
+
+```{r}
+# Select categorical variables
+test_set_categorical <- test_set[, !numeric_columns]|> select(-c(Target))
+# Create dummy variables (one-hot encoding)
+dummy_variables <- dummyVars(~., data = test_set_categorical, fullRank = TRUE)
+
+# Apply dummy variables to the original dataset
+test_set_encoded <- predict(dummy_variables, newdata = test_set_categorical)
+```
+
+
+```{r}
+# Combine scaled numeric variables with encoded categorical variables
+test_set_processed <- 
+  cbind(test_set_scaled, test_set_encoded) |>
+  bind_cols(test_set |> select(Target)) |> 
+  mutate(Target = factor(Target, ordered = TRUE,
+                         levels = c("Low-Value", 
+                                    "Mid-Value", 
+                                    "High-Value")))
+
+# Check the processed dataset
+glimpse(test_set_processed)
+```
+
+
+
+
+## Train models
+
+### Logistic Regression
+
+```{r}
+library(nnet)
+
+# Assuming 'training_set_processed' is your preprocessed training set
+
+# Define the formula for multinomial logistic regression
+formula <- Target ~ .
+
+# Train multinomial logistic regression model
+multinom_logit_model <- multinom(formula, data = Training_Set)
+
+# Print the summary of the model
+# summary(multinom_logit_model)
+
+# Make predictions on the test set
+predictions <- predict(multinom_logit_model, 
+                       newdata = Test_Set, type = "class")
+
+# Print the confusion matrix or any other evaluation metric
+pred_vs_truth_LR <- table(predictions, Test_Set$Target)
+
+confusionMatrix(pred_vs_truth_LR)
+```
+
+
+### KNN
+
+```{r}
+# install.packages("class")
+library(class)
+
+# Assuming 'training_data' is your training dataset and 'target_column' is the name of the target variable
+# Assuming 'test_data' is your test dataset
+
+# Specify the number of neighbors (k) and the predictor variables
+k_neighbors <- round(nrow(training_set_processed)^(1/2))
+
+# Train the KNN model
+knn_model <- knn(train = training_set_processed[, -30], 
+                 test = test_set_processed[, -30],
+                 cl = training_set_processed$Target, 
+                 k = k_neighbors)
+
+# Evaluate model performance (e.g., confusion matrix, accuracy)
+pred_vs_truth_KNN <- table(knn_model, Test_Set$Target)
+confusionMatrix(pred_vs_truth_KNN)
+```
+
+
+### Random Forest
+
+```{r}
+# install.packages("randomForest")
+library(randomForest)
+
+# Assuming 'training_data' is your training dataset and 'target_column' is the name of the target variable
+# Modify the formula accordingly based on your dataset structure
+
+# Specify the formula for the model
+formula <- Target ~ .
+
+# Train the Random Forest model
+rf_model <- randomForest(formula, data = Training_Set, 
+                         ntree = 500, importance = TRUE)
+
+# Print a summary of the model
+print(rf_model)
+
+# Make predictions on the test set
+predictions <- predict(rf_model, newdata = Test_Set)
+
+# Evaluate model performance (e.g., confusion matrix, accuracy)
+pred_vs_truth_RF <- table(predictions, Test_Set$Target)
+confusionMatrix(pred_vs_truth_RF)
+
+# Feature importance plot
+varImpPlot(rf_model)
+
+```
+
+
+
+
+
+## Classify NewCustomerList
+
+```{r}
+ NCL_final_set <- NewCustomerList |>
+   select(-c(property_valuation, street_number,street_name,
+             postcode, customer_name, country))
+```
+
+```{r}
+# identify which columns have missing values
+colSums(is.na(NCL_final_set))
+```
+
+
+```{r}
+# use multinom_logit_model to predict Target for NewCustomerList
+predictions <- predict(multinom_logit_model, 
+                       newdata = NCL_final_set, type = "class")
+```
+
+
+```{r}
+# Add predictions to the NCL_final_set dataframe
+NewCustomerList <- NewCustomerList |> 
+  mutate(predicted_target = predictions)
+```
+
+```{r}
+NewCustomerList |> 
+  ggplot(aes(x = predicted_target)) +
+  geom_bar(aes(fill = predicted_target)) +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = -0.5) +
+  labs(title = 'Distribution of Target Variable',
+       x = 'Target',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'none') +
+  scale_fill_manual(values = c('Low-Value' = 'darkred',
+                               'Mid-Value' = 'lightyellow',
+                               'High-Value' = 'darkgreen'))
+```
+
+```{r}
+# show the first 10 rows of NewCustomerList by High-Value
+NewCustomerList |> 
+  filter(predicted_target == 'High-Value') |> 
+  head(10)
+```
+
+```{r}
+table <- NewCustomerList |> 
+  filter(predicted_target == 'High-Value') |> 
+  head(20)
+
+
+write.table(table, file='./high-value-customers-subset.csv', 
+            sep=',',
+            row.names = FALSE)
+```
+
+
+
+
+
+```{r}
+write.csv(NewCustomerList, "./NewCustomerList_with_preds.csv")
+```
+
+
+
+
+
+
+
+
 

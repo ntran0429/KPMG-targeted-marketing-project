@@ -50,7 +50,7 @@ results <- get_lat_long(postcodes)
 # use Google Map API to get the rest
 library(ggmap)
 
-google_api_key <- sys.getenv("google_api_key")
+google_api_key <- Sys.getenv("google_api_key")
 register_google(key = google_api_key)
 
 postcodes <- c("4815", "4869", "3441", "4421", "4750", "3918", 

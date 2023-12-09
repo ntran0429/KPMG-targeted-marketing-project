@@ -1,0 +1,21 @@
+"customer_name","gender","past_3_years_bike_related_purchases","job_industry_category","wealth_segment","owns_car","tenure","street_number","street_name","postcode","state","country","property_valuation","age_group","job_type","Median_salary_or_wages","predicted_target","lat","lon"
+"Rockwell Matson","M",94,"Retail","High Net Worth","No",3,3682,"Crowley Point",4573,"QLD","Australia",6,"25-34","Technical",45000,"High-Value",-26.492217545122,153.091382807139
+"Gaston Dallaghan","M",44,"Financial Services","Mass Customer","Yes",8,656,"Fuller Street",2783,"NSW","Australia",7,"25-34","Technical",47263,"High-Value",-33.7262383926829,150.42585187112
+"Claudine Barstowk","F",71,"Property","High Net Worth","Yes",5,1859,"Forest Circle",4000,"QLD","Australia",11,"55-64","Healthcare",35929,"High-Value",-27.461692652439,153.021714281558
+"Rhona De Freyne","F",45,"Health","High Net Worth","No",8,11184,"East Drive",3056,"VIC","Australia",10,"55-64","Technical",50072,"High-Value",-37.7683588895939,144.959634256961
+"Brien Heaton","M",70,"Health","Mass Customer","Yes",12,8,"Novick Trail",2470,"NSW","Australia",2,"65+","Technical",42102,"High-Value",-28.8432360670213,152.985959790751
+"Vinny Incogna","F",73,"Health","High Net Worth","No",10,8,"Grayhawk Circle",2756,"NSW","Australia",8,"65+","Other",51597,"High-Value",-33.5693960169725,150.820019754339
+"Brooke Arling","M",76,"Health","High Net Worth","No",6,6,"Melby Center",3027,"VIC","Australia",5,"55-64","Technical",55210,"High-Value",-37.8553629423423,144.736118913262
+"Gale Disbrow","F",59,"Financial Services","Mass Customer","Yes",17,169,"Bashford Drive",3741,"VIC","Australia",7,"45-54","Quantitative",37060,"High-Value",-36.8024451833333,147.012824299256
+"Griswold Kelsall","M",55,"Health","High Net Worth","Yes",11,74127,"Blaine Point",3805,"VIC","Australia",7,"25-34","Other",48080,"High-Value",-38.0088106818203,145.30570128213
+"Lavena Seekings","F",87,"Retail","Mass Customer","No",16,293,"Mayfield Street",3166,"VIC","Australia",10,"25-34","Administrative",50718,"High-Value",-37.9073283524229,145.101256192327
+"Jedediah Kedie","M",31,"Argiculture","Mass Customer","Yes",9,283,"Acker Drive",2763,"NSW","Australia",9,"45-54","Technical",55336,"High-Value",-33.7286524113636,150.898138975756
+"Sherilyn Canero","F",11,"Health","High Net Worth","Yes",13,8288,"Lyons Way",2484,"NSW","Australia",7,"25-34","Other",40934,"High-Value",-28.3497036439516,153.373785970948
+"Tobias Woodhams","M",0,"Health","Mass Customer","No",17,4,"Valley Edge Plaza",2759,"NSW","Australia",9,"55-64","Healthcare",53438,"High-Value",-33.7992847606085,150.79264970355
+"Sean O'Loughlin","M",48,"Manufacturing","High Net Worth","Yes",16,83,"Old Gate Point",2576,"NSW","Australia",10,"55-64","Technical",45998,"High-Value",-34.4766673545957,150.435502341432
+"Kahaleel","M",5,"Health","High Net Worth","No",13,12,"Arapahoe Park",2035,"NSW","Australia",12,"65+","Technical",56401,"High-Value",-33.9416932640056,151.237771392207
+"Ossie Midden","M",49,"Manufacturing","Mass Customer","Yes",14,4915,"Debra Center",2479,"NSW","Australia",9,"65+","Administrative",39274,"High-Value",-28.7091043571891,153.498102466017
+"Sid Carlone","M",24,"Health","Affluent Customer","No",16,76,"Sunnyside Avenue",4670,"QLD","Australia",2,"45-54","Technical",42581,"High-Value",-24.8848942022738,152.427910754162
+"Symon Mawne","M",18,"Property","Mass Customer","Yes",15,37439,"High Crossing Circle",3350,"VIC","Australia",4,"65+","Administrative",46172,"High-Value",-37.5514123740556,143.830720560314
+"Gina Mallon","F",56,"Health","Mass Customer","No",12,13025,"Johnson Plaza",4670,"QLD","Australia",2,"25-34","Other",42581,"High-Value",-24.8848942022738,152.427910754162
+"Lyon Brittan","M",14,"Retail","High Net Worth","No",19,540,"Sachs Road",3153,"VIC","Australia",8,"45-54","Administrative",48998,"High-Value",-37.8376997934524,145.266395778708
