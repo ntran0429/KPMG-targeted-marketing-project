@@ -267,7 +267,7 @@
 "Dexter Shutle","M",81,"Manufacturing","Mass Customer","No",17,"7","Dayton Court",4005,"QLD","Australia",7,-27.4640051228016,153.045494530801,"55-64","Technical",62371
 "Konstanze Hovie","F",88,"Health","Mass Customer","No",11,"351","Sunfield Lane",4370,"QLD","Australia",7,-28.2251126039527,152.023016243551,"55-64","Healthcare",43713
 "Bink Bentje","M",3,"Financial Services","High Net Worth","Yes",19,"8427","Moulton Place",2680,"NSW","Australia",3,-34.4923712512596,146.371347835367,"65+","Administrative",44318
-"Taber Szymon","M",70,"Argiculture","Affluent Customer","No",13,"984","Del Sol Junction",4659,"QLD","Australia",8,NA,NA,"65+","Other",41240
+"Taber Szymon","M",70,"Argiculture","Affluent Customer","No",13,"984","Del Sol Junction",4659,"QLD","Australia",8,-25.2686005,152.6148504,"65+","Other",41240
 "Debbi Dannatt","F",2,"Telecommunications","Affluent Customer","No",6,"3","Pepper Wood Hill",4218,"QLD","Australia",10,-28.0402339160577,153.427128703653,"65+","Other",45250
 "Giana Staresmeare","F",96,"Retail","Affluent Customer","Yes",9,"8737","Scoville Center",2770,"NSW","Australia",7,-33.7571859536543,150.814152072592,"45-54","Administrative",46224
 "Morton Petkens","M",50,"Manufacturing","High Net Worth","Yes",10,"385","Montana Place",3012,"VIC","Australia",1,-37.8087397036697,144.855664193483,"25-34","Administrative",51423
@@ -609,7 +609,7 @@
 "Darryl Hovee","F",2,"Financial Services","Mass Customer","Yes",19,"381","Emmet Terrace",2047,"NSW","Australia",12,-33.8534464269231,151.152315235386,"65+","Other",68391
 "Orly Nesbitt","F",6,"Manufacturing","High Net Worth","Yes",14,"7","Beilfuss Road",3163,"VIC","Australia",6,-37.8903348670455,145.057028749031,"35-44","Technical",52534
 "Margette Gibard","F",34,"Manufacturing","Affluent Customer","Yes",9,"37068","Montana Street",2011,"NSW","Australia",7,-33.872475036036,151.224430508018,"65+","Managerial",64198
-"Nobe Trowsdale","M",12,"Financial Services","Mass Customer","No",16,"36506","Bartillon Point",3816,"VIC","Australia",3,NA,NA,"55-64","Technical",44172
+"Nobe Trowsdale","M",12,"Financial Services","Mass Customer","No",16,"36506","Bartillon Point",3816,"VIC","Australia",3,-38.086187,145.7800733,"55-64","Technical",44172
 "Stephen Tittershill","M",73,"Financial Services","High Net Worth","No",6,"8","Scott Drive",3150,"VIC","Australia",11,-37.8900078653203,145.171974902058,"25-34","Healthcare",48444
 "Giselbert Pickring","M",94,"Manufacturing","Affluent Customer","Yes",20,"653","2nd Park",2766,"NSW","Australia",8,-33.7892942533333,150.846519931779,"55-64","Quantitative",51936
 "Shane Diss","F",50,"Financial Services","High Net Worth","Yes",16,"22","Shelley Plaza",3198,"VIC","Australia",8,-38.1101046070369,145.136573623844,"35-44","Managerial",50310
@@ -678,7 +678,7 @@
 "Killie Densie","M",87,"IT","Mass Customer","Yes",11,"62","Dryden Junction",2042,"NSW","Australia",10,-33.8971000912879,151.179130790648,"25-34","Other",59769
 "Mandi Adamsson","F",40,"Manufacturing","Mass Customer","Yes",5,"25","Westerfield Road",4165,"QLD","Australia",5,-27.619472896875,153.296431644137,"25-34","Technical",52462
 "Kylila Basezzi","F",94,"Manufacturing","Mass Customer","Yes",9,"64","Armistice Point",4217,"QLD","Australia",9,-28.0032955533294,153.413825747227,"65+","Managerial",38906
-"Yardley Matten","M",35,"Financial Services","Mass Customer","No",15,"74","Everett Court",4408,"QLD","Australia",2,NA,NA,"25-34","Other",44226
+"Yardley Matten","M",35,"Financial Services","Mass Customer","No",15,"74","Everett Court",4408,"QLD","Australia",2,-26.8136945,151.3035248,"25-34","Other",44226
 "Shepperd Leonards","M",17,"Manufacturing","Mass Customer","Yes",5,"38","Nobel Lane",2147,"NSW","Australia",9,-33.7642819068182,150.93531962252,"35-44","Technical",52880
 "Hamel Curzey","M",11,"Manufacturing","Mass Customer","Yes",9,"6936","Homewood Avenue",4000,"QLD","Australia",7,-27.461692652439,153.021714281558,"25-34","Technical",35929
 "Fancie Woofendell","F",68,"Health","Mass Customer","Yes",6,"8","Crowley Center",4212,"QLD","Australia",7,-27.90494049,153.334749935612,"55-64","Healthcare",48886

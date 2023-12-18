@@ -67,6 +67,11 @@ NewCustomerList <- left_join(NewCustomerList, coordinates_df_final, by = "postco
 ```
 
 ```{r}
+colSums(is.na(NewCustomerList))
+```
+
+
+```{r}
 # get missing lat and lon coords for NewCustomerList
 
 # subset NewCustomerList with missing lat and lon coords
@@ -102,17 +107,42 @@ missing_coords_NCL <- unique(NewCustomerList[is.na(NewCustomerList$lat),] |>
 # print(coordinates_df_ggmap)
 ```
 
+
+
+
+```{r}
+colSums(is.na(test))
+```
+
+
 ```{r}
 coordinates_df_final_wNCL <- read_csv("./coordinates_df_NCL_final.csv")
 # write.csv(coordinates_df_ggmap, "./additional_lat_lon_for_NCL.csv")
 ```
 
 ```{r}
-coordinates_df_final_wNCL <- coordinates_df_final_wNCL |> 
+coordinates_df_final_wNCL <- coordinates_df_final_wNCL |>
   distinct(postcode, .keep_all = TRUE)
-
 ```
 
+
+```{r}
+NewCustomerList <- NewCustomerList |> 
+  select(-lat, -lon) |>
+  mutate(postcode = as.numeric(postcode)) |> 
+  left_join(coordinates_df_final_wNCL, 
+                             by = "postcode")
+```
+
+
+```{r}
+colSums(is.na(NewCustomerList))
+```
+
+```{r}
+coordinates_df_ggmap$postcode <- as.numeric(coordinates_df_ggmap$postcode)
+coordinates_df_final_wNCL <- bind_rows(coordinates_df_final_wNCL, coordinates_df_ggmap)
+```
 
 ```{r}
 NewCustomerList <- NewCustomerList |> 
@@ -122,7 +152,16 @@ NewCustomerList <- NewCustomerList |>
                              by = "postcode")
 ```
 
+```{r}
+# remove duplicates in new customer list
+NewCustomerList <- NewCustomerList[!duplicated(NewCustomerList), ]
 
+```
+
+```{r}
+
+colSums(is.na(NewCustomerList))
+```
 
 
 ### Convert to proper data types
@@ -577,6 +616,19 @@ CD_CA_rfm |>
 
 Our customer base is mostly made up of middle-aged customers, with the 45-54 age group being the largest.
 
+```{r}
+NewCustomerList |>
+  ggplot(aes(x = age_group)) +
+  geom_bar(aes(fill = age_group)) +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = -0.5) +
+  labs(title = 'Distribution of Age Groups',
+       x = 'Age Group',
+       y = 'Count') +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = 'none')
+```
+
+
 
 ```{r}
 	plot_hist_numeric(CD_CA_rfm, each = F)
@@ -771,6 +823,12 @@ Most of the customers in 2017 are in the Mass segment and work in Manufacturing,
 
 This majority of the customers also have the most bike related purchases in the last 3 years.
 
+
+```{r}
+plot_bar(CD_CA_rfm, 
+         by = 'Target', 
+         ncol = 2)
+```
 
 
 ```{r}
