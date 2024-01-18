@@ -675,7 +675,31 @@ CD_CA_rfm |>
        y = 'Profit') +
   theme(plot.title = element_text(hjust = 0.5),
         legend.position = 'bottom')
-  # 'Low-Value' = 'darkred','Mid-Value' = 'lightyellow','High-Value' = 'darkgreen'
+
+```
+
+```{r}
+# calculate the sum of Monetary by age group and wealth segment
+# CD_CA_rfm |>
+#   group_by(age_group, wealth_segment) |>
+#   summarise(Monetary = mean(Monetary),
+#             .groups = "keep") |>
+#   arrange(desc(Monetary))
+
+CD_CA_rfm |>
+  summarise(Monetary = sum(Monetary),
+            .by = c(age_group, wealth_segment)) |>
+  arrange(desc(Monetary))
+```
+
+```{r}
+# identify customer ids in Transaction dataset that are not in CD_CA_rfm
+# these are the customers who have not made any purchases in the past year
+Transactions |>
+  mutate(customer_id = as.character(customer_id)) |>
+  anti_join(CD_CA_rfm, by = 'customer_id') |>
+  select(customer_id) |> 
+  distinct()
 
 ```
 
@@ -961,6 +985,11 @@ write.csv(NewCustomerList, 'post EDA data/NewCustomerList.csv', row.names = FALS
 ```
 
 
+```{r}
+# select customer with first name Jillie
+CD_CA_rfm |> filter(customer_name == 'Jillie Fyndon')
+
+```
 
 
 
