@@ -1,19 +1,14 @@
-## Summary Dashboard
+## Final Power BI dashboard and analysis
 
-## Business Problem
-
-## Data Cleaning
-
-data-cleaning1: perform data quality assessment
-
-data-cleaning2: convert to appropriate data types, impute missing values
-
-data-cleaning3: create target variable for each customer based on RFM scores.
+![alt text](./Summary Dashboard.png)
 
 
-## EDA + Feature Engineering
+## Context
+For this job simulation project provided by KPMG Australia, I acted as a consultant analyst for a medium-sized bike & cycling accessories company on how to best optimize its marketing strategy with transactional and customer data.
 
-Since our business goal is to identify the highest value customers out of the provided list of 1000 customers for targeted marketing, it's reasonable to **perform EDA before the data split for training**.
-The reasoning is that we want to correctly identify **this specific list of customers**, not to necessarily generalize across any list.
+The task is to recommend which of the 1000 new customers should be targeted to drive the most value for the organization in their next marketing campaign.
 
-
+With the datasets provided, I managed to:
+1. Identify and clean the underlying data quality issues.
+2. Analyze existing customer data and used the results to identify high value customers for the next marketing campaign.
+3. Build a dashboard to present findings and recommendations.
